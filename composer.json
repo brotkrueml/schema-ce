@@ -1,0 +1,59 @@
+{
+    "name": "brotkrueml/schema-ce",
+    "type": "typo3-cms-extension",
+    "description": "schema.org structured data for your website with records",
+    "license": [
+        "GPL-2.0-or-later"
+    ],
+    "authors": [
+        {
+            "name": "Chris Müller",
+            "role": "Developer"
+        }
+    ],
+    "keywords": [
+        "TYPO3 CMS",
+        "TYPO3 extension",
+        "JSON-LD",
+        "Structured data",
+        "SEO",
+        "schema.org"
+    ],
+    "require": {
+        "typo3/cms-backend": "^9.5",
+        "typo3/cms-core": "^9.5",
+        "typo3/cms-extbase": "^9.5",
+        "typo3/cms-frontend": "^9.5",
+        "brotkrueml/schema": "^1.1"
+    },
+    "require-dev": {
+        "dg/bypass-finals": "^1.1",
+        "phpunit/phpunit": "^8.2",
+        "typo3/testing-framework": "^4.13"
+    },
+    "autoload": {
+        "psr-4": {
+            "Brotkrueml\\SchemaCe\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Brotkrueml\\SchemaCe\\Tests\\": "Tests"
+        }
+    },
+    "replace": {
+        "typo3-ter/schema-ce": "self.version"
+    },
+    "config": {
+        "sort-packages" : true,
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin"
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/web",
+            "extension-key": "schema_ce"
+        }
+    }
+}

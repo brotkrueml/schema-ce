@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-07-16T20:20:35Z" product-name="schema_ce">
+		<header/>
+		<body>
+			<trans-unit id="tx_schemace_domain_model_type">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_type.schema_type">
+				<source>Schema type</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_type.schema_id">
+				<source>ID</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_type.webpage_mainentity">
+				<source>Main entity of the web page</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_type.webpage_mainentity.short">
+				<source>Main entity</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_type.properties">
+				<source>Properties</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property">
+				<source>Property</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.datetime">
+				<source>Date and time</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.variant">
+				<source>Variant</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.variant.0">
+				<source>Text</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.variant.1">
+				<source>URL</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.variant.2">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.variant.3">
+				<source>Boolean</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.variant.4">
+				<source>Type reference</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.variant.5">
+				<source>Date and time</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.variant.6">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.flag">
+				<source>Flag</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.single_value">
+				<source>Text</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.reference_only">
+				<source>Use only reference</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.url">
+				<source>URL</source>
+			</trans-unit>
+			<trans-unit id="tx_schemace_domain_model_property.type_reference">
+				<source>Schema type</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

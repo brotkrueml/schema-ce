@@ -1,0 +1,21 @@
+tx_schemace.types {
+    show (
+        Article,
+        BlogArticle,
+        Book,
+        ContactPoint,
+        Course,
+        Event,
+        ImageObject,
+        ImageObject,
+        JobPosting,
+        NewsArticle,
+        Offer,
+        Organization,
+        Person,
+        Place,
+        PostalAddress,
+        Product,
+        VideoObject,
+    )
+}

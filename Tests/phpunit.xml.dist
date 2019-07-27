@@ -1,0 +1,21 @@
+<phpunit
+     convertErrorsToExceptions="true"
+     convertNoticesToExceptions="true"
+     convertWarningsToExceptions="true"
+     stopOnFailure="false"
+     bootstrap="UnitTestsBootstrap.php"
+>
+    <testsuites>
+        <testsuite name="Unit tests">
+            <directory>Unit/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory>../Classes/</directory>
+        </whitelist>
+    </filter>
+    <extensions>
+        <extension class="Brotkrueml\SchemaCe\Tests\Hooks\BypassFinalHook"/>
+    </extensions>
+</phpunit>

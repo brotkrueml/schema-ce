@@ -1,1 +1,4 @@
-mod.web_list.table.tx_schemace_domain_model_property.hideTable = 1
+mod.web_list {
+    table.tx_schemace_domain_model_property.hideTable = 1
+    deniedNewTables := addToList(tx_schemace_domain_model_property)
+}

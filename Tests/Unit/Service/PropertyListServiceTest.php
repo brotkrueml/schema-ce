@@ -107,7 +107,7 @@ class PropertyListServiceTest extends TestCase
      */
     public function getTcaListReturnPropertiesForGivenType(): void
     {
-        $config = [
+        $configuration = [
             'items' => [
                 ['', ''],
             ],
@@ -129,7 +129,7 @@ class PropertyListServiceTest extends TestCase
 
         $subject = new PropertyListService($this->objectManagerMock);
 
-        $actual = $subject->getTcaList($config);
+        $subject->getTcaList($configuration);
 
         $expectedItems = [
             ['', ''],
@@ -141,7 +141,7 @@ class PropertyListServiceTest extends TestCase
             ['url', 'url'],
         ];
 
-        $this->assertSame($expectedItems, $actual['items']);
+        $this->assertSame($expectedItems, $configuration['items']);
     }
 
     /**
@@ -150,7 +150,7 @@ class PropertyListServiceTest extends TestCase
      */
     public function getTcaListReturnNoPropertiesForUnknownType(): void
     {
-        $config = [
+        $configuration = [
             'items' => [
                 ['', ''],
             ],
@@ -172,8 +172,8 @@ class PropertyListServiceTest extends TestCase
 
         $subject = new PropertyListService($this->objectManagerMock);
 
-        $actual = $subject->getTcaList($config);
+        $subject->getTcaList($configuration);
 
-        $this->assertSame([['', '']], $actual['items']);
+        $this->assertSame([['', '']], $configuration['items']);
     }
 }

@@ -177,7 +177,8 @@ return [
             'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.single_value',
             'config' => [
                 'type' => 'input',
-                'size' => 30,
+                'size' => 50,
+                'max' => 255,
                 'eval' => 'trim'
             ],
         ],

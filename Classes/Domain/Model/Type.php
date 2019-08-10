@@ -36,7 +36,7 @@ class Type extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * properties
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Brotkrueml\SchemaCe\Domain\Model\Property>
-     * @cascade remove
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $properties = null;
 

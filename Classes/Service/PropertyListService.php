@@ -29,7 +29,7 @@ final class PropertyListService
         $this->objectManager = $objectManager ?? GeneralUtility::makeInstance(ObjectManager::class);
     }
 
-    public function getTcaList(array $config): array
+    public function getTcaList(array &$configuration): void
     {
         $typeRepository = $this->objectManager->get(TypeRepository::class);
 
@@ -39,7 +39,12 @@ final class PropertyListService
         $typeRepository->setDefaultQuerySettings($querySettings);
 
         /** @var Type $typeModel */
-        $typeModel = $typeRepository->findByIdentifier($config['row']['parent']);
+        $typeModel = $typeRepository->findByIdentifier($configuration['row']['parent']);
+
+        if (empty($typeModel)) {
+            return;
+        }
+
         $typeName = $typeModel->getSchemaType();
         $typeClass = Utility::getNamespacedClassNameForType($typeName);
 
@@ -47,10 +52,8 @@ final class PropertyListService
             /** @var AbstractType $type */
             $type = new $typeClass();
             foreach ($type->getPropertyNames() as $propertyName) {
-                $config['items'][] = [$propertyName, $propertyName];
+                $configuration['items'][] = [$propertyName, $propertyName];
             }
         }
-
-        return $config;
     }
 }

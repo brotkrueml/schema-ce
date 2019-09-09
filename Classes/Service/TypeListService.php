@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Brotkrueml\SchemaRecords\Service;
 
@@ -10,29 +10,19 @@ namespace Brotkrueml\SchemaRecords\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Brotkrueml\Schema\Provider\TypesProvider;
 
 final class TypeListService
 {
     public function getTcaList(array $config): array
     {
-        $typesToShow = GeneralUtility::trimExplode(
-            ',',
-            BackendUtility::getPagesTSconfig($config['row']['pid'])['tx_schemarecords.']['types.']['show'] ?? '',
-            true
-         );
+        $types = (new TypesProvider())->getContentTypes();
 
-        if (empty($typesToShow)) {
-            throw new \DomainException('The list of available types is empty', 1563790128);
-        }
+        \array_walk($types, function (&$type) {
+            $type = [$type, $type];
+        });
 
-        $typesToShow = \array_unique($typesToShow);
-        \sort($typesToShow);
-
-        foreach ($typesToShow as $type) {
-            $config['items'][] = [$type, $type];
-        }
+        $config['items'] = \array_merge($config['items'], $types);
 
         return $config;
     }

@@ -34,6 +34,8 @@ The recommended way to install this extension is by using Composer. In your Comp
 
 Not available yet.
 
+
+
 ## Current Caveats
 
 IRRE records for the properties of a type are used. The properties can be selected from a list
@@ -66,3 +68,18 @@ Then just insert into your composer.json an additional block:
 
 As you can see the patch is shipped with this extension. After inserting the block just do a "composer install",
 so the patch can be applied.
+
+
+## Configuration
+
+### Reduce list of available types
+
+You can reduce the list of available types in the type record (currently over 500) with PageTS.
+
+For example:
+
+    TCEFORM.tx_schemarecords_domain_model_type.schema_type.keepItems = Person,Place,Corporation
+
+or
+
+    TCEFORM.tx_schemarecords_domain_model_type.schema_type.removeItems := addToList(Airport,Casino)

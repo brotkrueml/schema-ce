@@ -42,7 +42,7 @@
         }
     },
     "replace": {
-        "typo3-ter/schema-ce": "self.version"
+        "typo3-ter/schema-records": "self.version"
     },
     "config": {
         "sort-packages" : true,

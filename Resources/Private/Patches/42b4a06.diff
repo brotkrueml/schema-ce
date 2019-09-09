@@ -1,0 +1,57 @@
+From 42b4a06ecc0675c5b92125dca009785c4a860218 Mon Sep 17 00:00:00 2001
+From: Chris Müller <typo3 (at) krue (dot) ml>
+Date: Thu, 08 Aug 2019 23:21:49 +0200
+Subject: [PATCH] [BUGFIX] Set parent uid in newly created IRRE child record
+
+When creating a new IRRE child element the uid of the parent element
+was not set. This is a problem when you use an itemsProcFunc for a
+select column which relies on the parent's element uid to show
+according values. With the parent uid you can query the stored values.
+
+Resolves: #63777
+Releases: master, 9.5
+Change-Id: I898de29020bf68e25de9ef1d80cc20353a635524
+---
+
+diff --git a/typo3/sysext/backend/Classes/Form/FormDataProvider/DatabaseRowInitializeNew.php b/typo3/sysext/backend/Classes/Form/FormDataProvider/DatabaseRowInitializeNew.php
+index 4ce2c47..edd8b37 100644
+--- a/typo3/sysext/backend/Classes/Form/FormDataProvider/DatabaseRowInitializeNew.php
++++ b/typo3/sysext/backend/Classes/Form/FormDataProvider/DatabaseRowInitializeNew.php
+@@ -49,6 +49,7 @@
+         $result = $this->setDefaultsFromDefaultValues($result);
+         $result = $this->setDefaultsFromInlineRelations($result);
+         $result = $this->setDefaultsFromInlineParentLanguage($result);
++        $result = $this->setDefaultsFromInlineParentUid($result);
+         $result = $this->setPid($result);
+
+         return $result;
+@@ -224,6 +225,29 @@
+     }
+
+     /**
++     * If a new child is created in an inline relation via ajax, the child should have set the uid of the
++     * parent in the defined foreign_field.
++     *
++     * @param array $result Result array
++     * @return array
++     */
++    protected function setDefaultsFromInlineParentUid(array $result): array
++    {
++        if (!$result['isInlineChild']
++            || !isset($result['inlineParentConfig']['foreign_field'])
++            || empty($result['inlineParentUid'])
++        ) {
++            return $result;
++        }
++
++        $parentField = $result['inlineParentConfig']['foreign_field'];
++
++        $result['databaseRow'][$parentField] = $result['inlineParentUid'];
++
++        return $result;
++    }
++
++    /**
+      * Set the pid. This is either the vanillaUid (see description in FormDataCompiler),
+      * or a pid given by pageTsConfig for inline children.
+      *

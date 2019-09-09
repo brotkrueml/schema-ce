@@ -43,8 +43,8 @@ When a type is newly created, just save it before you add a property. Only then,
 of that type are shown (otherwise only the properties of type "Thing").
 
 When a property is newly created, only the properties of type "Thing" is shown at first time, because the
-parent id of the type is not transferred to a newly created IRRE record. Just use another property name,
-save the record and then choose the desired property name.
+parent id of the type is not transferred to a newly created IRRE record (via itemsProcFunc). Just use
+another property name, save the record and then choose the desired property name.
 
 For the latter, a bug report with a patch is available:
 [https://forge.typo3.org/issues/63777](https://forge.typo3.org/issues/63777)

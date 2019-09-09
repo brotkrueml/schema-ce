@@ -1,7 +1,7 @@
 # Structured data for TYPO3 with the schema_records extension via records
 
 [![TYPO3](https://img.shields.io/badge/TYPO3-9%20LTS-orange.svg)](https://typo3.org/)
-[![Build Status](https://travis-ci.org/brotkrueml/schema-ce.svg?branch=master)](https://travis-ci.org/brotkrueml/schema-ce)
+[![Build Status](https://travis-ci.org/brotkrueml/schema-records.svg?branch=master)](https://travis-ci.org/brotkrueml/schema-records)
 
 ## Requirements
 

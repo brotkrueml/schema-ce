@@ -1,16 +1,10 @@
 <?php
 declare(strict_types = 1);
 
-namespace Brotkrueml\SchemaCe\Tests\Unit\Helper;
+namespace Brotkrueml\SchemaRecords\Tests\Unit\Helper;
 
-/**
- * This file is part of the "schema_ce" extension for TYPO3 CMS.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- */
 use Brotkrueml\Schema\Utility\Utility;
-use Brotkrueml\SchemaCe\Tests\Fixtures\Paths;
+use Brotkrueml\SchemaRecords\Tests\Fixtures\Paths;
 
 trait TypeFixtureNamespaceTrait
 {

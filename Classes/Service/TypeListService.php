@@ -1,14 +1,15 @@
 <?php
 declare(strict_types = 1);
 
-namespace Brotkrueml\SchemaCe\Service;
+namespace Brotkrueml\SchemaRecords\Service;
 
-/**
- * This file is part of the "schema_ce" extension for TYPO3 CMS.
+/*
+ * This file is part of the "schema_records" extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
+
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -18,7 +19,7 @@ final class TypeListService
     {
         $typesToShow = GeneralUtility::trimExplode(
             ',',
-            BackendUtility::getPagesTSconfig($config['row']['pid'])['tx_schemace.']['types.']['show'] ?? '',
+            BackendUtility::getPagesTSconfig($config['row']['pid'])['tx_schemarecords.']['types.']['show'] ?? '',
             true
          );
 

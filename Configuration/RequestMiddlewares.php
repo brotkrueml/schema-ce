@@ -1,9 +1,8 @@
 <?php
-/** @noinspection PhpFullyQualifiedNameUsageInspection */
 return [
     'frontend' => [
-        'brotkrueml/schema_ce/type-embedding' => [
-            'target' => \Brotkrueml\SchemaCe\Middleware\TypeEmbedding::class,
+        'brotkrueml/schema_records/type-embedding' => [
+            'target' => \Brotkrueml\SchemaRecords\Middleware\TypeEmbedding::class,
             'before' => [
                 'typo3/cms-frontend/content-length-headers',
             ],

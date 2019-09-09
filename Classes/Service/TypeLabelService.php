@@ -1,29 +1,30 @@
 <?php
 declare(strict_types = 1);
 
-namespace Brotkrueml\SchemaCe\Service;
+namespace Brotkrueml\SchemaRecords\Service;
 
-use Brotkrueml\SchemaCe\Domain\Model\Property;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Localization\LanguageService;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-
-/**
- * This file is part of the "schema_ce" extension for TYPO3 CMS.
+/*
+ * This file is part of the "schema_records" extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
+
+use Brotkrueml\SchemaRecords\Domain\Model\Property;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 final class TypeLabelService
 {
     public function getLabel(&$parameters): void
     {
         $title = '';
 
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_schemace_domain_model_property');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_schemarecords_domain_model_property');
         $properties = $queryBuilder
             ->select('name', 'single_value')
-            ->from('tx_schemace_domain_model_property')
+            ->from('tx_schemarecords_domain_model_property')
             ->where(
                 $queryBuilder->expr()->eq(
                     'parent',
@@ -51,7 +52,7 @@ final class TypeLabelService
         if ((bool)$parameters['row']['webpage_mainentity']) {
             $title .= ', '
                 . $this->getLanguageService()->sL(
-                    'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_type.webpage_mainentity.short'
+                    'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.webpage_mainentity.short'
                 );
         }
 

@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2019-07-16T20:20:35Z" product-name="schema_ce">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-07-16T20:20:35Z" product-name="schema_records">
 		<header/>
 		<body>
-			<trans-unit id="tx_schemace_domain_model_type">
+			<trans-unit id="tx_schemarecords_domain_model_type">
 				<source>Type</source>
 			</trans-unit>
-			<trans-unit id="tx_schemace_domain_model_type.schema_type">
-				<source>Schema Type</source>
+			<trans-unit id="tx_schemarecords_domain_model_type.schema_type">
+				<source>Schema type</source>
 			</trans-unit>
-			<trans-unit id="tx_schemace_domain_model_type.schema_id">
-				<source>Schema Id</source>
+			<trans-unit id="tx_schemarecords_domain_model_type.schema_id">
+				<source>Schema ID</source>
 			</trans-unit>
-			<trans-unit id="tx_schemace_domain_model_type.properties">
+			<trans-unit id="tx_schemarecords_domain_model_type.properties">
 				<source>Properties</source>
 			</trans-unit>
-			<trans-unit id="tx_schemace_domain_model_property">
+			<trans-unit id="tx_schemarecords_domain_model_property">
 				<source>Property</source>
 			</trans-unit>
-			<trans-unit id="tx_schemace_domain_model_property.variant">
+			<trans-unit id="tx_schemarecords_domain_model_property.variant">
 				<source>Variant</source>
 			</trans-unit>
-			<trans-unit id="tx_schemace_domain_model_property.name">
+			<trans-unit id="tx_schemarecords_domain_model_property.name">
 				<source>Name</source>
 			</trans-unit>
-			<trans-unit id="tx_schemace_domain_model_property.single_value">
-				<source>Single Value</source>
+			<trans-unit id="tx_schemarecords_domain_model_property.single_value">
+				<source>Single value</source>
 			</trans-unit>
-			<trans-unit id="tx_schemace_domain_model_property.url">
-				<source>Url</source>
+			<trans-unit id="tx_schemarecords_domain_model_property.url">
+				<source>URL</source>
 			</trans-unit>
-			<trans-unit id="tx_schemace_domain_model_property.schema_type">
-				<source>Schema Type</source>
+			<trans-unit id="tx_schemarecords_domain_model_property.schema_type">
+				<source>Schema type</source>
 			</trans-unit>
 		</body>
 	</file>

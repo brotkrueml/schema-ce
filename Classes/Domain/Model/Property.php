@@ -1,14 +1,16 @@
 <?php
-/** @noinspection PhpFullyQualifiedNameUsageInspection,@noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-namespace Brotkrueml\SchemaCe\Domain\Model;
+namespace Brotkrueml\SchemaRecords\Domain\Model;
 
-/**
- * This file is part of the "schema_ce" extension for TYPO3 CMS.
+/*
+ * This file is part of the "schema_records" extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
-class Property extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
+class Property extends AbstractEntity
 {
     public const VARIANT_SINGLE_VALUE = 0;
     public const VARIANT_URL = 1;
@@ -64,7 +66,7 @@ class Property extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * typeReference
      *
-     * @var \Brotkrueml\SchemaCe\Domain\Model\Type
+     * @var \Brotkrueml\SchemaRecords\Domain\Model\Type
      */
     protected $typeReference = null;
 
@@ -230,7 +232,7 @@ class Property extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the typeReference
      *
-     * @return \Brotkrueml\SchemaCe\Domain\Model\Type typeReference
+     * @return \Brotkrueml\SchemaRecords\Domain\Model\Type typeReference
      */
     public function getTypeReference()
     {
@@ -240,9 +242,9 @@ class Property extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the typeReference
      *
-     * @param \Brotkrueml\SchemaCe\Domain\Model\Type $typeReference
+     * @param \Brotkrueml\SchemaRecords\Domain\Model\Type $typeReference
      */
-    public function setTypeReference(\Brotkrueml\SchemaCe\Domain\Model\Type $typeReference)
+    public function setTypeReference(\Brotkrueml\SchemaRecords\Domain\Model\Type $typeReference)
     {
         $this->typeReference = $typeReference;
     }

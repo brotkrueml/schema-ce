@@ -1,21 +1,15 @@
 <?php
 declare(strict_types = 1);
 
-namespace Brotkrueml\SchemaCe\Tests\Unit\Middleware;
+namespace Brotkrueml\SchemaRecords\Tests\Unit\Middleware;
 
-/**
- * This file is part of the "schema_ce" extension for TYPO3 CMS.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- */
 use Brotkrueml\Schema\Manager\SchemaManager;
-use Brotkrueml\SchemaCe\Domain\Model\Property;
-use Brotkrueml\SchemaCe\Domain\Model\Type;
-use Brotkrueml\SchemaCe\Domain\Repository\TypeRepository;
-use Brotkrueml\SchemaCe\Middleware\TypeEmbedding;
-use Brotkrueml\SchemaCe\Tests\Unit\Helper\LogManagerMockTrait;
-use Brotkrueml\SchemaCe\Tests\Unit\Helper\TypeFixtureNamespaceTrait;
+use Brotkrueml\SchemaRecords\Domain\Model\Property;
+use Brotkrueml\SchemaRecords\Domain\Model\Type;
+use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
+use Brotkrueml\SchemaRecords\Middleware\TypeEmbedding;
+use Brotkrueml\SchemaRecords\Tests\Unit\Helper\LogManagerMockTrait;
+use Brotkrueml\SchemaRecords\Tests\Unit\Helper\TypeFixtureNamespaceTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Resource\File;
@@ -239,7 +233,7 @@ class TypeEmbeddingTest extends UnitTestCase
 
     /**
      * @test
-     * @covers \Brotkrueml\SchemaCe\Middleware\TypeEmbedding::process
+     * @covers \Brotkrueml\SchemaRecords\Middleware\TypeEmbedding::process
      */
     public function processEmbedsEmptyTypeCorrectly(): void
     {

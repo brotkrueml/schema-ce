@@ -1,10 +1,9 @@
 <?php
-/** @noinspection PhpFullyQualifiedNameUsageInspection */
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_type',
+        'title' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type',
         'label' => 'schema_type',
-        'label_userFunc' => \Brotkrueml\SchemaCe\Service\TypeLabelService::class . '->getLabel',
+        'label_userFunc' => \Brotkrueml\SchemaRecords\Service\TypeLabelService::class . '->getLabel',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -19,7 +18,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'schema_id',
-        'iconfile' => 'EXT:schema_ce/Resources/Public/Icons/tx_schemace_domain_model_type.svg'
+        'iconfile' => 'EXT:schema_records/Resources/Public/Icons/tx_schemarecords_domain_model_type.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, schema_type, schema_id, webpage_mainentity, properties',
@@ -53,8 +52,8 @@ return [
                 'items' => [
                     ['', 0],
                 ],
-                'foreign_table' => 'tx_schemace_domain_model_type',
-                'foreign_table_where' => 'AND {#tx_schemace_domain_model_type}.{#pid}=###CURRENT_PID### AND {#tx_schemace_domain_model_type}.{#sys_language_uid} IN (-1,0)',
+                'foreign_table' => 'tx_schemarecords_domain_model_type',
+                'foreign_table_where' => 'AND {#tx_schemarecords_domain_model_type}.{#pid}=###CURRENT_PID### AND {#tx_schemarecords_domain_model_type}.{#sys_language_uid} IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -117,14 +116,14 @@ return [
 
         'schema_type' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_type.schema_type',
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.schema_type',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
                     ['', ''],
                 ],
-                'itemsProcFunc' => \Brotkrueml\SchemaCe\Service\TypeListService::class . '->getTcaList',
+                'itemsProcFunc' => \Brotkrueml\SchemaRecords\Service\TypeListService::class . '->getTcaList',
                 'size' => 1,
                 'maxitems' => 1,
                 'eval' => 'required'
@@ -132,7 +131,7 @@ return [
         ],
         'schema_id' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_type.schema_id',
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.schema_id',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -141,7 +140,7 @@ return [
         ],
         'webpage_mainentity' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_type.webpage_mainentity',
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.webpage_mainentity',
             'config' => [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
@@ -157,10 +156,10 @@ return [
         ],
         'properties' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_type.properties',
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.properties',
             'config' => [
                 'type' => 'inline',
-                'foreign_table' => 'tx_schemace_domain_model_property',
+                'foreign_table' => 'tx_schemarecords_domain_model_property',
                 'foreign_field' => 'parent',
                 'maxitems' => 9999,
                 'appearance' => [

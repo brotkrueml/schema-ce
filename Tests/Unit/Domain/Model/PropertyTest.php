@@ -1,16 +1,10 @@
 <?php
 declare(strict_types = 1);
 
-namespace Brotkrueml\SchemaCe\Tests\Unit\Domain\Model;
+namespace Brotkrueml\SchemaRecords\Tests\Unit\Domain\Model;
 
-/**
- * This file is part of the "schema_ce" extension for TYPO3 CMS.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- */
-use Brotkrueml\SchemaCe\Domain\Model\Property;
-use Brotkrueml\SchemaCe\Domain\Model\Type;
+use Brotkrueml\SchemaRecords\Domain\Model\Property;
+use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;

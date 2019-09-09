@@ -1,19 +1,13 @@
 <?php
 declare(strict_types = 1);
 
-namespace Brotkrueml\SchemaCe\Tests\Unit\Service;
+namespace Brotkrueml\SchemaRecords\Tests\Unit\Service;
 
-/**
- * This file is part of the "schema_ce" extension for TYPO3 CMS.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- */
-use Brotkrueml\SchemaCe\Domain\Model\Type;
-use Brotkrueml\SchemaCe\Domain\Repository\TypeRepository;
-use Brotkrueml\SchemaCe\Service\PropertyListService;
-use Brotkrueml\SchemaCe\Tests\Unit\Helper\LogManagerMockTrait;
-use Brotkrueml\SchemaCe\Tests\Unit\Helper\TypeFixtureNamespaceTrait;
+use Brotkrueml\SchemaRecords\Domain\Model\Type;
+use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
+use Brotkrueml\SchemaRecords\Service\PropertyListService;
+use Brotkrueml\SchemaRecords\Tests\Unit\Helper\LogManagerMockTrait;
+use Brotkrueml\SchemaRecords\Tests\Unit\Helper\TypeFixtureNamespaceTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -103,7 +97,7 @@ class PropertyListServiceTest extends TestCase
 
     /**
      * @test
-     * @covers \Brotkrueml\SchemaCe\Service\PropertyListService::getTcaList
+     * @covers \Brotkrueml\SchemaRecords\Service\PropertyListService::getTcaList
      */
     public function getTcaListReturnPropertiesForGivenType(): void
     {
@@ -146,7 +140,7 @@ class PropertyListServiceTest extends TestCase
 
     /**
      * @test
-     * @covers \Brotkrueml\SchemaCe\Service\PropertyListService::getTcaList
+     * @covers \Brotkrueml\SchemaRecords\Service\PropertyListService::getTcaList
      */
     public function getTcaListReturnNoPropertiesForUnknownType(): void
     {

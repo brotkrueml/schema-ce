@@ -1,18 +1,19 @@
 <?php
 declare(strict_types = 1);
 
-namespace Brotkrueml\SchemaCe\Service;
+namespace Brotkrueml\SchemaRecords\Service;
 
-/**
- * This file is part of the "schema_ce" extension for TYPO3 CMS.
+/*
+ * This file is part of the "schema_records" extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
+
 use Brotkrueml\Schema\Core\Model\AbstractType;
 use Brotkrueml\Schema\Utility\Utility;
-use Brotkrueml\SchemaCe\Domain\Model\Type;
-use Brotkrueml\SchemaCe\Domain\Repository\TypeRepository;
+use Brotkrueml\SchemaRecords\Domain\Model\Type;
+use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;

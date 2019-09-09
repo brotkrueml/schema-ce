@@ -1,20 +1,21 @@
 <?php
 declare(strict_types = 1);
 
-namespace Brotkrueml\SchemaCe\Middleware;
+namespace Brotkrueml\SchemaRecords\Middleware;
 
-/**
- * This file is part of the "schema_ce" extension for TYPO3 CMS.
+/*
+ * This file is part of the "schema_records" extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
+
 use Brotkrueml\Schema\Core\Model\AbstractType;
 use Brotkrueml\Schema\Manager\SchemaManager;
 use Brotkrueml\Schema\Utility\Utility;
-use Brotkrueml\SchemaCe\Domain\Model\Property;
-use Brotkrueml\SchemaCe\Domain\Model\Type;
-use Brotkrueml\SchemaCe\Domain\Repository\TypeRepository;
+use Brotkrueml\SchemaRecords\Domain\Model\Property;
+use Brotkrueml\SchemaRecords\Domain\Model\Type;
+use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;

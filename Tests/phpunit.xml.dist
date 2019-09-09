@@ -6,7 +6,7 @@
      bootstrap="UnitTestsBootstrap.php"
 >
     <testsuites>
-        <testsuite name="Unit tests">
+        <testsuite name="Unit Tests">
             <directory>Unit/</directory>
         </testsuite>
     </testsuites>
@@ -16,6 +16,6 @@
         </whitelist>
     </filter>
     <extensions>
-        <extension class="Brotkrueml\SchemaCe\Tests\Hooks\BypassFinalHook"/>
+        <extension class="Brotkrueml\SchemaRecords\Tests\Hooks\BypassFinalHook"/>
     </extensions>
 </phpunit>

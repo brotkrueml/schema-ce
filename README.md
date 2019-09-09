@@ -1,4 +1,4 @@
-# Structured data for TYPO3 with the schema_ce extension via records
+# Structured data for TYPO3 with the schema_records extension via records
 
 [![TYPO3](https://img.shields.io/badge/TYPO3-9%20LTS-orange.svg)](https://typo3.org/)
 [![Build Status](https://travis-ci.org/brotkrueml/schema-ce.svg?branch=master)](https://travis-ci.org/brotkrueml/schema-ce)
@@ -28,7 +28,7 @@ You are welcome to participate!
 
 The recommended way to install this extension is by using Composer. In your Composer based TYPO3 project root, just type
 
-    composer req brotkrueml/schema-ce
+    composer req brotkrueml/schema-reports
 
 ### Installation As An Extension From The TYPO3 Extension Repository (TER)
 

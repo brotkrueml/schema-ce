@@ -1,10 +1,9 @@
 <?php
-/** @noinspection PhpFullyQualifiedNameUsageInspection */
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property',
+        'title' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property',
         'label' => 'name',
-        'formattedLabel_userFunc' => \Brotkrueml\SchemaCe\Service\PropertyLabelService::class . '->getLabel',
+        'formattedLabel_userFunc' => \Brotkrueml\SchemaRecords\Service\PropertyLabelService::class . '->getLabel',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -20,7 +19,7 @@ return [
         ],
         'type' => 'variant',
         'searchFields' => 'name,single_value,url',
-        'iconfile' => 'EXT:schema_ce/Resources/Public/Icons/tx_schemace_domain_model_property.svg'
+        'iconfile' => 'EXT:schema_records/Resources/Public/Icons/tx_schemarecords_domain_model_property.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, variant, name, single_value, url, type_reference',
@@ -54,8 +53,8 @@ return [
                 'items' => [
                     ['', 0],
                 ],
-                'foreign_table' => 'tx_schemace_domain_model_property',
-                'foreign_table_where' => 'AND {#tx_schemace_domain_model_property}.{#pid}=###CURRENT_PID### AND {#tx_schemace_domain_model_property}.{#sys_language_uid} IN (-1,0)',
+                'foreign_table' => 'tx_schemarecords_domain_model_property',
+                'foreign_table_where' => 'AND {#tx_schemarecords_domain_model_property}.{#pid}=###CURRENT_PID### AND {#tx_schemarecords_domain_model_property}.{#sys_language_uid} IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -118,38 +117,38 @@ return [
 
         'variant' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.variant',
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.variant.' . \Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_SINGLE_VALUE,
-                        \Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_SINGLE_VALUE
+                        'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_SINGLE_VALUE,
+                        \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_SINGLE_VALUE
                     ],
                     [
-                        'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.variant.' . \Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_URL,
-                        \Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_URL
+                        'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_URL,
+                        \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_URL
                     ],
                     [
-                        'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.variant.' . \Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_IMAGE,
-                        \Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_IMAGE
+                        'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_IMAGE,
+                        \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_IMAGE
                     ],
                     [
-                        'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.variant.' . \Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_BOOLEAN,
-                        \Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_BOOLEAN
+                        'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_BOOLEAN,
+                        \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_BOOLEAN
                     ],
                     [
-                        'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.variant.' . \Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_TYPE_REFERENCE,
-                        \Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_TYPE_REFERENCE
+                        'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_TYPE_REFERENCE,
+                        \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_TYPE_REFERENCE
                     ],
                     [
-                        'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.variant.' . \Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_DATETIME,
-                        \Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_DATETIME
+                        'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATETIME,
+                        \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATETIME
                     ],
                     [
-                        'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.variant.' . \Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_DATE,
-                        \Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_DATE
+                        'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATE,
+                        \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATE
                     ],
                 ],
                 'size' => 1,
@@ -159,14 +158,14 @@ return [
         ],
         'name' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.name',
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.name',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
                     ['', ''],
                 ],
-                'itemsProcFunc' => \Brotkrueml\SchemaCe\Service\PropertyListService::class . '->getTcaList',
+                'itemsProcFunc' => \Brotkrueml\SchemaRecords\Service\PropertyListService::class . '->getTcaList',
                 'size' => 1,
                 'maxitems' => 1,
                 'eval' => 'required'
@@ -174,7 +173,7 @@ return [
         ],
         'single_value' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.single_value',
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.single_value',
             'config' => [
                 'type' => 'input',
                 'size' => 50,
@@ -184,7 +183,7 @@ return [
         ],
         'url' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.url',
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.url',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputLink',
@@ -203,7 +202,7 @@ return [
         ],
         'image' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.image',
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.image',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'image',
                 [
@@ -226,7 +225,7 @@ return [
         ],
         'flag' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.flag',
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.flag',
             'config' => [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
@@ -242,18 +241,18 @@ return [
         ],
         'type_reference' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.type_reference',
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.type_reference',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
-                'allowed' => 'tx_schemace_domain_model_type',
+                'allowed' => 'tx_schemarecords_domain_model_type',
                 'maxitems' => 1,
                 'size' => 1,
             ],
         ],
         'reference_only' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.reference_only',
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.reference_only',
             'config' => [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
@@ -269,7 +268,7 @@ return [
         ],
         'timestamp' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.datetime',
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.datetime',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -284,52 +283,52 @@ return [
         ],
     ],
     'types' => [
-        (string)\Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_SINGLE_VALUE => [
+        (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_SINGLE_VALUE => [
             'showitem' => '
                 sys_language_uid, l10n_parent, l10n_diffsource, hidden,
                 name, variant, single_value,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
             '
         ],
-        (string)\Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_URL => [
+        (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_URL => [
             'showitem' => '
                 sys_language_uid, l10n_parent, l10n_diffsource, hidden,
                 name, variant, url, 
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
             '
         ],
-        (string)\Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_IMAGE => [
+        (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_IMAGE => [
             'showitem' => '
                 sys_language_uid, l10n_parent, l10n_diffsource, hidden,
                 name, variant, image, 
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
             '
         ],
-        (string)\Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_BOOLEAN => [
+        (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_BOOLEAN => [
             'showitem' => '
                 sys_language_uid, l10n_parent, l10n_diffsource, hidden,
                 name, variant, flag, 
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
             '
         ],
-        (string)\Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_TYPE_REFERENCE => [
+        (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_TYPE_REFERENCE => [
             'showitem' => '
                 sys_language_uid, l10n_parent, l10n_diffsource, hidden,
                 name, variant, type_reference, reference_only,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
             '
         ],
-        (string)\Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_DATETIME => [
+        (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATETIME => [
             'showitem' => '
                 sys_language_uid, l10n_parent, l10n_diffsource, hidden,
                 name, variant, timestamp, 
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
             '
         ],
-        (string)\Brotkrueml\SchemaCe\Domain\Model\Property::VARIANT_DATE => [
+        (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATE => [
             'columnsOverrides' => [
                 'timestamp' => [
-                    'label' => 'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.date',
+                    'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.date',
                     'config' => [
                         'eval' => 'date',
                     ],

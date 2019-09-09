@@ -1,16 +1,17 @@
 <?php
 declare(strict_types = 1);
 
-namespace Brotkrueml\SchemaCe\Service;
+namespace Brotkrueml\SchemaRecords\Service;
 
-use TYPO3\CMS\Core\Localization\LanguageService;
-
-/**
- * This file is part of the "schema_ce" extension for TYPO3 CMS.
+/*
+ * This file is part of the "schema_records" extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
+
+use TYPO3\CMS\Core\Localization\LanguageService;
+
 final class PropertyLabelService
 {
     public function getLabel(&$parameters): void
@@ -19,7 +20,7 @@ final class PropertyLabelService
             '%s (%s)',
             $parameters['row']['name'][0],
             $this->getLanguageService()->sL(
-                'LLL:EXT:schema_ce/Resources/Private/Language/locallang_db.xlf:tx_schemace_domain_model_property.variant.' . $parameters['row']['variant'][0]
+                'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . $parameters['row']['variant'][0]
             )
         );
     }

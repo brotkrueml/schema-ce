@@ -1,14 +1,16 @@
 <?php
-/** @noinspection PhpFullyQualifiedNameUsageInspection,@noinspection PhpUnnecessaryFullyQualifiedNameInspection */
-namespace Brotkrueml\SchemaCe\Domain\Model;
+namespace Brotkrueml\SchemaRecords\Domain\Model;
 
-/**
- * This file is part of the "schema_ce" extension for TYPO3 CMS.
+/*
+ * This file is part of the "schema_records" extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
-class Type extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
+class Type extends AbstractEntity
 {
 
     /**
@@ -35,7 +37,7 @@ class Type extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * properties
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Brotkrueml\SchemaCe\Domain\Model\Property>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Brotkrueml\SchemaRecords\Domain\Model\Property>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $properties = null;
@@ -111,9 +113,9 @@ class Type extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a Property
      *
-     * @param \Brotkrueml\SchemaCe\Domain\Model\Property $property
+     * @param \Brotkrueml\SchemaRecords\Domain\Model\Property $property
      */
-    public function addProperty(\Brotkrueml\SchemaCe\Domain\Model\Property $property)
+    public function addProperty(\Brotkrueml\SchemaRecords\Domain\Model\Property $property)
     {
         $this->properties->attach($property);
     }
@@ -121,9 +123,9 @@ class Type extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a Property
      *
-     * @param \Brotkrueml\SchemaCe\Domain\Model\Property $propertyToRemove The Property to be removed
+     * @param \Brotkrueml\SchemaRecords\Domain\Model\Property $propertyToRemove The Property to be removed
      */
-    public function removeProperty(\Brotkrueml\SchemaCe\Domain\Model\Property $propertyToRemove)
+    public function removeProperty(\Brotkrueml\SchemaRecords\Domain\Model\Property $propertyToRemove)
     {
         $this->properties->detach($propertyToRemove);
     }
@@ -131,7 +133,7 @@ class Type extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the properties
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Brotkrueml\SchemaCe\Domain\Model\Property> $properties
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Brotkrueml\SchemaRecords\Domain\Model\Property> $properties
      */
     public function getProperties()
     {
@@ -141,7 +143,7 @@ class Type extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the properties
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Brotkrueml\SchemaCe\Domain\Model\Property> $properties
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Brotkrueml\SchemaRecords\Domain\Model\Property> $properties
      */
     public function setProperties(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $properties)
     {

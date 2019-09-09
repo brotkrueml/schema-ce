@@ -1,5 +1,5 @@
 {
-    "name": "brotkrueml/schema-ce",
+    "name": "brotkrueml/schema-records",
     "type": "typo3-cms-extension",
     "description": "schema.org structured data for your website with records",
     "license": [
@@ -24,21 +24,21 @@
         "typo3/cms-core": "^9.5",
         "typo3/cms-extbase": "^9.5",
         "typo3/cms-frontend": "^9.5",
-        "brotkrueml/schema": "^1.1"
+        "brotkrueml/schema": "^1.2"
     },
     "require-dev": {
         "dg/bypass-finals": "^1.1",
-        "phpunit/phpunit": "^8.2",
+        "phpunit/phpunit": "^8.3",
         "typo3/testing-framework": "^4.13"
     },
     "autoload": {
         "psr-4": {
-            "Brotkrueml\\SchemaCe\\": "Classes"
+            "Brotkrueml\\SchemaRecords\\": "Classes"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Brotkrueml\\SchemaCe\\Tests\\": "Tests"
+            "Brotkrueml\\SchemaRecords\\Tests\\": "Tests"
         }
     },
     "replace": {
@@ -53,7 +53,7 @@
         "typo3/cms": {
             "cms-package-dir": "{$vendor-dir}/typo3/cms",
             "web-dir": ".Build/web",
-            "extension-key": "schema_ce"
+            "extension-key": "schema_records"
         }
     }
 }

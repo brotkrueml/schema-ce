@@ -1,7 +1,7 @@
 <?php
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'Schema Content Element',
+    'title' => 'Schema Records',
     'description' => 'schema.org structured data for your website with records',
     'category' => 'fe',
     'author' => 'Chris Müller',
@@ -16,7 +16,7 @@ $EM_CONF[$_EXTKEY] = [
     ],
     'autoload' => [
         'psr-4' => [
-            'Brotkrueml\\SchemaCe\\' => 'Classes'
+            'Brotkrueml\\SchemaRecords\\' => 'Classes'
         ]
     ],
 ];

@@ -13,7 +13,7 @@ class TypeTest extends UnitTestCase
     /**
      * @var Type
      */
-    protected $subject = null;
+    protected $subject;
 
     protected function setUp(): void
     {

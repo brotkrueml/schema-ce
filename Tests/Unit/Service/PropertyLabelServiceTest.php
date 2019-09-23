@@ -12,7 +12,7 @@ class PropertyLabelServiceTest extends TestCase
     /**
      * @var PropertyLabelService
      */
-    protected $subject = null;
+    protected $subject;
 
     protected function setUp(): void
     {

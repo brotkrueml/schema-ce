@@ -54,7 +54,7 @@ class Property extends AbstractEntity
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
-    protected $image = null;
+    protected $image;
 
     /**
      * flag
@@ -68,7 +68,7 @@ class Property extends AbstractEntity
      *
      * @var \Brotkrueml\SchemaRecords\Domain\Model\Type
      */
-    protected $typeReference = null;
+    protected $typeReference;
 
     /**
      * referenceOnly

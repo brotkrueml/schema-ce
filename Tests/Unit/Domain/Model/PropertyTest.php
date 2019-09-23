@@ -14,7 +14,7 @@ class PropertyTest extends UnitTestCase
     /**
      * @var Property
      */
-    protected $subject = null;
+    protected $subject;
 
     protected function setUp(): void
     {

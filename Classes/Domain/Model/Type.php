@@ -40,7 +40,7 @@ class Type extends AbstractEntity
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Brotkrueml\SchemaRecords\Domain\Model\Property>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
-    protected $properties = null;
+    protected $properties;
 
     /**
      * __construct

@@ -14,8 +14,6 @@ return [
         'delete' => 'deleted',
         'enablecolumns' => [
             'disabled' => 'hidden',
-            'starttime' => 'starttime',
-            'endtime' => 'endtime',
         ],
         'type' => 'variant',
         'searchFields' => 'name,single_value,url',
@@ -178,7 +176,16 @@ return [
                 'type' => 'input',
                 'size' => 50,
                 'max' => 255,
-                'eval' => 'trim'
+                'eval' => 'trim',
+                'valuePicker' => [
+                    'items' => [
+                        ['LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.title', '{page:title}'],
+                        ['LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.subtitle', '{page:subtitle}'],
+                        ['LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.abstract', '{page:abstract}'],
+                        ['LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.description', '{page:description}'],
+                        ['LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.last_updated', '{page:lastUpdated(datetime)}'],
+                    ],
+                ],
             ],
         ],
         'url' => [
@@ -285,44 +292,44 @@ return [
     'types' => [
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_SINGLE_VALUE => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource, hidden,
+                sys_language_uid, l10n_parent, l10n_diffsource,
                 name, variant, single_value,
-                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
+                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_URL => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource, hidden,
+                sys_language_uid, l10n_parent, l10n_diffsource,
                 name, variant, url, 
-                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
+                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_IMAGE => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource, hidden,
+                sys_language_uid, l10n_parent, l10n_diffsource,
                 name, variant, image, 
-                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
+                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_BOOLEAN => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource, hidden,
+                sys_language_uid, l10n_parent, l10n_diffsource,
                 name, variant, flag, 
-                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
+                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_TYPE_REFERENCE => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource, hidden,
+                sys_language_uid, l10n_parent, l10n_diffsource,
                 name, variant, type_reference, reference_only,
-                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
+                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATETIME => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource, hidden,
+                sys_language_uid, l10n_parent, l10n_diffsource,
                 name, variant, timestamp, 
-                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
+                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATE => [
@@ -335,9 +342,9 @@ return [
                 ],
             ],
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource, hidden,
+                sys_language_uid, l10n_parent, l10n_diffsource,
                 name, variant, timestamp, 
-                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
+                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
     ],

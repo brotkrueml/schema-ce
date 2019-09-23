@@ -16,6 +16,7 @@ use Brotkrueml\Schema\Utility\Utility;
 use Brotkrueml\SchemaRecords\Domain\Model\Property;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
+use Brotkrueml\SchemaRecords\Enumeration\BoolEnumeration;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -25,6 +26,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Service\ImageService;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -40,6 +42,9 @@ class TypeEmbedding implements MiddlewareInterface
 
     /** @var SchemaManager */
     private $schemaManager;
+
+    /** @var object|Dispatcher */
+    private $signalSlotDispatcher;
 
     private $referencedRecords = [];
     private $processedRecords = [];
@@ -57,12 +62,18 @@ class TypeEmbedding implements MiddlewareInterface
      * @param TypoScriptFrontendController|null $controller
      * @param ObjectManagerInterface|null $objectManager
      * @param SchemaManager|null $schemaManager
+     * @param Dispatcher|null $signalSlotDispatcher
      */
-    public function __construct(TypoScriptFrontendController $controller = null, ObjectManagerInterface $objectManager = null, SchemaManager $schemaManager = null)
-    {
+    public function __construct(
+        TypoScriptFrontendController $controller = null,
+        ObjectManagerInterface $objectManager = null,
+        SchemaManager $schemaManager = null,
+        Dispatcher $signalSlotDispatcher = null
+    ) {
         $this->controller = $controller ?: $GLOBALS['TSFE'];
         $this->objectManager = $objectManager ?: GeneralUtility::makeInstance(ObjectManager::class);
         $this->schemaManager = $schemaManager ?: GeneralUtility::makeInstance(SchemaManager::class);
+        $this->signalSlotDispatcher = $signalSlotDispatcher ?: GeneralUtility::makeInstance(Dispatcher::class);
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -148,7 +159,10 @@ class TypeEmbedding implements MiddlewareInterface
                 /** @var Property $property */
                 switch ($property->getVariant()) {
                     case Property::VARIANT_SINGLE_VALUE:
-                        $typeModel->addProperty($property->getName(), $property->getSingleValue());
+                        $typeModel->addProperty(
+                            $property->getName(),
+                            $this->emitPlaceholderSubstitutionSignal($property->getSingleValue())
+                        );
                         break;
 
                     case Property::VARIANT_URL:
@@ -163,7 +177,7 @@ class TypeEmbedding implements MiddlewareInterface
                     case Property::VARIANT_BOOLEAN:
                         $typeModel->setProperty(
                             $property->getName(),
-                            $property->getFlag() ? 'http://schema.org/True' : 'http://schema.org/False'
+                            $property->getFlag() ? BoolEnumeration::TRUE : BoolEnumeration::FALSE
                         );
                         break;
 
@@ -225,5 +239,18 @@ class TypeEmbedding implements MiddlewareInterface
         $this->nestedTypesCounter--;
 
         return $typeModel;
+    }
+
+    private function emitPlaceholderSubstitutionSignal(string $value): ?string
+    {
+        if (\strpos($value, '{') === 0) {
+            $this->signalSlotDispatcher->dispatch(
+                __CLASS__,
+                'placeholderSubstitution',
+                [&$value, $this->controller->page]
+            );
+        }
+
+        return $value;
     }
 }

@@ -179,12 +179,12 @@ return [
     'types' => [
         '1' => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource, hidden,
+                sys_language_uid, l10n_parent, l10n_diffsource,
                 schema_type,
                 schema_id,
                 webpage_mainentity,
                 properties,
-                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
+                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime, hidden
             '
         ],
     ],

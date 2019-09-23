@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2019-07-16T20:20:35Z" product-name="schema_records">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-09-23T15:42:12Z"	product-name="schema_records">
 		<header/>
 		<body>
 			<trans-unit id="tx_schemarecords_domain_model_type">
@@ -74,6 +74,21 @@
 			</trans-unit>
 			<trans-unit id="tx_schemarecords_domain_model_property.type_reference">
 				<source>Schema type</source>
+			</trans-unit>
+			<trans-unit id="value_picker.page.abstract">
+				<source>Page: Abstract</source>
+			</trans-unit>
+			<trans-unit id="value_picker.page.description">
+				<source>Page: Description</source>
+			</trans-unit>
+			<trans-unit id="value_picker.page.last_updated">
+				<source>Page: Last updated</source>
+			</trans-unit>
+			<trans-unit id="value_picker.page.subtitle">
+				<source>Page: Subtitle</source>
+			</trans-unit>
+			<trans-unit id="value_picker.page.title">
+				<source>Page: Title</source>
 			</trans-unit>
 		</body>
 	</file>

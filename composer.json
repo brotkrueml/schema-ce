@@ -20,7 +20,7 @@
         "schema.org"
     ],
     "require": {
-        "brotkrueml/schema": "^1.3@dev",
+        "brotkrueml/schema": "^1.3",
         "typo3/cms-backend": "^9.5",
         "typo3/cms-core": "^9.5",
         "typo3/cms-extbase": "^9.5",
@@ -45,7 +45,7 @@
         "typo3-ter/schema-records": "self.version"
     },
     "config": {
-        "sort-packages" : true,
+        "sort-packages": true,
         "vendor-dir": ".Build/vendor",
         "bin-dir": ".Build/bin"
     },

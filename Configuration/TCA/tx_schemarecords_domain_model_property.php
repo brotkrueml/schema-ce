@@ -263,29 +263,33 @@ return [
     'types' => [
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_SINGLE_VALUE => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource,
                 name, variant, single_value,
+                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
+                --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_URL => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource,
                 name, variant, url, 
+                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
+                --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_IMAGE => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource,
                 name, variant, image, 
+                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
+                --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_BOOLEAN => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource,
                 name, variant, flag, 
+                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
+                --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
@@ -298,8 +302,9 @@ return [
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATETIME => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource,
                 name, variant, timestamp, 
+                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
+                --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],

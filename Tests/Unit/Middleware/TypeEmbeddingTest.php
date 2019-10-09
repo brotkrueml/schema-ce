@@ -20,6 +20,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Service\ImageService;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Http\RequestHandler;
@@ -73,6 +74,11 @@ class TypeEmbeddingTest extends UnitTestCase
     protected $requestHandlerMock;
 
     /**
+     * @var MockObject|Dispatcher
+     */
+    protected $dispatcherMock;
+
+    /**
      * @var TypeEmbedding
      */
     protected $subject;
@@ -98,6 +104,7 @@ class TypeEmbeddingTest extends UnitTestCase
         $this->controllerMock = $this->createMock(TypoScriptFrontendController::class);
 
         $this->objectManagerMock = $this->getMockBuilder(ObjectManager::class)
+            ->disableOriginalConstructor()
             ->onlyMethods(['get'])
             ->getMock();
 
@@ -135,10 +142,15 @@ class TypeEmbeddingTest extends UnitTestCase
             ->method('createQuery')
             ->willReturn($queryMock);
 
+        $this->dispatcherMock = $this->getMockBuilder(Dispatcher::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->subject = new TypeEmbedding(
             $this->controllerMock,
             $this->objectManagerMock,
-            $this->schemaManager
+            $this->schemaManager,
+            $this->dispatcherMock
         );
     }
 
@@ -185,6 +197,10 @@ class TypeEmbeddingTest extends UnitTestCase
      */
     public function constructWorksCorrectlyWithNoParametersGiven(): void
     {
+        if (\class_exists('\\TYPO3\\CMS\\Core\\DependencyInjection\\ContainerBuilder')) {
+            $this->markTestSkipped('Not needed in TYPO3 v10 because of Dependency Injection.');
+        }
+
         $GLOBALS['TSFE'] = 'fake controller';
 
         /** @noinspection PhpUnhandledExceptionInspection */

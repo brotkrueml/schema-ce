@@ -43,7 +43,7 @@ class TypeEmbedding implements MiddlewareInterface
     /** @var SchemaManager */
     private $schemaManager;
 
-    /** @var object|Dispatcher */
+    /** @var Dispatcher */
     private $signalSlotDispatcher;
 
     private $referencedRecords = [];

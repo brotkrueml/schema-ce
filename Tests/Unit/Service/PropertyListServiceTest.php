@@ -52,6 +52,7 @@ class PropertyListServiceTest extends TestCase
         $this->initialiseLogManagerMock();
 
         $this->objectManagerMock = $this->getMockBuilder(ObjectManager::class)
+            ->disableOriginalConstructor()
             ->onlyMethods(['get'])
             ->getMock();
 

@@ -110,7 +110,7 @@ class TypeTest extends UnitTestCase
     {
         $property = new Property();
         $propertiesObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->setMethods(['attach'])
+            ->onlyMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -131,7 +131,7 @@ class TypeTest extends UnitTestCase
     {
         $property = new Property();
         $propertiesObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->setMethods(['detach'])
+            ->onlyMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();
 

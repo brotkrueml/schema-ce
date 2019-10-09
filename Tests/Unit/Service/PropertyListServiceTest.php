@@ -52,16 +52,16 @@ class PropertyListServiceTest extends TestCase
         $this->initialiseLogManagerMock();
 
         $this->objectManagerMock = $this->getMockBuilder(ObjectManager::class)
-            ->setMethods(['get'])
+            ->onlyMethods(['get'])
             ->getMock();
 
         $this->typeRepositoryMock = $this->getMockBuilder(TypeRepository::class)
             ->setConstructorArgs([$this->objectManagerMock])
-            ->setMethods(['findByIdentifier', 'createQuery'])
+            ->onlyMethods(['findByIdentifier', 'createQuery'])
             ->getMock();
 
         $querySettingsMock = $this->getMockBuilder(Typo3QuerySettings::class)
-            ->setMethods(['setIgnoreEnableFields'])
+            ->onlyMethods(['setIgnoreEnableFields'])
             ->getMock();
 
         $querySettingsMock
@@ -71,7 +71,7 @@ class PropertyListServiceTest extends TestCase
 
         $queryMock = $this->getMockBuilder(Query::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getQuerySettings'])
+            ->onlyMethods(['getQuerySettings'])
             ->getMock();
 
         $queryMock
@@ -91,7 +91,7 @@ class PropertyListServiceTest extends TestCase
             ->willReturn($this->typeRepositoryMock);
 
         $this->typeMock = $this->getMockBuilder(Type::class)
-            ->setMethods(['getSchemaType'])
+            ->onlyMethods(['getSchemaType'])
             ->getMock();
     }
 

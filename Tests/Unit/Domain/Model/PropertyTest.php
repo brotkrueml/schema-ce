@@ -130,7 +130,7 @@ class PropertyTest extends UnitTestCase
     {
         $fileReference = new FileReference();
         $imagesObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->setMethods(['attach'])
+            ->onlyMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -151,7 +151,7 @@ class PropertyTest extends UnitTestCase
     {
         $fileReference = new FileReference();
         $imagesObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->setMethods(['detach'])
+            ->onlyMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();
 

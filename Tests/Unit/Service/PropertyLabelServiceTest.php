@@ -26,7 +26,7 @@ class PropertyLabelServiceTest extends TestCase
     {
         $languageServiceMock = $this->getMockBuilder(LanguageService::class)
             ->disableOriginalConstructor()
-            ->setMethods(['sL'])
+            ->onlyMethods(['sL'])
             ->getMock();
 
         $languageServiceMock

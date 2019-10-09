@@ -98,12 +98,12 @@ class TypeEmbeddingTest extends UnitTestCase
         $this->controllerMock = $this->createMock(TypoScriptFrontendController::class);
 
         $this->objectManagerMock = $this->getMockBuilder(ObjectManager::class)
-            ->setMethods(['get'])
+            ->onlyMethods(['get'])
             ->getMock();
 
         $this->typeRepositoryMock = $this->getMockBuilder(TypeRepository::class)
             ->setConstructorArgs([$this->objectManagerMock])
-            ->setMethods(['createQuery', 'findAll'])
+            ->onlyMethods(['createQuery', 'findAll'])
             ->getMock();
 
         $this->objectManagerMock
@@ -113,7 +113,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->willReturn($this->typeRepositoryMock);
 
         $querySettingsMock = $this->getMockBuilder(Typo3QuerySettings::class)
-            ->setMethods(['setStoragePageIds'])
+            ->onlyMethods(['setStoragePageIds'])
             ->getMock();
 
         $querySettingsMock
@@ -122,7 +122,7 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $queryMock = $this->getMockBuilder(Query::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getQuerySettings'])
+            ->onlyMethods(['getQuerySettings'])
             ->getMock();
 
         $queryMock
@@ -159,7 +159,7 @@ class TypeEmbeddingTest extends UnitTestCase
     private function initialiseRequestMocks(): void
     {
         $this->serverRequestMock = $this->getMockBuilder(ServerRequest::class)
-            ->setMethods(['getAttribute'])
+            ->onlyMethods(['getAttribute'])
             ->getMock();
 
         $pageArguments = new PageArguments(42, '0', []);
@@ -171,7 +171,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->willReturn($pageArguments);
 
         $this->requestHandlerMock = $this->getMockBuilder(RequestHandler::class)
-            ->setMethods(['handle'])
+            ->onlyMethods(['handle'])
             ->getMock();
 
         $this->requestHandlerMock
@@ -401,7 +401,7 @@ class TypeEmbeddingTest extends UnitTestCase
         /** @var MockObject|FileReference $fileReferenceMock */
         $fileReferenceMock = $this->getMockBuilder(FileReference::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getOriginalResource'])
+            ->onlyMethods(['getOriginalResource'])
             ->getMock();
 
         $fileReferenceMock
@@ -510,7 +510,7 @@ class TypeEmbeddingTest extends UnitTestCase
 
         /** @var MockObject|ServerRequest $serverRequestMock */
         $serverRequestMock = $this->getMockBuilder(ServerRequest::class)
-            ->setMethods(['getAttribute'])
+            ->onlyMethods(['getAttribute'])
             ->getMock();
 
         $pageArguments = new PageArguments(42, '0', []);

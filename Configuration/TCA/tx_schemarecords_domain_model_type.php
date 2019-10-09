@@ -179,12 +179,14 @@ return [
     'types' => [
         '1' => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource,
                 schema_type,
                 schema_id,
                 webpage_mainentity,
                 properties,
-                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime, hidden
+                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
+                --palette--;;language,
+                --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,
+                starttime, endtime, hidden,
             '
         ],
     ],

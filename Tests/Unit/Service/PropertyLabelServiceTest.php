@@ -5,7 +5,7 @@ namespace Brotkrueml\SchemaRecords\Tests\Unit\Service;
 
 use Brotkrueml\SchemaRecords\Service\PropertyLabelService;
 use PHPUnit\Framework\TestCase;
-use TYPO3\CMS\Lang\LanguageService;
+use TYPO3\CMS\Core\Localization\LanguageService;
 
 class PropertyLabelServiceTest extends TestCase
 {

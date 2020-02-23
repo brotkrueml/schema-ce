@@ -106,7 +106,7 @@ class TypeEmbedding implements MiddlewareInterface
             }
 
             if ($processed['isWebPageMainEntity']) {
-                $this->schemaManager->setMainEntityOfWebPage($processed['type']);
+                $this->schemaManager->addMainEntityOfWebPage($processed['type']);
             } else {
                 $this->schemaManager->addType($processed['type']);
             }

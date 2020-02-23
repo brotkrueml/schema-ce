@@ -226,6 +226,7 @@ return [
                 'allowed' => 'tx_schemarecords_domain_model_type',
                 'maxitems' => 1,
                 'size' => 1,
+                'default' => 0,
             ],
         ],
         'reference_only' => [
@@ -271,7 +272,7 @@ return [
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_URL => [
             'showitem' => '
-                name, variant, url, 
+                name, variant, url,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
                 --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
@@ -279,7 +280,7 @@ return [
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_IMAGE => [
             'showitem' => '
-                name, variant, image, 
+                name, variant, image,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
                 --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
@@ -287,7 +288,7 @@ return [
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_BOOLEAN => [
             'showitem' => '
-                name, variant, flag, 
+                name, variant, flag,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
                 --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
@@ -302,7 +303,7 @@ return [
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATETIME => [
             'showitem' => '
-                name, variant, timestamp, 
+                name, variant, timestamp,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
                 --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
@@ -318,7 +319,7 @@ return [
                 ],
             ],
             'showitem' => '
-                name, variant, timestamp, 
+                name, variant, timestamp,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
                 --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,

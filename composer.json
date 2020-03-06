@@ -18,7 +18,7 @@
         "schema.org"
     ],
     "require": {
-        "brotkrueml/schema": "^1.4",
+        "brotkrueml/schema": "1.6.x-dev",
         "typo3/cms-backend": "^9.5.14 || ^10.3",
         "typo3/cms-core": "^9.5.14 || ^10.3",
         "typo3/cms-extbase": "^9.5.14 || ^10.3",
@@ -26,7 +26,7 @@
     },
     "require-dev": {
         "dg/bypass-finals": "^1.1",
-        "phpunit/phpunit": "^8.4",
+        "phpunit/phpunit": "^8.5",
         "typo3/testing-framework": "^4.13 || ^5.0"
     },
     "autoload": {
@@ -38,9 +38,6 @@
         "psr-4": {
             "Brotkrueml\\SchemaRecords\\Tests\\": "Tests"
         }
-    },
-    "replace": {
-        "typo3-ter/schema-records": "self.version"
     },
     "config": {
         "sort-packages": true,

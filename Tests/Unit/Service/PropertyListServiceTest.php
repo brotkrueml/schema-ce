@@ -6,10 +6,12 @@ namespace Brotkrueml\SchemaRecords\Tests\Unit\Service;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
 use Brotkrueml\SchemaRecords\Service\PropertyListService;
+use Brotkrueml\SchemaRecords\Tests\Helper\SchemaCacheTrait;
 use Brotkrueml\SchemaRecords\Tests\Unit\Helper\LogManagerMockTrait;
 use Brotkrueml\SchemaRecords\Tests\Unit\Helper\TypeFixtureNamespaceTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
@@ -18,6 +20,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 class PropertyListServiceTest extends TestCase
 {
     use LogManagerMockTrait;
+    use SchemaCacheTrait;
     use TypeFixtureNamespaceTrait;
 
     /**
@@ -94,6 +97,13 @@ class PropertyListServiceTest extends TestCase
         $this->typeMock = $this->getMockBuilder(Type::class)
             ->onlyMethods(['getSchemaType'])
             ->getMock();
+
+        $this->defineCacheStubsWhichReturnEmptyEntry();
+    }
+
+    protected function tearDown(): void
+    {
+        GeneralUtility::purgeInstances();
     }
 
     /**

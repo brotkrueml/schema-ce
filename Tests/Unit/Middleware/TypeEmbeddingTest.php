@@ -8,6 +8,7 @@ use Brotkrueml\SchemaRecords\Domain\Model\Property;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
 use Brotkrueml\SchemaRecords\Middleware\TypeEmbedding;
+use Brotkrueml\SchemaRecords\Tests\Helper\SchemaCacheTrait;
 use Brotkrueml\SchemaRecords\Tests\Unit\Helper\LogManagerMockTrait;
 use Brotkrueml\SchemaRecords\Tests\Unit\Helper\TypeFixtureNamespaceTrait;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -29,6 +30,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 class TypeEmbeddingTest extends UnitTestCase
 {
     use LogManagerMockTrait;
+    use SchemaCacheTrait;
     use TypeFixtureNamespaceTrait;
 
     protected $resetSingletonInstances = true;
@@ -93,6 +95,16 @@ class TypeEmbeddingTest extends UnitTestCase
     {
         static::restoreOriginalTypeNamespace();
         parent::tearDownAfterClass();
+    }
+
+    protected function setUp(): void
+    {
+        $this->defineCacheStubsWhichReturnEmptyEntry();
+    }
+
+    protected function tearDown(): void
+    {
+        GeneralUtility::purgeInstances();
     }
 
     protected function initialiseGeneralMocks(): void
@@ -203,7 +215,6 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $GLOBALS['TSFE'] = 'fake controller';
 
-        /** @noinspection PhpUnhandledExceptionInspection */
         $reflector = new \ReflectionClass(TypeEmbedding::class);
 
         /** @noinspection PhpUnhandledExceptionInspection */
@@ -269,7 +280,10 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame('<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing"}</script>', $actual);
+        $this->assertSame(
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing"}</script>',
+            $actual
+        );
     }
 
     /**
@@ -298,7 +312,10 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame('<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","name":"some single value"}</script>', $actual);
+        $this->assertSame(
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","name":"some single value"}</script>',
+            $actual
+        );
     }
 
     /**
@@ -335,7 +352,10 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame('<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","url":"http://example.org/"}</script>', $actual);
+        $this->assertSame(
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","url":"http://example.org/"}</script>',
+            $actual
+        );
     }
 
     /**
@@ -365,7 +385,10 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame('<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","flag":"http://schema.org/True"}</script>', $actual);
+        $this->assertSame(
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","flag":"http://schema.org/True"}</script>',
+            $actual
+        );
     }
 
     /**
@@ -395,7 +418,10 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame('<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","flag":"http://schema.org/False"}</script>', $actual);
+        $this->assertSame(
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","flag":"http://schema.org/False"}</script>',
+            $actual
+        );
     }
 
     /**
@@ -446,7 +472,10 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame('<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","image":"http://example.org/image.png"}</script>', $actual);
+        $this->assertSame(
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","image":"http://example.org/image.png"}</script>',
+            $actual
+        );
     }
 
     /**
@@ -479,7 +508,10 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame('<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","date":"2019-07-27T18:45:41+02:00"}</script>', $actual);
+        $this->assertSame(
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","date":"2019-07-27T18:45:41+02:00"}</script>',
+            $actual
+        );
 
         date_default_timezone_set($originalTimeZone);
     }
@@ -511,7 +543,10 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame('<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","date":"2019-07-27"}</script>', $actual);
+        $this->assertSame(
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","date":"2019-07-27"}</script>',
+            $actual
+        );
     }
 
     /**

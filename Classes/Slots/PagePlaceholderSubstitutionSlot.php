@@ -10,7 +10,7 @@ namespace Brotkrueml\SchemaRecords\Slots;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use Brotkrueml\SchemaRecords\Enumeration\BoolEnumeration;
+use Brotkrueml\Schema\Model\DataType\Boolean;
 
 final class PagePlaceholderSubstitutionSlot
 {
@@ -28,7 +28,7 @@ final class PagePlaceholderSubstitutionSlot
         }
 
         if ($dataType === 'bool') {
-            $value = $pageFields[$fieldName] ? BoolEnumeration::TRUE : BoolEnumeration::FALSE;
+            $value = $pageFields[$fieldName] ? Boolean::TRUE : Boolean::FALSE;
             return;
         }
 

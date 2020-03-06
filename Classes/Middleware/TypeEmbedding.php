@@ -16,7 +16,6 @@ use Brotkrueml\Schema\Utility\Utility;
 use Brotkrueml\SchemaRecords\Domain\Model\Property;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
-use Brotkrueml\SchemaRecords\Enumeration\BoolEnumeration;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -175,10 +174,7 @@ class TypeEmbedding implements MiddlewareInterface
                         break;
 
                     case Property::VARIANT_BOOLEAN:
-                        $typeModel->setProperty(
-                            $property->getName(),
-                            $property->getFlag() ? BoolEnumeration::TRUE : BoolEnumeration::FALSE
-                        );
+                        $typeModel->setProperty($property->getName(), $property->getFlag());
                         break;
 
                     case Property::VARIANT_IMAGE:

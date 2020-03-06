@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Brotkrueml\SchemaRecords\Tests\Unit\Slots;
 
-use Brotkrueml\SchemaRecords\Enumeration\BoolEnumeration;
+use Brotkrueml\Schema\Model\DataType\Boolean;
 use Brotkrueml\SchemaRecords\Slots\PagePlaceholderSubstitutionSlot;
 use PHPUnit\Framework\TestCase;
 
@@ -48,12 +48,12 @@ class PagePlaceholderSubstitutionSlotTest extends TestCase
             'Page property with boolean formatter evaluates to true' => [
                 '{page:nav_title(bool)}',
                 ['nav_title' => 1],
-                BoolEnumeration::TRUE,
+                Boolean::TRUE,
             ],
             'Page property with boolean formatter evaluates to false' => [
                 '{page:nav_title(bool)}',
                 ['nav_title' => 0],
-                BoolEnumeration::FALSE,
+                Boolean::FALSE,
             ],
             'Timestamp page property with date formatter is substituted' => [
                 '{page:lastUpdated(date)}',

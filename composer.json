@@ -18,6 +18,8 @@
         "schema.org"
     ],
     "require": {
+        "php": "^7.2",
+        "ext-pdo": "*",
         "brotkrueml/schema": "1.6.x-dev",
         "typo3/cms-backend": "^9.5.14 || ^10.3",
         "typo3/cms-core": "^9.5.14 || ^10.3",
@@ -26,6 +28,7 @@
     },
     "require-dev": {
         "dg/bypass-finals": "^1.1",
+        "friendsofphp/php-cs-fixer": "^2.16",
         "phpunit/phpunit": "^8.5",
         "typo3/testing-framework": "^4.13 || ^5.0"
     },
@@ -50,5 +53,8 @@
             "web-dir": ".Build/web",
             "extension-key": "schema_records"
         }
+    },
+    "scripts": {
+        "fix-cs": ".Build/bin/php-cs-fixer fix"
     }
 }

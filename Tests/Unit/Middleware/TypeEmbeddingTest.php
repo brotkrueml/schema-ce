@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Brotkrueml\SchemaRecords\Tests\Unit\Middleware;
 
@@ -126,7 +126,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->getMock();
 
         $this->objectManagerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('get')
             ->with(TypeRepository::class)
             ->willReturn($this->typeRepositoryMock);
@@ -136,7 +136,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->getMock();
 
         $querySettingsMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setStoragePageIds');
 
         $queryMock = $this->getMockBuilder(Query::class)
@@ -145,12 +145,12 @@ class TypeEmbeddingTest extends UnitTestCase
             ->getMock();
 
         $queryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getQuerySettings')
             ->willReturn($querySettingsMock);
 
         $this->typeRepositoryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('createQuery')
             ->willReturn($queryMock);
 
@@ -189,7 +189,7 @@ class TypeEmbeddingTest extends UnitTestCase
         $pageArguments = new PageArguments(42, '0', []);
 
         $this->serverRequestMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getAttribute')
             ->with('routing')
             ->willReturn($pageArguments);
@@ -199,7 +199,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->getMock();
 
         $this->requestHandlerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('handle')
             ->with($this->serverRequestMock);
     }
@@ -210,7 +210,7 @@ class TypeEmbeddingTest extends UnitTestCase
     public function constructWorksCorrectlyWithNoParametersGiven(): void
     {
         if (\class_exists('\\TYPO3\\CMS\\Core\\DependencyInjection\\ContainerBuilder')) {
-            $this->markTestSkipped('Not needed in TYPO3 v10 because of Dependency Injection.');
+            self::markTestSkipped('Not needed in TYPO3 v10 because of Dependency Injection.');
         }
 
         $GLOBALS['TSFE'] = 'fake controller';
@@ -231,9 +231,9 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $subject = new TypeEmbedding();
 
-        $this->assertSame('fake controller', $controller->getValue($subject));
-        $this->assertInstanceOf(SchemaManager::class, $schemaManager->getValue($subject));
-        $this->assertInstanceOf(ObjectManager::class, $objectManager->getValue($subject));
+        self::assertSame('fake controller', $controller->getValue($subject));
+        self::assertInstanceOf(SchemaManager::class, $schemaManager->getValue($subject));
+        self::assertInstanceOf(ObjectManager::class, $objectManager->getValue($subject));
 
         unset($GLOBALS['TSFE']);
     }
@@ -247,7 +247,7 @@ class TypeEmbeddingTest extends UnitTestCase
         $this->initialiseRequestMocks();
 
         $this->typeRepositoryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findAll')
             ->willReturn([]);
 
@@ -255,7 +255,7 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame('', $actual);
+        self::assertSame('', $actual);
     }
 
     /**
@@ -272,7 +272,7 @@ class TypeEmbeddingTest extends UnitTestCase
         $type->setSchemaType('FixtureThing');
 
         $this->typeRepositoryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findAll')
             ->willReturn([$type]);
 
@@ -280,7 +280,7 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame(
+        self::assertSame(
             '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing"}</script>',
             $actual
         );
@@ -304,7 +304,7 @@ class TypeEmbeddingTest extends UnitTestCase
         $type->addProperty($property);
 
         $this->typeRepositoryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findAll')
             ->willReturn([$type]);
 
@@ -312,7 +312,7 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame(
+        self::assertSame(
             '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","name":"some single value"}</script>',
             $actual
         );
@@ -328,7 +328,7 @@ class TypeEmbeddingTest extends UnitTestCase
         $this->initialiseRequestMocks();
 
         $this->contentObjectRendererMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('typoLink_URL')
             ->with(['parameter' => 'http://example.org/', 'forceAbsoluteUrl' => 1])
             ->willReturn('http://example.org/');
@@ -344,7 +344,7 @@ class TypeEmbeddingTest extends UnitTestCase
         $type->addProperty($property);
 
         $this->typeRepositoryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findAll')
             ->willReturn([$type]);
 
@@ -352,7 +352,7 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame(
+        self::assertSame(
             '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","url":"http://example.org/"}</script>',
             $actual
         );
@@ -377,7 +377,7 @@ class TypeEmbeddingTest extends UnitTestCase
         $type->addProperty($property);
 
         $this->typeRepositoryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findAll')
             ->willReturn([$type]);
 
@@ -385,7 +385,7 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame(
+        self::assertSame(
             '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","flag":"http://schema.org/True"}</script>',
             $actual
         );
@@ -410,7 +410,7 @@ class TypeEmbeddingTest extends UnitTestCase
         $type->addProperty($property);
 
         $this->typeRepositoryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findAll')
             ->willReturn([$type]);
 
@@ -418,7 +418,7 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame(
+        self::assertSame(
             '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","flag":"http://schema.org/False"}</script>',
             $actual
         );
@@ -447,7 +447,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->getMock();
 
         $fileReferenceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getOriginalResource')
             ->willReturn($fileMock);
 
@@ -458,12 +458,12 @@ class TypeEmbeddingTest extends UnitTestCase
         $type->addProperty($property);
 
         $this->typeRepositoryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findAll')
             ->willReturn([$type]);
 
         $this->imageServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getImageUri')
             ->with($fileMock, true)
             ->willReturn('http://example.org/image.png');
@@ -472,7 +472,7 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame(
+        self::assertSame(
             '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","image":"http://example.org/image.png"}</script>',
             $actual
         );
@@ -500,7 +500,7 @@ class TypeEmbeddingTest extends UnitTestCase
         $type->addProperty($property);
 
         $this->typeRepositoryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findAll')
             ->willReturn([$type]);
 
@@ -508,7 +508,7 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame(
+        self::assertSame(
             '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","date":"2019-07-27T18:45:41+02:00"}</script>',
             $actual
         );
@@ -535,7 +535,7 @@ class TypeEmbeddingTest extends UnitTestCase
         $type->addProperty($property);
 
         $this->typeRepositoryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findAll')
             ->willReturn([$type]);
 
@@ -543,7 +543,7 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $actual = $this->schemaManager->renderJsonLd();
 
-        $this->assertSame(
+        self::assertSame(
             '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","date":"2019-07-27"}</script>',
             $actual
         );
@@ -567,7 +567,7 @@ class TypeEmbeddingTest extends UnitTestCase
         $pageArguments = new PageArguments(42, '0', []);
 
         $serverRequestMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getAttribute')
             ->with('routing')
             ->willReturn($pageArguments);
@@ -585,7 +585,7 @@ class TypeEmbeddingTest extends UnitTestCase
         $type->addProperty($property);
 
         $this->typeRepositoryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findAll')
             ->willReturn([$type]);
 

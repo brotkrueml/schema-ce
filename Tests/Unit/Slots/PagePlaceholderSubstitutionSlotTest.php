@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Brotkrueml\SchemaRecords\Tests\Unit\Slots;
 
@@ -12,7 +12,7 @@ class PagePlaceholderSubstitutionSlotTest extends TestCase
     /** @var PagePlaceholderSubstitutionSlot */
     private $subject;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->subject = new PagePlaceholderSubstitutionSlot();
     }
@@ -29,7 +29,7 @@ class PagePlaceholderSubstitutionSlotTest extends TestCase
     {
         $this->subject->substitute($value, $pageFields);
 
-        $this->assertSame($expected, $value);
+        self::assertSame($expected, $value);
     }
 
     public function dataProvider(): array

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Brotkrueml\SchemaRecords\Tests\Unit\Service;
 
@@ -30,7 +30,7 @@ class PropertyLabelServiceTest extends TestCase
             ->getMock();
 
         $languageServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('sL')
             ->with('LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.3')
             ->willReturn('localised value for variant');
@@ -50,7 +50,7 @@ class PropertyLabelServiceTest extends TestCase
 
         $this->subject->getLabel($actual);
 
-        $this->assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
 
         $GLOBALS['LANG'] = $originalLang;
     }

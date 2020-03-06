@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Brotkrueml\SchemaRecords\Tests\Unit\Domain\Model;
 
@@ -31,7 +31,7 @@ class TypeTest extends UnitTestCase
      */
     public function getSchemaTypeReturnsInitialValue()
     {
-        $this->assertSame('', $this->subject->getSchemaType());
+        self::assertSame('', $this->subject->getSchemaType());
     }
 
     /**
@@ -41,7 +41,7 @@ class TypeTest extends UnitTestCase
     {
         $this->subject->setSchemaType('Some schema type');
 
-        $this->assertSame('Some schema type', $this->subject->getSchemaType());
+        self::assertSame('Some schema type', $this->subject->getSchemaType());
     }
 
     /**
@@ -49,7 +49,7 @@ class TypeTest extends UnitTestCase
      */
     public function getSchemaIdReturnsInitialValue()
     {
-        $this->assertSame('', $this->subject->getSchemaId());
+        self::assertSame('', $this->subject->getSchemaId());
     }
 
     /**
@@ -59,7 +59,7 @@ class TypeTest extends UnitTestCase
     {
         $this->subject->setSchemaId('Some schema id');
 
-        $this->assertSame('Some schema id', $this->subject->getSchemaId());
+        self::assertSame('Some schema id', $this->subject->getSchemaId());
     }
 
     /**
@@ -67,7 +67,7 @@ class TypeTest extends UnitTestCase
      */
     public function getWebpageMainentityReturnsInitialValue(): void
     {
-        $this->assertFalse($this->subject->getWebpageMainentity());
+        self::assertFalse($this->subject->getWebpageMainentity());
     }
 
     /**
@@ -77,7 +77,7 @@ class TypeTest extends UnitTestCase
     {
         $this->subject->setWebpageMainentity(true);
 
-        $this->assertTrue($this->subject->getWebpageMainentity());
+        self::assertTrue($this->subject->getWebpageMainentity());
     }
 
     /**
@@ -85,8 +85,8 @@ class TypeTest extends UnitTestCase
      */
     public function getPropertiesReturnsInitialValue()
     {
-        $this->assertInstanceOf(ObjectStorage::class, $this->subject->getProperties());
-        $this->assertSame(0, $this->subject->getProperties()->count());
+        self::assertInstanceOf(ObjectStorage::class, $this->subject->getProperties());
+        self::assertSame(0, $this->subject->getProperties()->count());
     }
 
     /**
@@ -100,7 +100,7 @@ class TypeTest extends UnitTestCase
 
         $this->subject->setProperties($objectStorageHoldingExactlyOneProperty);
 
-        $this->assertSame($objectStorageHoldingExactlyOneProperty, $this->subject->getProperties());
+        self::assertSame($objectStorageHoldingExactlyOneProperty, $this->subject->getProperties());
     }
 
     /**
@@ -115,9 +115,9 @@ class TypeTest extends UnitTestCase
             ->getMock();
 
         $propertiesObjectStorageMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('attach')
-            ->with($this->equalTo($property));
+            ->with(self::equalTo($property));
 
         $this->inject($this->subject, 'properties', $propertiesObjectStorageMock);
 
@@ -136,7 +136,7 @@ class TypeTest extends UnitTestCase
             ->getMock();
 
         $propertiesObjectStorageMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('detach')
             ->with(self::equalTo($property));
 

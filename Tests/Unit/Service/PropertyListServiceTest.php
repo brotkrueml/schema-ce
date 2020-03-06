@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Brotkrueml\SchemaRecords\Tests\Unit\Service;
 
@@ -69,7 +69,7 @@ class PropertyListServiceTest extends TestCase
             ->getMock();
 
         $querySettingsMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setIgnoreEnableFields')
             ->with(true);
 
@@ -79,17 +79,17 @@ class PropertyListServiceTest extends TestCase
             ->getMock();
 
         $queryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getQuerySettings')
             ->willReturn($querySettingsMock);
 
         $this->typeRepositoryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('createQuery')
             ->willReturn($queryMock);
 
         $this->objectManagerMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('get')
             ->with(TypeRepository::class)
             ->willReturn($this->typeRepositoryMock);
@@ -122,12 +122,12 @@ class PropertyListServiceTest extends TestCase
         ];
 
         $this->typeMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getSchemaType')
             ->willReturn('FixtureThing');
 
         $this->typeRepositoryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findByIdentifier')
             ->with(42)
             ->willReturn($this->typeMock);
@@ -146,7 +146,7 @@ class PropertyListServiceTest extends TestCase
             ['url', 'url'],
         ];
 
-        $this->assertSame($expectedItems, $configuration['items']);
+        self::assertSame($expectedItems, $configuration['items']);
     }
 
     /**
@@ -165,12 +165,12 @@ class PropertyListServiceTest extends TestCase
         ];
 
         $this->typeMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getSchemaType')
             ->willReturn('TypeDoesNotExist');
 
         $this->typeRepositoryMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findByIdentifier')
             ->with(42)
             ->willReturn($this->typeMock);
@@ -179,6 +179,6 @@ class PropertyListServiceTest extends TestCase
 
         $subject->getTcaList($configuration);
 
-        $this->assertSame([['', '']], $configuration['items']);
+        self::assertSame([['', '']], $configuration['items']);
     }
 }

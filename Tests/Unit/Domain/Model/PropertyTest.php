@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Brotkrueml\SchemaRecords\Tests\Unit\Domain\Model;
 
@@ -43,7 +43,7 @@ class PropertyTest extends UnitTestCase
     {
         $this->subject->setVariant(12);
 
-        $this->assertSame(12, $this->subject->getVariant());
+        self::assertSame(12, $this->subject->getVariant());
     }
 
     /**
@@ -51,7 +51,7 @@ class PropertyTest extends UnitTestCase
      */
     public function getNameReturnsInitialValue(): void
     {
-        $this->assertSame('', $this->subject->getName());
+        self::assertSame('', $this->subject->getName());
     }
 
     /**
@@ -61,7 +61,7 @@ class PropertyTest extends UnitTestCase
     {
         $this->subject->setName('Some name');
 
-        $this->assertSame('Some name', $this->subject->getName());
+        self::assertSame('Some name', $this->subject->getName());
     }
 
     /**
@@ -69,7 +69,7 @@ class PropertyTest extends UnitTestCase
      */
     public function getSingleValueReturnsInitialValue(): void
     {
-        $this->assertSame('', $this->subject->getSingleValue());
+        self::assertSame('', $this->subject->getSingleValue());
     }
 
     /**
@@ -79,7 +79,7 @@ class PropertyTest extends UnitTestCase
     {
         $this->subject->setSingleValue('Some single value');
 
-        $this->assertSame('Some single value', $this->subject->getSingleValue());
+        self::assertSame('Some single value', $this->subject->getSingleValue());
     }
 
     /**
@@ -87,7 +87,7 @@ class PropertyTest extends UnitTestCase
      */
     public function getUrlReturnsInitialValue(): void
     {
-        $this->assertSame('', $this->subject->getUrl());
+        self::assertSame('', $this->subject->getUrl());
     }
 
     /**
@@ -97,7 +97,7 @@ class PropertyTest extends UnitTestCase
     {
         $this->subject->setUrl('Some url');
 
-        $this->assertSame('Some url', $this->subject->getUrl());
+        self::assertSame('Some url', $this->subject->getUrl());
     }
 
     /**
@@ -105,8 +105,8 @@ class PropertyTest extends UnitTestCase
      */
     public function getImageReturnsInitialValue(): void
     {
-        $this->assertInstanceOf(ObjectStorage::class, $this->subject->getImages());
-        $this->assertSame(0, $this->subject->getImages()->count());
+        self::assertInstanceOf(ObjectStorage::class, $this->subject->getImages());
+        self::assertSame(0, $this->subject->getImages()->count());
     }
 
     /**
@@ -120,7 +120,7 @@ class PropertyTest extends UnitTestCase
 
         $this->subject->setImages($objectStorageHoldingExactlyOneImage);
 
-        $this->assertSame($objectStorageHoldingExactlyOneImage, $this->subject->getImages());
+        self::assertSame($objectStorageHoldingExactlyOneImage, $this->subject->getImages());
     }
 
     /**
@@ -135,9 +135,9 @@ class PropertyTest extends UnitTestCase
             ->getMock();
 
         $imagesObjectStorageMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('attach')
-            ->with($this->equalTo($fileReference));
+            ->with(self::equalTo($fileReference));
 
         $this->inject($this->subject, 'images', $imagesObjectStorageMock);
 
@@ -156,9 +156,9 @@ class PropertyTest extends UnitTestCase
             ->getMock();
 
         $imagesObjectStorageMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('detach')
-            ->with($this->equalTo($fileReference));
+            ->with(self::equalTo($fileReference));
 
         $this->inject($this->subject, 'images', $imagesObjectStorageMock);
 
@@ -170,7 +170,7 @@ class PropertyTest extends UnitTestCase
      */
     public function getFlagReturnsInitialValue(): void
     {
-        $this->assertFalse($this->subject->getFlag());
+        self::assertFalse($this->subject->getFlag());
     }
 
     /**
@@ -180,7 +180,7 @@ class PropertyTest extends UnitTestCase
     {
         $this->subject->setFlag(true);
 
-        $this->assertTrue($this->subject->getFlag());
+        self::assertTrue($this->subject->getFlag());
     }
 
     /**
@@ -188,7 +188,7 @@ class PropertyTest extends UnitTestCase
      */
     public function getTypeReferenceReturnsInitialValue(): void
     {
-        $this->assertNull($this->subject->getTypeReference());
+        self::assertNull($this->subject->getTypeReference());
     }
 
     /**
@@ -199,7 +199,7 @@ class PropertyTest extends UnitTestCase
         $schemaTypeFixture = new Type();
         $this->subject->setTypeReference($schemaTypeFixture);
 
-        $this->assertSame($schemaTypeFixture, $this->subject->getTypeReference());
+        self::assertSame($schemaTypeFixture, $this->subject->getTypeReference());
     }
 
     /**
@@ -207,7 +207,7 @@ class PropertyTest extends UnitTestCase
      */
     public function getReferenceOnlyReturnsInitialValue(): void
     {
-        $this->assertFalse($this->subject->getReferenceOnly());
+        self::assertFalse($this->subject->getReferenceOnly());
     }
 
     /**
@@ -217,7 +217,7 @@ class PropertyTest extends UnitTestCase
     {
         $this->subject->setReferenceOnly(true);
 
-        $this->assertTrue($this->subject->getReferenceOnly());
+        self::assertTrue($this->subject->getReferenceOnly());
     }
 
     /**
@@ -225,7 +225,7 @@ class PropertyTest extends UnitTestCase
      */
     public function getTimestampReturnsInitialValue(): void
     {
-        $this->assertSame(0, $this->subject->getTimestamp());
+        self::assertSame(0, $this->subject->getTimestamp());
     }
 
     /**
@@ -235,6 +235,6 @@ class PropertyTest extends UnitTestCase
     {
         $this->subject->setTimestamp(1563906067);
 
-        $this->assertSame(1563906067, $this->subject->getTimestamp());
+        self::assertSame(1563906067, $this->subject->getTimestamp());
     }
 }

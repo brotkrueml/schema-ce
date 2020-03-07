@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Brotkrueml\SchemaRecords\Tests\Unit\Middleware;
+namespace Brotkrueml\SchemaRecords\Tests\Unit\Aspect;
 
 use Brotkrueml\Schema\Manager\SchemaManager;
+use Brotkrueml\SchemaRecords\Aspect\RecordsAspect;
 use Brotkrueml\SchemaRecords\Domain\Model\Property;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
-use Brotkrueml\SchemaRecords\Middleware\TypeEmbedding;
 use Brotkrueml\SchemaRecords\Tests\Helper\SchemaCacheTrait;
 use Brotkrueml\SchemaRecords\Tests\Unit\Helper\LogManagerMockTrait;
 use Brotkrueml\SchemaRecords\Tests\Unit\Helper\TypeFixtureNamespaceTrait;
@@ -24,10 +24,9 @@ use TYPO3\CMS\Extbase\Service\ImageService;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use TYPO3\CMS\Frontend\Http\RequestHandler;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-class TypeEmbeddingTest extends UnitTestCase
+class RecordsAspectTest extends UnitTestCase
 {
     use LogManagerMockTrait;
     use SchemaCacheTrait;
@@ -71,17 +70,12 @@ class TypeEmbeddingTest extends UnitTestCase
     protected $serverRequestMock;
 
     /**
-     * @var MockObject|RequestHandler
-     */
-    protected $requestHandlerMock;
-
-    /**
      * @var MockObject|Dispatcher
      */
     protected $dispatcherMock;
 
     /**
-     * @var TypeEmbedding
+     * @var RecordsAspect
      */
     protected $subject;
 
@@ -105,6 +99,7 @@ class TypeEmbeddingTest extends UnitTestCase
     protected function tearDown(): void
     {
         GeneralUtility::purgeInstances();
+        unset($GLOBALS['TYPO3_REQUEST']);
     }
 
     protected function initialiseGeneralMocks(): void
@@ -158,7 +153,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->subject = new TypeEmbedding(
+        $this->subject = new RecordsAspect(
             $this->controllerMock,
             $this->objectManagerMock,
             $this->schemaManager,
@@ -194,14 +189,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->with('routing')
             ->willReturn($pageArguments);
 
-        $this->requestHandlerMock = $this->getMockBuilder(RequestHandler::class)
-            ->onlyMethods(['handle'])
-            ->getMock();
-
-        $this->requestHandlerMock
-            ->expects(self::once())
-            ->method('handle')
-            ->with($this->serverRequestMock);
+        $GLOBALS['TYPO3_REQUEST'] = $this->serverRequestMock;
     }
 
     /**
@@ -215,7 +203,7 @@ class TypeEmbeddingTest extends UnitTestCase
 
         $GLOBALS['TSFE'] = 'fake controller';
 
-        $reflector = new \ReflectionClass(TypeEmbedding::class);
+        $reflector = new \ReflectionClass(RecordsAspect::class);
 
         /** @noinspection PhpUnhandledExceptionInspection */
         $controller = $reflector->getProperty('controller');
@@ -229,7 +217,7 @@ class TypeEmbeddingTest extends UnitTestCase
         $schemaManager = $reflector->getProperty('schemaManager');
         $schemaManager->setAccessible(true);
 
-        $subject = new TypeEmbedding();
+        $subject = new RecordsAspect();
 
         self::assertSame('fake controller', $controller->getValue($subject));
         self::assertInstanceOf(SchemaManager::class, $schemaManager->getValue($subject));
@@ -241,7 +229,7 @@ class TypeEmbeddingTest extends UnitTestCase
     /**
      * @test
      */
-    public function processDoesNotEmbedSchemaWhenThereAreNoTypesDefined(): void
+    public function executeDoesNotEmbedSchemaWhenThereAreNoTypesDefined(): void
     {
         $this->initialiseGeneralMocks();
         $this->initialiseRequestMocks();
@@ -251,7 +239,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->method('findAll')
             ->willReturn([]);
 
-        $this->subject->process($this->serverRequestMock, $this->requestHandlerMock);
+        $this->subject->execute($this->schemaManager);
 
         $actual = $this->schemaManager->renderJsonLd();
 
@@ -260,9 +248,9 @@ class TypeEmbeddingTest extends UnitTestCase
 
     /**
      * @test
-     * @covers \Brotkrueml\SchemaRecords\Middleware\TypeEmbedding::process
+     * @covers \Brotkrueml\SchemaRecords\Aspect\RecordsAspect::execute
      */
-    public function processEmbedsEmptyTypeCorrectly(): void
+    public function executeEmbedsEmptyTypeCorrectly(): void
     {
         $this->initialiseGeneralMocks();
         $this->initialiseRequestMocks();
@@ -276,7 +264,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->method('findAll')
             ->willReturn([$type]);
 
-        $this->subject->process($this->serverRequestMock, $this->requestHandlerMock);
+        $this->subject->execute($this->schemaManager);
 
         $actual = $this->schemaManager->renderJsonLd();
 
@@ -289,7 +277,7 @@ class TypeEmbeddingTest extends UnitTestCase
     /**
      * @test
      */
-    public function processEmbedsTypeWithSingleValuePropertyCorrectly(): void
+    public function executeEmbedsTypeWithSingleValuePropertyCorrectly(): void
     {
         $this->initialiseGeneralMocks();
         $this->initialiseRequestMocks();
@@ -308,7 +296,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->method('findAll')
             ->willReturn([$type]);
 
-        $this->subject->process($this->serverRequestMock, $this->requestHandlerMock);
+        $this->subject->execute($this->schemaManager);
 
         $actual = $this->schemaManager->renderJsonLd();
 
@@ -321,7 +309,7 @@ class TypeEmbeddingTest extends UnitTestCase
     /**
      * @test
      */
-    public function processEmbedsTypeWithUrlPropertyCorrectly(): void
+    public function executeEmbedsTypeWithUrlPropertyCorrectly(): void
     {
         $this->initialiseGeneralMocks();
         $this->initialiseContentObjectRendererMock();
@@ -348,7 +336,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->method('findAll')
             ->willReturn([$type]);
 
-        $this->subject->process($this->serverRequestMock, $this->requestHandlerMock);
+        $this->subject->execute($this->schemaManager);
 
         $actual = $this->schemaManager->renderJsonLd();
 
@@ -361,7 +349,7 @@ class TypeEmbeddingTest extends UnitTestCase
     /**
      * @test
      */
-    public function processEmbedsTypeWithBooleanPropertySetToTrueCorrectly(): void
+    public function executeEmbedsTypeWithBooleanPropertySetToTrueCorrectly(): void
     {
         $this->initialiseGeneralMocks();
         $this->initialiseRequestMocks();
@@ -381,7 +369,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->method('findAll')
             ->willReturn([$type]);
 
-        $this->subject->process($this->serverRequestMock, $this->requestHandlerMock);
+        $this->subject->execute($this->schemaManager);
 
         $actual = $this->schemaManager->renderJsonLd();
 
@@ -394,7 +382,7 @@ class TypeEmbeddingTest extends UnitTestCase
     /**
      * @test
      */
-    public function processEmbedsTypeWithBooleanPropertySetToFalseCorrectly(): void
+    public function executeEmbedsTypeWithBooleanPropertySetToFalseCorrectly(): void
     {
         $this->initialiseGeneralMocks();
         $this->initialiseRequestMocks();
@@ -414,7 +402,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->method('findAll')
             ->willReturn([$type]);
 
-        $this->subject->process($this->serverRequestMock, $this->requestHandlerMock);
+        $this->subject->execute($this->schemaManager);
 
         $actual = $this->schemaManager->renderJsonLd();
 
@@ -427,7 +415,7 @@ class TypeEmbeddingTest extends UnitTestCase
     /**
      * @test
      */
-    public function processEmbedsTypeWithImagePropertyCorrectly(): void
+    public function executeEmbedsTypeWithImagePropertyCorrectly(): void
     {
         $this->initialiseGeneralMocks();
         $this->initialiseRequestMocks();
@@ -468,7 +456,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->with($fileMock, true)
             ->willReturn('http://example.org/image.png');
 
-        $this->subject->process($this->serverRequestMock, $this->requestHandlerMock);
+        $this->subject->execute($this->schemaManager);
 
         $actual = $this->schemaManager->renderJsonLd();
 
@@ -481,7 +469,7 @@ class TypeEmbeddingTest extends UnitTestCase
     /**
      * @test
      */
-    public function processEmbedsTypeWithDateTimePropertyCorrectly(): void
+    public function executeEmbedsTypeWithDateTimePropertyCorrectly(): void
     {
         $originalTimeZone = date_default_timezone_get();
         date_default_timezone_set('Europe/Berlin');
@@ -504,7 +492,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->method('findAll')
             ->willReturn([$type]);
 
-        $this->subject->process($this->serverRequestMock, $this->requestHandlerMock);
+        $this->subject->execute($this->schemaManager);
 
         $actual = $this->schemaManager->renderJsonLd();
 
@@ -519,7 +507,7 @@ class TypeEmbeddingTest extends UnitTestCase
     /**
      * @test
      */
-    public function processEmbedsTypeWithDatePropertyCorrectly(): void
+    public function executeEmbedsTypeWithDatePropertyCorrectly(): void
     {
         $this->initialiseGeneralMocks();
         $this->initialiseRequestMocks();
@@ -539,7 +527,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->method('findAll')
             ->willReturn([$type]);
 
-        $this->subject->process($this->serverRequestMock, $this->requestHandlerMock);
+        $this->subject->execute($this->schemaManager);
 
         $actual = $this->schemaManager->renderJsonLd();
 
@@ -552,7 +540,7 @@ class TypeEmbeddingTest extends UnitTestCase
     /**
      * @test
      */
-    public function processThrowsExceptionOnInvalidVariant(): void
+    public function executeThrowsExceptionOnInvalidVariant(): void
     {
         $this->expectException(\DomainException::class);
         $this->expectExceptionCode(1563791267);
@@ -572,7 +560,7 @@ class TypeEmbeddingTest extends UnitTestCase
             ->with('routing')
             ->willReturn($pageArguments);
 
-        $requestHandlerMock = $this->createMock(RequestHandler::class);
+        $GLOBALS['TYPO3_REQUEST'] = $serverRequestMock;
 
         $type = new Type();
         $type->_setProperty('uid', 21);
@@ -589,6 +577,6 @@ class TypeEmbeddingTest extends UnitTestCase
             ->method('findAll')
             ->willReturn([$type]);
 
-        $this->subject->process($serverRequestMock, $requestHandlerMock);
+        $this->subject->execute($this->schemaManager);
     }
 }

@@ -11,11 +11,15 @@ namespace Brotkrueml\SchemaRecords\Slots;
  */
 
 use Brotkrueml\Schema\Model\DataType\Boolean;
+use Brotkrueml\SchemaRecords\Event\SubstitutePlaceholderEvent;
 
 final class PagePlaceholderSubstitutionSlot
 {
-    public function substitute(string &$value, array $pageFields): void
+    public function substitute(SubstitutePlaceholderEvent $event): void
     {
+        $value = $event->getValue();
+        $pageProperties = $event->getPageProperties();
+
         if (!\preg_match('/^{page:(.*?)(\((.*?)\))?}$/', $value, $matches)) {
             return;
         }
@@ -23,26 +27,26 @@ final class PagePlaceholderSubstitutionSlot
         $fieldName = $matches[1];
         $dataType = $matches[3] ?? null;
 
-        if (!isset($pageFields[$fieldName])) {
+        if (!isset($pageProperties[$fieldName])) {
             return;
         }
 
         if ($dataType === 'bool') {
-            $value = $pageFields[$fieldName] ? Boolean::TRUE : Boolean::FALSE;
+            $event->setValue($pageProperties[$fieldName] ? Boolean::TRUE : Boolean::FALSE);
             return;
         }
 
         if ($dataType === 'date') {
-            $value = $this->formatDate('Y-m-d', $pageFields[$fieldName]);
+            $event->setValue($this->formatDate('Y-m-d', $pageProperties[$fieldName]));
             return;
         }
 
         if ($dataType === 'datetime') {
-            $value = $this->formatDate('c', $pageFields[$fieldName]);
+            $event->setValue($this->formatDate('c', $pageProperties[$fieldName]));
             return;
         }
 
-        $value = $pageFields[$fieldName];
+        $event->setValue($pageProperties[$fieldName]);
     }
 
     private function formatDate(string $format, int $value): ?string

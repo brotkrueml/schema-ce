@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Brotkrueml\SchemaRecords\Tests\Unit\Slots;
 
 use Brotkrueml\Schema\Model\DataType\Boolean;
+use Brotkrueml\SchemaRecords\Event\SubstitutePlaceholderEvent;
 use Brotkrueml\SchemaRecords\Slots\PagePlaceholderSubstitutionSlot;
 use PHPUnit\Framework\TestCase;
 
@@ -22,14 +23,15 @@ class PagePlaceholderSubstitutionSlotTest extends TestCase
      * @dataProvider dataProvider
      *
      * @param string $value
-     * @param array $pageFields
-     * @param string $expected
+     * @param array $pageProperties
+     * @param string|null $expected
      */
-    public function valueIsCorrectFormatted(string $value, array $pageFields, ?string $expected)
+    public function valueIsCorrectFormatted(string $value, array $pageProperties, ?string $expected)
     {
-        $this->subject->substitute($value, $pageFields);
+        $event = new SubstitutePlaceholderEvent($value, $pageProperties);
+        $this->subject->substitute($event);
 
-        self::assertSame($expected, $value);
+        self::assertSame($expected, $event->getValue());
     }
 
     public function dataProvider(): array

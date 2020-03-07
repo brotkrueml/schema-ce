@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Brotkrueml\SchemaRecords\Middleware;
+namespace Brotkrueml\SchemaRecords\Aspect;
 
 /*
  * This file is part of the "schema_records" extension for TYPO3 CMS.
@@ -10,16 +10,15 @@ namespace Brotkrueml\SchemaRecords\Middleware;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Brotkrueml\Schema\Aspect\AspectInterface;
 use Brotkrueml\Schema\Core\Model\AbstractType;
 use Brotkrueml\Schema\Manager\SchemaManager;
 use Brotkrueml\Schema\Utility\Utility;
 use Brotkrueml\SchemaRecords\Domain\Model\Property;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
-use Psr\Http\Message\ResponseInterface;
+use Brotkrueml\SchemaRecords\Event\SubstitutePlaceholderEvent;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -29,7 +28,7 @@ use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-class TypeEmbedding implements MiddlewareInterface
+final class RecordsAspect implements AspectInterface
 {
     private const MAX_NESTED_TYPES = 5;
 
@@ -75,13 +74,13 @@ class TypeEmbedding implements MiddlewareInterface
         $this->signalSlotDispatcher = $signalSlotDispatcher ?: GeneralUtility::makeInstance(Dispatcher::class);
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function execute(SchemaManager $schemaManager): void
     {
         /** @var TypeRepository $typeRepository */
         $typeRepository = $this->objectManager->get(TypeRepository::class);
         $query = $typeRepository->createQuery();
         $querySettings = $query->getQuerySettings();
-        $querySettings->setStoragePageIds([$request->getAttribute('routing')->getPageId()]);
+        $querySettings->setStoragePageIds([$this->getServerRequest()->getAttribute('routing')->getPageId()]);
         $typeRepository->setDefaultQuerySettings($querySettings);
 
         $records = $typeRepository->findAll();
@@ -110,8 +109,6 @@ class TypeEmbedding implements MiddlewareInterface
                 $this->schemaManager->addType($processed['type']);
             }
         }
-
-        return $handler->handle($request);
     }
 
     private function buildType(Type $record, $isRootType = false, $onlyReference = false): ?AbstractType
@@ -135,7 +132,6 @@ class TypeEmbedding implements MiddlewareInterface
             return null;
         }
 
-        /** @var Type $record */
         $typeClass = Utility::getNamespacedClassNameForType($record->getSchemaType());
 
         if (empty($typeClass)) {
@@ -240,13 +236,22 @@ class TypeEmbedding implements MiddlewareInterface
     private function emitPlaceholderSubstitutionSignal(string $value): ?string
     {
         if (\strpos($value, '{') === 0) {
+            $event = new SubstitutePlaceholderEvent($value, $this->controller->page);
+
             $this->signalSlotDispatcher->dispatch(
-                __CLASS__,
+                static::class,
                 'placeholderSubstitution',
-                [&$value, $this->controller->page]
+                [$event]
             );
+
+            $value = $event->getValue();
         }
 
         return $value;
+    }
+
+    private function getServerRequest(): ServerRequestInterface
+    {
+        return $GLOBALS['TYPO3_REQUEST'];
     }
 }

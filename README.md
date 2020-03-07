@@ -1,6 +1,7 @@
 # Structured data for TYPO3 with the schema_records extension via records
 
 [![CI Status](https://github.com/brotkrueml/schema-records/workflows/CI/badge.svg?branch=master)](https://github.com/brotkrueml/schema-records/actions?query=workflow%3ACI)
+[![Coverage Status](https://coveralls.io/repos/github/brotkrueml/schema-records/badge.svg?branch=master)](https://coveralls.io/github/brotkrueml/schema-records?branch=master)
 
 
 ## Requirements

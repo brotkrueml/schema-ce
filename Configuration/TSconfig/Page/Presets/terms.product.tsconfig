@@ -1,0 +1,14 @@
+tx_schemarecords {
+  presets {
+    terms {
+      # https://developers.google.com/search/docs/data-types/product
+      product {
+        types {
+          AggregateOffer = highPrice,lowPrice,offerCount,priceCurrency
+          Offer = availability,itemOffered,price,priceCurrency,priceValidUntil,url
+          Product = aggregateRating,brand,description,gtin8,gtin13,gtin14,image,isbn,mpn,name,offers,review,sku
+        }
+      }
+    }
+  }
+}

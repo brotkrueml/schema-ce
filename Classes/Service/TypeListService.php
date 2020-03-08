@@ -10,13 +10,11 @@ namespace Brotkrueml\SchemaRecords\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use Brotkrueml\Schema\Provider\TypesProvider;
-
 final class TypeListService
 {
     public function getTcaList(array $config): array
     {
-        $types = (new TypesProvider())->getContentTypes();
+        $types = (new PresetsProvider())->getTypes($config['row']['pid']);
 
         \array_walk($types, function (&$type) {
             $type = [$type, $type];

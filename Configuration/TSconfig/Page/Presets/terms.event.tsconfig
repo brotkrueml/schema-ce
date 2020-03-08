@@ -1,0 +1,17 @@
+tx_schemarecords {
+  presets {
+    terms {
+      # https://developers.google.com/search/docs/data-types/event
+      event {
+        types {
+          Event = description,endDate,image,location,name,offers,performer,startDate
+          Offer = availability,price,priceCurrency,validFrom,url
+          PerformingGroup = name
+          Person = name
+          Place = address,name
+          PostalAddress = addressCountry,addressLocality,addressRegion,postalCode,streetAddress
+        }
+      }
+    }
+  }
+}

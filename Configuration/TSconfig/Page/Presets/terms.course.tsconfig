@@ -1,0 +1,14 @@
+tx_schemarecords {
+  presets {
+    terms {
+      # https://developers.google.com/search/docs/data-types/course
+      course {
+        types {
+          Course = description,name,provider
+          ItemList = itemListElement
+          ListItem = position,url
+        }
+      }
+    }
+  }
+}

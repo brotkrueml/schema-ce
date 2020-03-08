@@ -1,0 +1,18 @@
+tx_schemarecords {
+  presets {
+    terms {
+      # https://developers.google.com/search/docs/data-types/book
+      book {
+        types {
+          Book = author,bookEdition,bookFormat,datePublished,isbn,name,potentialAction,sameAs,url,workExample
+          Country = name
+          EntryPoint = actionPlatform,urlTemplate
+          Offer = availability,eligibleRegion,ineligibleRegion,price,priceCurrency
+          Person = name,sameAs
+          ReadAction = expectsAcceptanceOf,target
+          NotExisting = something
+        }
+      }
+    }
+  }
+}

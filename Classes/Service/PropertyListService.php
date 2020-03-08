@@ -11,7 +11,6 @@ namespace Brotkrueml\SchemaRecords\Service;
  */
 
 use Brotkrueml\Schema\Core\Model\AbstractType;
-use Brotkrueml\Schema\Model\Type\Thing;
 use Brotkrueml\Schema\Utility\Utility;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
@@ -33,32 +32,28 @@ final class PropertyListService
 
     public function getTcaList(array &$configuration): void
     {
-        if (empty($configuration['row']['parent'])) {
-            // Workaround for https://forge.typo3.org/issues/63777
-            $typeClass = new Thing();
-        } else {
-            $typeRepository = $this->objectManager->get(TypeRepository::class);
+        $typeRepository = $this->objectManager->get(TypeRepository::class);
 
-            $query = $typeRepository->createQuery();
-            $querySettings = $query->getQuerySettings();
-            $querySettings->setIgnoreEnableFields(true);
-            $typeRepository->setDefaultQuerySettings($querySettings);
+        $query = $typeRepository->createQuery();
+        $querySettings = $query->getQuerySettings();
+        $querySettings->setIgnoreEnableFields(true);
+        $typeRepository->setDefaultQuerySettings($querySettings);
 
-            /** @var Type $typeModel */
-            $typeModel = $typeRepository->findByIdentifier($configuration['row']['parent']);
+        /** @var Type $typeModel */
+        $typeModel = $typeRepository->findByIdentifier($configuration['row']['parent']);
 
-            if (empty($typeModel)) {
-                return;
-            }
-
-            $typeName = $typeModel->getSchemaType();
-            $typeClass = Utility::getNamespacedClassNameForType($typeName);
+        if (empty($typeModel)) {
+            return;
         }
+
+        $typeName = $typeModel->getSchemaType();
+        $typeClass = Utility::getNamespacedClassNameForType($typeName);
 
         if (!empty($typeClass)) {
             /** @var AbstractType $type */
             $type = new $typeClass();
-            foreach ($type->getPropertyNames() as $propertyName) {
+
+            foreach ((new PresetsProvider())->getPropertiesForType((int)$configuration['row']['pid'], $type) as $propertyName) {
                 $configuration['items'][] = [$propertyName, $propertyName];
             }
         }

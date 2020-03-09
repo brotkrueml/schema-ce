@@ -16,12 +16,24 @@ offers an API and view helpers) and gives the possibility to add schema.org voca
 The records can be placed on every page and enriches the web page with
 the needed markup - dependent on the user rights also for editors.
 
-The extension has an alpha status, for now it is a proof of concept.
+The extension has an alpha status, for now it is a **proof of concept**.
 Code changes must not be backward compatible. However, the extension works
 and could be used at own risk!
 
-You are welcome to participate!
+You are welcome to give feedback and participate!
 
+
+## Usage
+
+1. Select the *List* module on the page you want to insert structured data
+1. Create a new record and select *Schema Records* > *Type*
+1. Select the desired schema type, then the form reloads
+1. Enter an optional ID and add one or more properties
+1. Save the record
+1. Load the frontend page and have a look at the source code
+
+The shown types and properties in the record can be reduced, have a look
+at the configuration section below.
 
 ## Installation
 

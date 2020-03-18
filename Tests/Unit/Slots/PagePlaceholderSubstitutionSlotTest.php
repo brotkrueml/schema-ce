@@ -82,6 +82,11 @@ class PagePlaceholderSubstitutionSlotTest extends TestCase
                 [],
                 '{page:not_available}',
             ],
+            'Page property with null value is set to null' => [
+                '{page:description}',
+                ['description' => null],
+                null,
+            ],
         ];
     }
 }

@@ -27,7 +27,7 @@ final class PagePlaceholderSubstitutionSlot
         $fieldName = $matches[1];
         $dataType = $matches[3] ?? null;
 
-        if (!isset($pageProperties[$fieldName])) {
+        if (!\array_key_exists($fieldName, $pageProperties)) {
             return;
         }
 

@@ -140,3 +140,35 @@ character `*`.
 
 If different presets define the same types with different properties, the union of the
 properties are shown for this specific type.
+
+
+### Add helpful links to a schema type
+
+It can be useful to add one or more helpful links to a schema type when editing a record.
+The editor can look up the details of a type easily. By default, the link to the schema.org
+definition is available. Also the links to the Google seach reference for rich snippets
+is included.
+
+You can define additional links to other resources, e.g. to your own documentation of the web
+site with Page TSconfig, e.g.:
+
+    tx_schemarecords {
+      info {
+        types {
+          Article {
+            100 {
+              description = The description for the link
+              link = https://example.org/my-article/
+            }
+          }
+        }
+      }
+    }
+
+Every type under `tx_schemarecords.info.types` - in this example `Article` - can have one
+or more links defined. Please start with the index `100` or above because lower numbers
+are reserved by the extension. With the key `description` define the description for the link
+and with the key `link` the link itself.
+
+Have a look in the folder `Configuration/TSconfig/Page/Info` of this extension to see
+the shipped links.

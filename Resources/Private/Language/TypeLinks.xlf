@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:schema_records/Resources/Private/Language/TypeLinks" date="2020-03-18T19:38:27Z" product-name="schema_records">
+		<header/>
+		<body>
+			<trans-unit id="schema_org">
+				<source><![CDATA[See schema.org definitions for this schema type at]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.article">
+				<source><![CDATA[More information about Article rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.book">
+				<source><![CDATA[More information about Book rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.course">
+				<source><![CDATA[More information about Course rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.critic_review">
+				<source><![CDATA[More information about Critic Review rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.dataset">
+				<source><![CDATA[More information about Dataset rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.employer_aggregate_rating">
+				<source><![CDATA[More information about Employer Aggregate Rating rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.estimated_salary">
+				<source><![CDATA[More information about Estimated Salary rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.event">
+				<source><![CDATA[More information about Event rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.fact_check">
+				<source><![CDATA[More information about Fact Check rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.faq">
+				<source><![CDATA[More information about FAQ rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.howto">
+				<source><![CDATA[More information about How-to rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.job_posting">
+				<source><![CDATA[More information about JobPosting rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.movie">
+				<source><![CDATA[More information about Movie rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.product">
+				<source><![CDATA[More information about Product rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.qa">
+				<source><![CDATA[More information about Q&A rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.recipe">
+				<source><![CDATA[More information about Recipe rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.review_snippet">
+				<source><![CDATA[More information about Review Snippet rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.software_app">
+				<source><![CDATA[More information about Software App rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.subscription_paywalled_content">
+				<source><![CDATA[More information about Subscription And Paywalled Content rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+			<trans-unit id="google_rich_snippet.video">
+				<source><![CDATA[More information about Video rich snippets on Google Search reference:]]></source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

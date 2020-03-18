@@ -130,6 +130,15 @@ return [
                 'eval' => 'required'
             ],
         ],
+        'links' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.links',
+            'displayCond' => 'FIELD:schema_type:REQ:true',
+            'config' => [
+                'type' => 'none',
+                'renderType' => 'schemaRecordsTypeLinks',
+            ]
+        ],
         'schema_id' => [
             'exclude' => true,
             'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.schema_id',
@@ -180,8 +189,7 @@ return [
     'types' => [
         '1' => [
             'showitem' => '
-                schema_type,
-                schema_id,
+                --palette--;;type,
                 webpage_mainentity,
                 properties,
                 --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
@@ -190,5 +198,8 @@ return [
                 starttime, endtime, hidden,
             '
         ],
+    ],
+    'palettes' => [
+        'type' => ['showitem' => 'schema_type, --linebreak--, links']
     ],
 ];

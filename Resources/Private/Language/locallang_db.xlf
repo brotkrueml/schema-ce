@@ -6,6 +6,9 @@
 			<trans-unit id="tx_schemarecords_domain_model_type">
 				<source>Type</source>
 			</trans-unit>
+			<trans-unit id="tx_schemarecords_domain_model_type.links">
+				<source>Helpful links</source>
+			</trans-unit>
 			<trans-unit id="tx_schemarecords_domain_model_type.schema_type">
 				<source>Schema type</source>
 			</trans-unit>

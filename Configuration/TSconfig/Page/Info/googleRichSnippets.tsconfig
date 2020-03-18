@@ -1,0 +1,141 @@
+tx_schemarecords {
+  info {
+    types {
+      Article {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.article
+          link = https://developers.google.com/search/docs/data-types/article
+        }
+      }
+
+      Book {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.book
+          link = https://developers.google.com/search/docs/data-types/book
+        }
+      }
+
+      ClaimReview {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.fact_check
+          link = https://developers.google.com/search/docs/data-types/factcheck
+        }
+      }
+
+      Course {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.course
+          link = https://developers.google.com/search/docs/data-types/course
+        }
+      }
+
+      Dataset {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.dataset
+          link = https://developers.google.com/search/docs/data-types/dataset
+        }
+      }
+
+      EmployerAggregateRating {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.employer_aggregate_rating
+          link = https://developers.google.com/search/docs/data-types/employer-rating
+        }
+      }
+
+      Event {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.event
+          link = https://developers.google.com/search/docs/data-types/event
+        }
+      }
+
+      HowTo {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.howto
+          link = https://developers.google.com/search/docs/data-types/how-to
+        }
+      }
+
+      JobPosting {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.job_posting
+          link = https://developers.google.com/search/docs/data-types/job-posting
+        }
+      }
+
+      MonetaryAmountDistribution {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.estimated_salary
+          link = https://developers.google.com/search/docs/data-types/estimated-salary
+        }
+      }
+
+      Movie {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.movie
+          link = https://developers.google.com/search/docs/data-types/movie
+        }
+      }
+
+      NewsArticle {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.subscription_paywalled_content
+          link = https://developers.google.com/search/docs/data-types/paywalled-content
+        }
+      }
+
+      Product {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.product
+          link = https://developers.google.com/search/docs/data-types/product
+        }
+      }
+
+      Question {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.faq
+          link = https://developers.google.com/search/docs/data-types/faqpage
+        }
+        20 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.qa
+          link = https://developers.google.com/search/docs/data-types/qapage
+        }
+      }
+
+      Recipe {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.recipe
+          link = https://developers.google.com/search/docs/data-types/recipe
+        }
+      }
+
+      Review {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.critic_review
+          link = https://developers.google.com/search/docs/data-types/critic-review
+        }
+        20 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.review_snippet
+          link = https://developers.google.com/search/docs/data-types/review-snippet
+        }
+      }
+
+      SoftwareApplication {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.software_app
+          link = https://developers.google.com/search/docs/data-types/software-app
+        }
+      }
+      MobileApplication < .SoftwareApplication
+      WebApplication < .SoftwareApplication
+
+      Video {
+        10 {
+          description = LLL:EXT:schema_records/Resources/Private/Language/TypeLinks.xlf:google_rich_snippet.video
+          link = https://developers.google.com/search/docs/data-types/video
+        }
+      }
+    }
+  }
+}

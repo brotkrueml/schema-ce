@@ -142,6 +142,7 @@ return [
         'schema_id' => [
             'exclude' => true,
             'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.schema_id',
+            'displayCond' => 'FIELD:schema_type:REQ:true',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -151,6 +152,7 @@ return [
         'webpage_mainentity' => [
             'exclude' => true,
             'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.webpage_mainentity',
+            'displayCond' => 'FIELD:schema_type:REQ:true',
             'config' => [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
@@ -167,6 +169,7 @@ return [
         'properties' => [
             'exclude' => true,
             'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.properties',
+            'displayCond' => 'FIELD:schema_type:REQ:true',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_schemarecords_domain_model_property',

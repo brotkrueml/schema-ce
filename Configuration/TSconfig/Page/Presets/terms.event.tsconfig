@@ -4,7 +4,7 @@ tx_schemarecords {
       # https://developers.google.com/search/docs/data-types/event
       event {
         types {
-          Event = description,endDate,image,location,name,offers,performer,startDate
+          Event = description,endDate,eventAttendanceMode,eventStatus,image,location,name,offers,performer,previousStartDate,startDate
           Offer = availability,price,priceCurrency,validFrom,url
           PerformingGroup = name
           Person = name

@@ -11,7 +11,7 @@ namespace Brotkrueml\SchemaRecords\Service;
  */
 
 use Brotkrueml\Schema\Core\Model\AbstractType;
-use Brotkrueml\Schema\Utility\Utility;
+use Brotkrueml\Schema\Registry\TypeRegistry;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -25,9 +25,15 @@ final class PropertyListService
      */
     private $objectManager;
 
-    public function __construct(ObjectManagerInterface $objectManager = null)
+    /**
+     * @var TypeRegistry
+     */
+    private $typeRegistry;
+
+    public function __construct(ObjectManagerInterface $objectManager = null, TypeRegistry $typeRegistry = null)
     {
         $this->objectManager = $objectManager ?? GeneralUtility::makeInstance(ObjectManager::class);
+        $this->typeRegistry = $typeRegistry ?? GeneralUtility::makeInstance(TypeRegistry::class);
     }
 
     public function getTcaList(array &$configuration): void
@@ -47,7 +53,7 @@ final class PropertyListService
         }
 
         $typeName = $typeModel->getSchemaType();
-        $typeClass = Utility::getNamespacedClassNameForType($typeName);
+        $typeClass = $this->typeRegistry->resolveModelClassFromType($typeName);
 
         if (!empty($typeClass)) {
             /** @var AbstractType $type */

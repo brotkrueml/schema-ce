@@ -4,14 +4,16 @@ declare(strict_types=1);
 namespace Brotkrueml\SchemaRecords\Tests\Unit\Aspect;
 
 use Brotkrueml\Schema\Manager\SchemaManager;
+use Brotkrueml\Schema\Registry\TypeRegistry;
 use Brotkrueml\SchemaRecords\Aspect\RecordsAspect;
 use Brotkrueml\SchemaRecords\Domain\Model\Property;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
+use Brotkrueml\SchemaRecords\Tests\Fixtures\Model\Type\FixtureThing;
 use Brotkrueml\SchemaRecords\Tests\Helper\SchemaCacheTrait;
 use Brotkrueml\SchemaRecords\Tests\Unit\Helper\LogManagerMockTrait;
-use Brotkrueml\SchemaRecords\Tests\Unit\Helper\TypeFixtureNamespaceTrait;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Routing\PageArguments;
@@ -30,7 +32,6 @@ class RecordsAspectTest extends UnitTestCase
 {
     use LogManagerMockTrait;
     use SchemaCacheTrait;
-    use TypeFixtureNamespaceTrait;
 
     protected $resetSingletonInstances = true;
 
@@ -75,21 +76,14 @@ class RecordsAspectTest extends UnitTestCase
     protected $dispatcherMock;
 
     /**
+     * @var Stub|TypeRegistry
+     */
+    protected $typeRegistryStub;
+
+    /**
      * @var RecordsAspect
      */
     protected $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        static::setTypeNamespaceToFixtureNamespace();
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        static::restoreOriginalTypeNamespace();
-        parent::tearDownAfterClass();
-    }
 
     protected function setUp(): void
     {
@@ -153,11 +147,18 @@ class RecordsAspectTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->typeRegistryStub = $this->createStub(TypeRegistry::class);
+        $this->typeRegistryStub
+            ->method('resolveModelClassFromType')
+            ->with('FixtureThing')
+            ->willReturn(FixtureThing::class);
+
         $this->subject = new RecordsAspect(
             $this->controllerMock,
             $this->objectManagerMock,
             $this->schemaManager,
-            $this->dispatcherMock
+            $this->dispatcherMock,
+            $this->typeRegistryStub
         );
     }
 
@@ -190,40 +191,6 @@ class RecordsAspectTest extends UnitTestCase
             ->willReturn($pageArguments);
 
         $GLOBALS['TYPO3_REQUEST'] = $this->serverRequestMock;
-    }
-
-    /**
-     * @test
-     */
-    public function constructWorksCorrectlyWithNoParametersGiven(): void
-    {
-        if (\class_exists('\\TYPO3\\CMS\\Core\\DependencyInjection\\ContainerBuilder')) {
-            self::markTestSkipped('Not needed in TYPO3 v10 because of Dependency Injection.');
-        }
-
-        $GLOBALS['TSFE'] = 'fake controller';
-
-        $reflector = new \ReflectionClass(RecordsAspect::class);
-
-        /** @noinspection PhpUnhandledExceptionInspection */
-        $controller = $reflector->getProperty('controller');
-        $controller->setAccessible(true);
-
-        /** @noinspection PhpUnhandledExceptionInspection */
-        $objectManager = $reflector->getProperty('objectManager');
-        $objectManager->setAccessible(true);
-
-        /** @noinspection PhpUnhandledExceptionInspection */
-        $schemaManager = $reflector->getProperty('schemaManager');
-        $schemaManager->setAccessible(true);
-
-        $subject = new RecordsAspect();
-
-        self::assertSame('fake controller', $controller->getValue($subject));
-        self::assertInstanceOf(SchemaManager::class, $schemaManager->getValue($subject));
-        self::assertInstanceOf(ObjectManager::class, $objectManager->getValue($subject));
-
-        unset($GLOBALS['TSFE']);
     }
 
     /**

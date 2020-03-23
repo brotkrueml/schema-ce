@@ -3,13 +3,14 @@ declare(strict_types=1);
 
 namespace Brotkrueml\SchemaRecords\Tests\Unit\Service;
 
+use Brotkrueml\Schema\Registry\TypeRegistry;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
 use Brotkrueml\SchemaRecords\Service\PropertyListService;
 use Brotkrueml\SchemaRecords\Tests\Helper\SchemaCacheTrait;
 use Brotkrueml\SchemaRecords\Tests\Unit\Helper\LogManagerMockTrait;
-use Brotkrueml\SchemaRecords\Tests\Unit\Helper\TypeFixtureNamespaceTrait;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -21,7 +22,6 @@ class PropertyListServiceTest extends TestCase
 {
     use LogManagerMockTrait;
     use SchemaCacheTrait;
-    use TypeFixtureNamespaceTrait;
 
     /**
      * @var MockObject|ObjectManagerInterface
@@ -36,17 +36,10 @@ class PropertyListServiceTest extends TestCase
     /** @var MockObject|Type $typeMock */
     private $typeMock;
 
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        static::setTypeNamespaceToFixtureNamespace();
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        static::restoreOriginalTypeNamespace();
-        parent::tearDownAfterClass();
-    }
+    /**
+     * @var Stub|TypeRegistry
+     */
+    private $typeRegistryStub;
 
     protected function setUp(): void
     {
@@ -97,6 +90,8 @@ class PropertyListServiceTest extends TestCase
         $this->typeMock = $this->getMockBuilder(Type::class)
             ->onlyMethods(['getSchemaType'])
             ->getMock();
+
+        $this->typeRegistryStub = $this->createStub(TypeRegistry::class);
 
         $this->defineCacheStubsWhichReturnEmptyEntry();
     }
@@ -176,7 +171,12 @@ class PropertyListServiceTest extends TestCase
             ->with(42)
             ->willReturn($this->typeMock);
 
-        $subject = new PropertyListService($this->objectManagerMock);
+        $this->typeRegistryStub
+            ->method('resolveModelClassFromType')
+            ->with('TypeDoesNotExist')
+            ->willReturn(null);
+
+        $subject = new PropertyListService($this->objectManagerMock, $this->typeRegistryStub);
 
         $subject->getTcaList($configuration);
 

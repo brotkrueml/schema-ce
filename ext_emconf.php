@@ -7,11 +7,11 @@ $EM_CONF[$_EXTKEY] = [
     'author' => 'Chris Müller',
     'author_email' => 'typo3@krue.ml',
     'state' => 'alpha',
-    'version' => '0.3.0',
+    'version' => '0.4.0-dev',
     'constraints' => [
         'depends' => [
-            'typo3' => '9.5.14-10.4.99',
-            'schema' => '1.6.0-1.99.99',
+            'typo3' => '9.5.14-9.5.99',
+            'schema' => '1.7.0-1.99.99',
         ],
     ],
     'autoload' => [

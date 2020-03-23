@@ -13,7 +13,7 @@ namespace Brotkrueml\SchemaRecords\Aspect;
 use Brotkrueml\Schema\Aspect\AspectInterface;
 use Brotkrueml\Schema\Core\Model\AbstractType;
 use Brotkrueml\Schema\Manager\SchemaManager;
-use Brotkrueml\Schema\Utility\Utility;
+use Brotkrueml\Schema\Registry\TypeRegistry;
 use Brotkrueml\SchemaRecords\Domain\Model\Property;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
@@ -44,6 +44,9 @@ final class RecordsAspect implements AspectInterface
     /** @var Dispatcher */
     private $signalSlotDispatcher;
 
+    /** @var TypeRegistry */
+    private $typeRegistry;
+
     private $referencedRecords = [];
     private $processedRecords = [];
 
@@ -61,17 +64,20 @@ final class RecordsAspect implements AspectInterface
      * @param ObjectManagerInterface|null $objectManager
      * @param SchemaManager|null $schemaManager
      * @param Dispatcher|null $signalSlotDispatcher
+     * @param TypeRegistry|null $typeRegistry
      */
     public function __construct(
         TypoScriptFrontendController $controller = null,
         ObjectManagerInterface $objectManager = null,
         SchemaManager $schemaManager = null,
-        Dispatcher $signalSlotDispatcher = null
+        Dispatcher $signalSlotDispatcher = null,
+        TypeRegistry $typeRegistry = null
     ) {
-        $this->controller = $controller ?: $GLOBALS['TSFE'];
-        $this->objectManager = $objectManager ?: GeneralUtility::makeInstance(ObjectManager::class);
-        $this->schemaManager = $schemaManager ?: GeneralUtility::makeInstance(SchemaManager::class);
-        $this->signalSlotDispatcher = $signalSlotDispatcher ?: GeneralUtility::makeInstance(Dispatcher::class);
+        $this->controller = $controller ?? $GLOBALS['TSFE'];
+        $this->objectManager = $objectManager ?? GeneralUtility::makeInstance(ObjectManager::class);
+        $this->schemaManager = $schemaManager ?? GeneralUtility::makeInstance(SchemaManager::class);
+        $this->signalSlotDispatcher = $signalSlotDispatcher ?? GeneralUtility::makeInstance(Dispatcher::class);
+        $this->typeRegistry = $typeRegistry ?? GeneralUtility::makeInstance(TypeRegistry::class);
     }
 
     public function execute(SchemaManager $schemaManager): void
@@ -132,7 +138,7 @@ final class RecordsAspect implements AspectInterface
             return null;
         }
 
-        $typeClass = Utility::getNamespacedClassNameForType($record->getSchemaType());
+        $typeClass = $this->typeRegistry->resolveModelClassFromType($record->getSchemaType());
 
         if (empty($typeClass)) {
             throw new \DomainException(

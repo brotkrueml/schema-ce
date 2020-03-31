@@ -12,7 +12,6 @@ namespace Brotkrueml\SchemaRecords\Service;
 
 use Brotkrueml\Schema\Core\Model\AbstractType;
 use Brotkrueml\Schema\Provider\TypesProvider;
-use Brotkrueml\Schema\Utility\Utility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -58,7 +57,7 @@ final class PresetsProvider
             return $allProperties;
         }
 
-        $type = Utility::getClassNameWithoutNamespace(\get_class($typeObject));
+        $type = $typeObject->getType();
         $properties = [];
         foreach ($presets['terms'] ?? [] as $term) {
             if (!isset($term['types'][$type])) {

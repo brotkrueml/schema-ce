@@ -12,4 +12,14 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class TypeRepository extends Repository
 {
+    public function findAllFromPage(int $pageId)
+    {
+        $query = $this->createQuery();
+        $querySettings = $query->getQuerySettings();
+        $querySettings->setStoragePageIds([$pageId]);
+        $querySettings->setLanguageOverlayMode(false);
+        $this->setDefaultQuerySettings($querySettings);
+
+        return $this->createQuery()->execute();
+    }
 }

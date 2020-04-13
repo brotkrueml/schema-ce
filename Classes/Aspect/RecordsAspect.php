@@ -78,12 +78,7 @@ final class RecordsAspect implements AspectInterface
     {
         /** @var TypeRepository $typeRepository */
         $typeRepository = $this->objectManager->get(TypeRepository::class);
-        $query = $typeRepository->createQuery();
-        $querySettings = $query->getQuerySettings();
-        $querySettings->setStoragePageIds([$this->getServerRequest()->getAttribute('routing')->getPageId()]);
-        $typeRepository->setDefaultQuerySettings($querySettings);
-
-        $records = $typeRepository->findAll();
+        $records = $typeRepository->findAllFromPage($this->getServerRequest()->getAttribute('routing')->getPageId());
 
         $this->referencedRecords = [];
         $this->processedRecords = [];

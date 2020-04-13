@@ -5,7 +5,7 @@ namespace Brotkrueml\SchemaRecords\Tests\Fixtures\Model\Type;
 
 use Brotkrueml\Schema\Core\Model\AbstractType;
 
-final class FixtureThing extends AbstractType
+final class Thing extends AbstractType
 {
     protected static $propertyNames = [
         'date',

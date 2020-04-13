@@ -11,9 +11,9 @@ namespace Brotkrueml\SchemaRecords\Aspect;
  */
 
 use Brotkrueml\Schema\Aspect\AspectInterface;
-use Brotkrueml\Schema\Core\Model\AbstractType;
+use Brotkrueml\Schema\Core\Model\TypeInterface;
 use Brotkrueml\Schema\Manager\SchemaManager;
-use Brotkrueml\Schema\Type\TypeRegistry;
+use Brotkrueml\Schema\Type\TypeFactory;
 use Brotkrueml\SchemaRecords\Domain\Model\Property;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
@@ -44,9 +44,6 @@ final class RecordsAspect implements AspectInterface
     /** @var Dispatcher */
     private $signalSlotDispatcher;
 
-    /** @var TypeRegistry */
-    private $typeRegistry;
-
     private $referencedRecords = [];
     private $processedRecords = [];
 
@@ -64,20 +61,17 @@ final class RecordsAspect implements AspectInterface
      * @param ObjectManagerInterface|null $objectManager
      * @param SchemaManager|null $schemaManager
      * @param Dispatcher|null $signalSlotDispatcher
-     * @param TypeRegistry|null $typeRegistry
      */
     public function __construct(
         TypoScriptFrontendController $controller = null,
         ObjectManagerInterface $objectManager = null,
         SchemaManager $schemaManager = null,
-        Dispatcher $signalSlotDispatcher = null,
-        TypeRegistry $typeRegistry = null
+        Dispatcher $signalSlotDispatcher = null
     ) {
         $this->controller = $controller ?? $GLOBALS['TSFE'];
         $this->objectManager = $objectManager ?? GeneralUtility::makeInstance(ObjectManager::class);
         $this->schemaManager = $schemaManager ?? GeneralUtility::makeInstance(SchemaManager::class);
         $this->signalSlotDispatcher = $signalSlotDispatcher ?? GeneralUtility::makeInstance(Dispatcher::class);
-        $this->typeRegistry = $typeRegistry ?? GeneralUtility::makeInstance(TypeRegistry::class);
     }
 
     public function execute(SchemaManager $schemaManager): void
@@ -117,7 +111,7 @@ final class RecordsAspect implements AspectInterface
         }
     }
 
-    private function buildType(Type $record, $isRootType = false, $onlyReference = false): ?AbstractType
+    private function buildType(Type $record, $isRootType = false, $onlyReference = false): ?TypeInterface
     {
         $this->nestedTypesCounter++;
 
@@ -138,17 +132,7 @@ final class RecordsAspect implements AspectInterface
             return null;
         }
 
-        $typeClass = $this->typeRegistry->resolveModelClassFromType($record->getSchemaType());
-
-        if (empty($typeClass)) {
-            throw new \DomainException(
-                sprintf('Type "%s" is not valid, no model found!', $record->getSchemaType()),
-                1563797009
-            );
-        }
-
-        /** @var AbstractType $typeModel */
-        $typeModel = new $typeClass();
+        $typeModel = TypeFactory::createType($record->getSchemaType());
 
         $id = $record->getSchemaId();
         if (!empty($id)) {

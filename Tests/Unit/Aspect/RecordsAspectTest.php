@@ -4,16 +4,15 @@ declare(strict_types=1);
 namespace Brotkrueml\SchemaRecords\Tests\Unit\Aspect;
 
 use Brotkrueml\Schema\Manager\SchemaManager;
-use Brotkrueml\Schema\Registry\TypeRegistry;
+use Brotkrueml\Schema\Type\TypeRegistry;
 use Brotkrueml\SchemaRecords\Aspect\RecordsAspect;
 use Brotkrueml\SchemaRecords\Domain\Model\Property;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
-use Brotkrueml\SchemaRecords\Tests\Fixtures\Model\Type\FixtureThing;
+use Brotkrueml\SchemaRecords\Tests\Fixtures\Model\Type\Thing;
 use Brotkrueml\SchemaRecords\Tests\Helper\SchemaCacheTrait;
 use Brotkrueml\SchemaRecords\Tests\Unit\Helper\LogManagerMockTrait;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\MockObject\Stub;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Routing\PageArguments;
@@ -76,11 +75,6 @@ class RecordsAspectTest extends UnitTestCase
     protected $dispatcherMock;
 
     /**
-     * @var Stub|TypeRegistry
-     */
-    protected $typeRegistryStub;
-
-    /**
      * @var RecordsAspect
      */
     protected $subject;
@@ -88,6 +82,14 @@ class RecordsAspectTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->defineCacheStubsWhichReturnEmptyEntry();
+
+        $typeRegistryStub = $this->createStub(TypeRegistry::class);
+        $typeRegistryStub
+            ->method('resolveModelClassFromType')
+            ->with('Thing')
+            ->willReturn(Thing::class);
+
+        GeneralUtility::setSingletonInstance(TypeRegistry::class, $typeRegistryStub);
     }
 
     protected function tearDown(): void
@@ -147,18 +149,11 @@ class RecordsAspectTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->typeRegistryStub = $this->createStub(TypeRegistry::class);
-        $this->typeRegistryStub
-            ->method('resolveModelClassFromType')
-            ->with('FixtureThing')
-            ->willReturn(FixtureThing::class);
-
         $this->subject = new RecordsAspect(
             $this->controllerMock,
             $this->objectManagerMock,
             $this->schemaManager,
-            $this->dispatcherMock,
-            $this->typeRegistryStub
+            $this->dispatcherMock
         );
     }
 
@@ -224,7 +219,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $type = new Type();
         $type->_setProperty('uid', 21);
-        $type->setSchemaType('FixtureThing');
+        $type->setSchemaType('Thing');
 
         $this->typeRepositoryMock
             ->expects(self::once())
@@ -236,7 +231,7 @@ class RecordsAspectTest extends UnitTestCase
         $actual = $this->schemaManager->renderJsonLd();
 
         self::assertSame(
-            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing"}</script>',
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"Thing"}</script>',
             $actual
         );
     }
@@ -251,7 +246,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $type = new Type();
         $type->_setProperty('uid', 21);
-        $type->setSchemaType('FixtureThing');
+        $type->setSchemaType('Thing');
 
         $property = new Property();
         $property->setName('name');
@@ -268,7 +263,7 @@ class RecordsAspectTest extends UnitTestCase
         $actual = $this->schemaManager->renderJsonLd();
 
         self::assertSame(
-            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","name":"some single value"}</script>',
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"Thing","name":"some single value"}</script>',
             $actual
         );
     }
@@ -290,7 +285,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $type = new Type();
         $type->_setProperty('uid', 21);
-        $type->setSchemaType('FixtureThing');
+        $type->setSchemaType('Thing');
 
         $property = new Property();
         $property->setName('url');
@@ -308,7 +303,7 @@ class RecordsAspectTest extends UnitTestCase
         $actual = $this->schemaManager->renderJsonLd();
 
         self::assertSame(
-            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","url":"http://example.org/"}</script>',
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"Thing","url":"http://example.org/"}</script>',
             $actual
         );
     }
@@ -323,7 +318,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $type = new Type();
         $type->_setProperty('uid', 21);
-        $type->setSchemaType('FixtureThing');
+        $type->setSchemaType('Thing');
 
         $property = new Property();
         $property->setVariant(Property::VARIANT_BOOLEAN);
@@ -341,7 +336,7 @@ class RecordsAspectTest extends UnitTestCase
         $actual = $this->schemaManager->renderJsonLd();
 
         self::assertSame(
-            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","flag":"http://schema.org/True"}</script>',
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"Thing","flag":"http://schema.org/True"}</script>',
             $actual
         );
     }
@@ -356,7 +351,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $type = new Type();
         $type->_setProperty('uid', 21);
-        $type->setSchemaType('FixtureThing');
+        $type->setSchemaType('Thing');
 
         $property = new Property();
         $property->setVariant(Property::VARIANT_BOOLEAN);
@@ -374,7 +369,7 @@ class RecordsAspectTest extends UnitTestCase
         $actual = $this->schemaManager->renderJsonLd();
 
         self::assertSame(
-            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","flag":"http://schema.org/False"}</script>',
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"Thing","flag":"http://schema.org/False"}</script>',
             $actual
         );
     }
@@ -390,7 +385,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $type = new Type();
         $type->_setProperty('uid', 21);
-        $type->setSchemaType('FixtureThing');
+        $type->setSchemaType('Thing');
 
         /** @var MockObject|File $fileMock */
         $fileMock = $this->createMock(File::class);
@@ -428,7 +423,7 @@ class RecordsAspectTest extends UnitTestCase
         $actual = $this->schemaManager->renderJsonLd();
 
         self::assertSame(
-            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","image":"http://example.org/image.png"}</script>',
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"Thing","image":"http://example.org/image.png"}</script>',
             $actual
         );
     }
@@ -446,7 +441,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $type = new Type();
         $type->_setProperty('uid', 21);
-        $type->setSchemaType('FixtureThing');
+        $type->setSchemaType('Thing');
 
         $property = new Property();
         $property->setVariant(Property::VARIANT_DATETIME);
@@ -464,7 +459,7 @@ class RecordsAspectTest extends UnitTestCase
         $actual = $this->schemaManager->renderJsonLd();
 
         self::assertSame(
-            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","date":"2019-07-27T18:45:41+02:00"}</script>',
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"Thing","date":"2019-07-27T18:45:41+02:00"}</script>',
             $actual
         );
 
@@ -481,7 +476,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $type = new Type();
         $type->_setProperty('uid', 21);
-        $type->setSchemaType('FixtureThing');
+        $type->setSchemaType('Thing');
 
         $property = new Property();
         $property->setVariant(Property::VARIANT_DATE);
@@ -499,7 +494,7 @@ class RecordsAspectTest extends UnitTestCase
         $actual = $this->schemaManager->renderJsonLd();
 
         self::assertSame(
-            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"FixtureThing","date":"2019-07-27"}</script>',
+            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"Thing","date":"2019-07-27"}</script>',
             $actual
         );
     }
@@ -531,7 +526,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $type = new Type();
         $type->_setProperty('uid', 21);
-        $type->setSchemaType('FixtureThing');
+        $type->setSchemaType('Thing');
 
         $property = new Property();
         $property->setVariant(123456789);

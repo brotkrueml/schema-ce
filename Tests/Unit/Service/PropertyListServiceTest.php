@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Brotkrueml\SchemaRecords\Tests\Unit\Service;
 
-use Brotkrueml\Schema\Registry\TypeRegistry;
+use Brotkrueml\Schema\Type\TypeRegistry;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
 use Brotkrueml\SchemaRecords\Service\PropertyListService;

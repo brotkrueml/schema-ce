@@ -19,8 +19,6 @@ use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Persistence\Generic\Query;
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Service\ImageService;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -112,8 +110,8 @@ class RecordsAspectTest extends UnitTestCase
             ->getMock();
 
         $this->typeRepositoryMock = $this->getMockBuilder(TypeRepository::class)
-            ->setConstructorArgs([$this->objectManagerMock])
-            ->onlyMethods(['createQuery', 'findAll'])
+            ->disableOriginalConstructor()
+            ->onlyMethods(['findAllFromPage'])
             ->getMock();
 
         $this->objectManagerMock
@@ -121,29 +119,6 @@ class RecordsAspectTest extends UnitTestCase
             ->method('get')
             ->with(TypeRepository::class)
             ->willReturn($this->typeRepositoryMock);
-
-        $querySettingsMock = $this->getMockBuilder(Typo3QuerySettings::class)
-            ->onlyMethods(['setStoragePageIds'])
-            ->getMock();
-
-        $querySettingsMock
-            ->expects(self::once())
-            ->method('setStoragePageIds');
-
-        $queryMock = $this->getMockBuilder(Query::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['getQuerySettings'])
-            ->getMock();
-
-        $queryMock
-            ->expects(self::once())
-            ->method('getQuerySettings')
-            ->willReturn($querySettingsMock);
-
-        $this->typeRepositoryMock
-            ->expects(self::once())
-            ->method('createQuery')
-            ->willReturn($queryMock);
 
         $this->dispatcherMock = $this->getMockBuilder(Dispatcher::class)
             ->disableOriginalConstructor()
@@ -198,7 +173,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $this->typeRepositoryMock
             ->expects(self::once())
-            ->method('findAll')
+            ->method('findAllFromPage')
             ->willReturn([]);
 
         $this->subject->execute($this->schemaManager);
@@ -223,7 +198,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $this->typeRepositoryMock
             ->expects(self::once())
-            ->method('findAll')
+            ->method('findAllFromPage')
             ->willReturn([$type]);
 
         $this->subject->execute($this->schemaManager);
@@ -255,7 +230,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $this->typeRepositoryMock
             ->expects(self::once())
-            ->method('findAll')
+            ->method('findAllFromPage')
             ->willReturn([$type]);
 
         $this->subject->execute($this->schemaManager);
@@ -295,7 +270,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $this->typeRepositoryMock
             ->expects(self::once())
-            ->method('findAll')
+            ->method('findAllFromPage')
             ->willReturn([$type]);
 
         $this->subject->execute($this->schemaManager);
@@ -328,7 +303,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $this->typeRepositoryMock
             ->expects(self::once())
-            ->method('findAll')
+            ->method('findAllFromPage')
             ->willReturn([$type]);
 
         $this->subject->execute($this->schemaManager);
@@ -361,7 +336,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $this->typeRepositoryMock
             ->expects(self::once())
-            ->method('findAll')
+            ->method('findAllFromPage')
             ->willReturn([$type]);
 
         $this->subject->execute($this->schemaManager);
@@ -409,7 +384,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $this->typeRepositoryMock
             ->expects(self::once())
-            ->method('findAll')
+            ->method('findAllFromPage')
             ->willReturn([$type]);
 
         $this->imageServiceMock
@@ -451,7 +426,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $this->typeRepositoryMock
             ->expects(self::once())
-            ->method('findAll')
+            ->method('findAllFromPage')
             ->willReturn([$type]);
 
         $this->subject->execute($this->schemaManager);
@@ -486,7 +461,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $this->typeRepositoryMock
             ->expects(self::once())
-            ->method('findAll')
+            ->method('findAllFromPage')
             ->willReturn([$type]);
 
         $this->subject->execute($this->schemaManager);
@@ -536,7 +511,7 @@ class RecordsAspectTest extends UnitTestCase
 
         $this->typeRepositoryMock
             ->expects(self::once())
-            ->method('findAll')
+            ->method('findAllFromPage')
             ->willReturn([$type]);
 
         $this->subject->execute($this->schemaManager);

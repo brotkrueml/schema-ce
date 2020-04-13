@@ -8,9 +8,6 @@ return [
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'versioningWS' => true,
-        'languageField' => 'sys_language_uid',
-        'transOrigPointerField' => 'l10n_parent',
-        'transOrigDiffSourceField' => 'l10n_diffsource',
         'delete' => 'deleted',
         'enablecolumns' => [
             'disabled' => 'hidden',
@@ -20,46 +17,9 @@ return [
         'iconfile' => 'EXT:schema_records/Resources/Public/Icons/tx_schemarecords_domain_model_property.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, variant, name, single_value, url, type_reference',
+        'showRecordFieldList' => 'hidden, variant, name, single_value, url, type_reference',
     ],
     'columns' => [
-        'sys_language_uid' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'special' => 'languages',
-                'items' => [
-                    [
-                        'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages',
-                        -1,
-                        'flags-multiple'
-                    ]
-                ],
-                'default' => 0,
-            ],
-        ],
-        'l10n_parent' => [
-            'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => true,
-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'default' => 0,
-                'items' => [
-                    ['', 0],
-                ],
-                'foreign_table' => 'tx_schemarecords_domain_model_property',
-                'foreign_table_where' => 'AND {#tx_schemarecords_domain_model_property}.{#pid}=###CURRENT_PID### AND {#tx_schemarecords_domain_model_property}.{#sys_language_uid} IN (-1,0)',
-            ],
-        ],
-        'l10n_diffsource' => [
-            'config' => [
-                'type' => 'passthrough',
-            ],
-        ],
         't3ver_label' => [
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.versionLabel',
             'config' => [
@@ -280,48 +240,36 @@ return [
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_SINGLE_VALUE => [
             'showitem' => '
                 name, variant, single_value,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
-                --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_URL => [
             'showitem' => '
                 name, variant, url,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
-                --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_IMAGE => [
             'showitem' => '
                 name, variant, image,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
-                --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_BOOLEAN => [
             'showitem' => '
                 name, variant, flag,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
-                --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_TYPE_REFERENCE => [
             'showitem' => '
                 name, variant, type_reference, reference_only,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
-                --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATETIME => [
             'showitem' => '
                 name, variant, timestamp,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
-                --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
@@ -336,20 +284,9 @@ return [
             ],
             'showitem' => '
                 name, variant, timestamp,
-                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
-                --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,
                 hidden,
             '
-        ],
-    ],
-    'palettes' => [
-        'language' => [
-            'showitem' => '
-                sys_language_uid;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:sys_language_uid_formlabel,
-                l18n_parent,
-                l10n_diffsource,
-            ',
         ],
     ],
 ];

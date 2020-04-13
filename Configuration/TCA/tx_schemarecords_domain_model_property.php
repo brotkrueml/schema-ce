@@ -150,11 +150,26 @@ return [
                 'eval' => 'trim',
                 'valuePicker' => [
                     'items' => [
-                        ['LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.title', '{page:title}'],
-                        ['LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.subtitle', '{page:subtitle}'],
-                        ['LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.abstract', '{page:abstract}'],
-                        ['LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.description', '{page:description}'],
-                        ['LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.last_updated', '{page:lastUpdated(datetime)}'],
+                        [
+                            'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.title',
+                            '{page:title}'
+                        ],
+                        [
+                            'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.subtitle',
+                            '{page:subtitle}'
+                        ],
+                        [
+                            'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.abstract',
+                            '{page:abstract}'
+                        ],
+                        [
+                            'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.description',
+                            '{page:description}'
+                        ],
+                        [
+                            'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.last_updated',
+                            '{page:lastUpdated(datetime)}'
+                        ],
                     ],
                 ],
             ],
@@ -296,8 +311,9 @@ return [
         ],
         (string)\Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_TYPE_REFERENCE => [
             'showitem' => '
-                sys_language_uid, l10n_parent, l10n_diffsource,
                 name, variant, type_reference, reference_only,
+                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
+                --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden,
             '
         ],
@@ -325,6 +341,15 @@ return [
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,
                 hidden,
             '
+        ],
+    ],
+    'palettes' => [
+        'language' => [
+            'showitem' => '
+                sys_language_uid;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:sys_language_uid_formlabel,
+                l18n_parent,
+                l10n_diffsource,
+            ',
         ],
     ],
 ];

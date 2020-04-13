@@ -203,6 +203,11 @@ return [
         ],
     ],
     'palettes' => [
-        'type' => ['showitem' => 'schema_type, --linebreak--, links']
+        'type' => ['showitem' => 'schema_type, --linebreak--, links'],
+        'language' => [
+            'showitem' => '
+                sys_language_uid;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:sys_language_uid_formlabel,l18n_parent
+            ',
+        ],
     ],
 ];

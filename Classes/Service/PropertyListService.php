@@ -11,7 +11,7 @@ namespace Brotkrueml\SchemaRecords\Service;
  */
 
 use Brotkrueml\Schema\Core\Model\AbstractType;
-use Brotkrueml\Schema\Registry\TypeRegistry;
+use Brotkrueml\Schema\Type\TypeRegistry;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

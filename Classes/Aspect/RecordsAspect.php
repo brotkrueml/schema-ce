@@ -13,7 +13,7 @@ namespace Brotkrueml\SchemaRecords\Aspect;
 use Brotkrueml\Schema\Aspect\AspectInterface;
 use Brotkrueml\Schema\Core\Model\AbstractType;
 use Brotkrueml\Schema\Manager\SchemaManager;
-use Brotkrueml\Schema\Registry\TypeRegistry;
+use Brotkrueml\Schema\Type\TypeRegistry;
 use Brotkrueml\SchemaRecords\Domain\Model\Property;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;

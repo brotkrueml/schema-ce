@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2019-09-23T15:42:12Z"	product-name="schema_records">
+	<file source-language="en" datatype="plaintext" original="EXT:schema_records/Resources/Private/Language/locallang_db.xlf" date="2020-04-13T14:11:57Z"	product-name="schema_records">
 		<header/>
 		<body>
 			<trans-unit id="tx_schemarecords_domain_model_type">
@@ -8,6 +8,9 @@
 			</trans-unit>
 			<trans-unit id="tx_schemarecords_domain_model_type.links">
 				<source>Helpful links</source>
+			</trans-unit>
+			<trans-unit id="tx_schemarecords_domain_model_type.description">
+				<source>Description</source>
 			</trans-unit>
 			<trans-unit id="tx_schemarecords_domain_model_type.schema_type">
 				<source>Schema type</source>

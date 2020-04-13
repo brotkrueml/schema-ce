@@ -4,6 +4,7 @@ return [
         'title' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type',
         'label' => 'schema_type',
         'label_userFunc' => \Brotkrueml\SchemaRecords\Service\TypeLabelService::class . '->getLabel',
+        'descriptionColumn' => 'description',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -17,7 +18,7 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'schema_id',
+        'searchFields' => 'schema_id,description',
         'iconfile' => 'EXT:schema_records/Resources/Public/Icons/tx_schemarecords_domain_model_type.svg'
     ],
     'interface' => [
@@ -186,7 +187,15 @@ return [
                     ],
                 ],
             ],
-
+        ],
+        'description' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.description',
+            'config' => [
+                'type' => 'text',
+                'rows' => 5,
+                'cols' => 30
+            ]
         ],
     ],
     'types' => [
@@ -199,6 +208,8 @@ return [
                 --palette--;;language,
                 --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,
                 starttime, endtime, hidden,
+                --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:notes,
+                description,
             '
         ],
     ],

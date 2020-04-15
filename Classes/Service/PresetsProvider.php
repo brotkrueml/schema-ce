@@ -11,7 +11,7 @@ namespace Brotkrueml\SchemaRecords\Service;
  */
 
 use Brotkrueml\Schema\Core\Model\AbstractType;
-use Brotkrueml\Schema\Provider\TypesProvider;
+use Brotkrueml\Schema\Type\TypeRegistry;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -24,7 +24,7 @@ final class PresetsProvider
 
     public function getTypes(int $pageUid): array
     {
-        $allTypes = (new TypesProvider())->getContentTypes();
+        $allTypes = GeneralUtility::makeInstance(TypeRegistry::class)->getContentTypes();
         $presets = $this->getPresets($pageUid);
 
         if (empty($presets)) {

@@ -51,8 +51,7 @@ class Property extends AbstractEntity
     /**
      * image
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
      */
     protected $image;
 
@@ -83,11 +82,6 @@ class Property extends AbstractEntity
      * @var int
      */
     protected $timestamp = 0;
-
-    public function __construct()
-    {
-        $this->image = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-    }
 
     /**
      * Returns the variant
@@ -172,9 +166,9 @@ class Property extends AbstractEntity
     /**
      * Get the image
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
      */
-    public function getImages()
+    public function getImage()
     {
         return $this->image;
     }
@@ -182,31 +176,11 @@ class Property extends AbstractEntity
     /**
      * Set image
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $image
-     */
-    public function setImages(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $image)
-    {
-        $this->image = $image;
-    }
-
-    /**
-     * Adds an image
-     *
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
      */
-    public function addImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
+    public function setImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
     {
-        $this->image->attach($image);
-    }
-
-    /**
-     * Removes a Property
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove The image to be removed
-     */
-    public function removeImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove)
-    {
-        $this->image->detach($imageToRemove);
+        $this->image = $image;
     }
 
     /**

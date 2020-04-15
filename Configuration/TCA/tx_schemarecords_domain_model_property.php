@@ -164,14 +164,52 @@ return [
                     ],
                     'overrideChildTca' => [
                         'types' => [
+                            \TYPO3\CMS\Core\Resource\File::FILETYPE_UNKNOWN => [
+                                'showitem' => '
+                                    crop,
+                                    --palette--;;filePalette'
+                            ],
                             \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
                                 'showitem' => '
-                                    --palette--;;filePalette
-                                ',
+                                    crop,
+                                    --palette--;;filePalette'
+                            ]
+                        ],
+                        'columns' => [
+                            'crop' => [
+                                'config' => [
+                                    'cropVariants' => [
+                                        'default' => [
+                                            'title' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.name.crop_variant.title',
+                                            'allowedAspectRatios' => [
+                                                '1:1' => [
+                                                    'title' => '1:1',
+                                                    'value' => 1.0,
+                                                ],
+                                                '4:3' => [
+                                                    'title' => '4:3',
+                                                    'value' => 4 / 3,
+                                                ],
+                                                '16:9' => [
+                                                    'title' => '16:9',
+                                                    'value' => 16 / 9,
+                                                ],
+                                                'NaN' => [
+                                                    'title' => 'LLL:EXT:core/Resources/Private/Language/locallang_wizards.xlf:imwizard.ratio.free',
+                                                    'value' => 0.0
+                                                ],
+                                            ],
+                                            'selectedRatio' => 'NaN',
+                                        ],
+                                    ],
+                                ],
                             ],
                         ],
                     ],
                     'maxitems' => 1,
+                    'behaviour' => [
+                        'allowLanguageSynchronization' => true
+                    ],
                 ],
                 $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
             ),

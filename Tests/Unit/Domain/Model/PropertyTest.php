@@ -6,7 +6,6 @@ namespace Brotkrueml\SchemaRecords\Tests\Unit\Domain\Model;
 use Brotkrueml\SchemaRecords\Domain\Model\Property;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class PropertyTest extends UnitTestCase
@@ -105,8 +104,7 @@ class PropertyTest extends UnitTestCase
      */
     public function getImageReturnsInitialValue(): void
     {
-        self::assertInstanceOf(ObjectStorage::class, $this->subject->getImages());
-        self::assertSame(0, $this->subject->getImages()->count());
+        self::assertNull($this->subject->getImage());
     }
 
     /**
@@ -115,54 +113,9 @@ class PropertyTest extends UnitTestCase
     public function setImageAndGetImage(): void
     {
         $fileReference = new FileReference();
-        $objectStorageHoldingExactlyOneImage = new ObjectStorage();
-        $objectStorageHoldingExactlyOneImage->attach($fileReference);
+        $this->subject->setImage($fileReference);
 
-        $this->subject->setImages($objectStorageHoldingExactlyOneImage);
-
-        self::assertSame($objectStorageHoldingExactlyOneImage, $this->subject->getImages());
-    }
-
-    /**
-     * @test
-     */
-    public function addImageToObjectStorageHoldingImages()
-    {
-        $fileReference = new FileReference();
-        $imagesObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->onlyMethods(['attach'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $imagesObjectStorageMock
-            ->expects(self::once())
-            ->method('attach')
-            ->with(self::equalTo($fileReference));
-
-        $this->inject($this->subject, 'images', $imagesObjectStorageMock);
-
-        $this->subject->addImage($fileReference);
-    }
-
-    /**
-     * @test
-     */
-    public function removeImageFromObjectStorageHoldingImages()
-    {
-        $fileReference = new FileReference();
-        $imagesObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->onlyMethods(['detach'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $imagesObjectStorageMock
-            ->expects(self::once())
-            ->method('detach')
-            ->with(self::equalTo($fileReference));
-
-        $this->inject($this->subject, 'images', $imagesObjectStorageMock);
-
-        $this->subject->removeImage($fileReference);
+        self::assertSame($fileReference, $this->subject->getImage());
     }
 
     /**

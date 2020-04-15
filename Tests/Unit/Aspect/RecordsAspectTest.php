@@ -14,10 +14,8 @@ use Brotkrueml\SchemaRecords\Tests\Helper\SchemaCacheTrait;
 use Brotkrueml\SchemaRecords\Tests\Unit\Helper\LogManagerMockTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Http\ServerRequest;
-use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Service\ImageService;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
@@ -349,59 +347,59 @@ class RecordsAspectTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function executeEmbedsTypeWithImagePropertyCorrectly(): void
-    {
-        $this->initialiseGeneralMocks();
-        $this->initialiseRequestMocks();
-        $this->initialiseImageServiceMock();
-
-        $type = new Type();
-        $type->_setProperty('uid', 21);
-        $type->setSchemaType('Thing');
-
-        /** @var MockObject|File $fileMock */
-        $fileMock = $this->createMock(File::class);
-
-        /** @var MockObject|FileReference $fileReferenceMock */
-        $fileReferenceMock = $this->getMockBuilder(FileReference::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['getOriginalResource'])
-            ->getMock();
-
-        $fileReferenceMock
-            ->expects(self::once())
-            ->method('getOriginalResource')
-            ->willReturn($fileMock);
-
-        $property = new Property();
-        $property->setVariant(Property::VARIANT_IMAGE);
-        $property->setName('image');
-        $property->addImage($fileReferenceMock);
-        $type->addProperty($property);
-
-        $this->typeRepositoryMock
-            ->expects(self::once())
-            ->method('findAllFromPage')
-            ->willReturn([$type]);
-
-        $this->imageServiceMock
-            ->expects(self::once())
-            ->method('getImageUri')
-            ->with($fileMock, true)
-            ->willReturn('http://example.org/image.png');
-
-        $this->subject->execute($this->schemaManager);
-
-        $actual = $this->schemaManager->renderJsonLd();
-
-        self::assertSame(
-            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"Thing","image":"http://example.org/image.png"}</script>',
-            $actual
-        );
-    }
+//    /**
+//     * @test
+//     */
+//    public function executeEmbedsTypeWithImagePropertyCorrectly(): void
+//    {
+//        $this->initialiseGeneralMocks();
+//        $this->initialiseRequestMocks();
+//        $this->initialiseImageServiceMock();
+//
+//        $type = new Type();
+//        $type->_setProperty('uid', 21);
+//        $type->setSchemaType('Thing');
+//
+//        /** @var MockObject|File $fileMock */
+//        $fileMock = $this->createMock(File::class);
+//
+//        /** @var MockObject|FileReference $fileReferenceMock */
+//        $fileReferenceMock = $this->getMockBuilder(FileReference::class)
+//            ->disableOriginalConstructor()
+//            ->onlyMethods(['getOriginalResource'])
+//            ->getMock();
+//
+//        $fileReferenceMock
+//            ->expects(self::once())
+//            ->method('getOriginalResource')
+//            ->willReturn($fileMock);
+//
+//        $property = new Property();
+//        $property->setVariant(Property::VARIANT_IMAGE);
+//        $property->setName('image');
+//        $property->addImage($fileReferenceMock);
+//        $type->addProperty($property);
+//
+//        $this->typeRepositoryMock
+//            ->expects(self::once())
+//            ->method('findAllFromPage')
+//            ->willReturn([$type]);
+//
+//        $this->imageServiceMock
+//            ->expects(self::once())
+//            ->method('getImageUri')
+//            ->with($fileMock, true)
+//            ->willReturn('http://example.org/image.png');
+//
+//        $this->subject->execute($this->schemaManager);
+//
+//        $actual = $this->schemaManager->renderJsonLd();
+//
+//        self::assertSame(
+//            '<script type="application/ld+json">{"@context":"http://schema.org","@type":"Thing","image":"http://example.org/image.png"}</script>',
+//            $actual
+//        );
+//    }
 
     /**
      * @test

@@ -19,7 +19,9 @@ use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
 use Brotkrueml\SchemaRecords\Event\SubstitutePlaceholderEvent;
 use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Imaging\ImageManipulation\CropVariantCollection;
 use TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
@@ -31,6 +33,8 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 final class RecordsAspect implements AspectInterface
 {
     private const MAX_NESTED_TYPES = 5;
+    private const MAX_IMAGE_HEIGHT = '1200m';
+    private const MAX_IMAGE_WIDTH = '1200m';
 
     /** @var TypoScriptFrontendController */
     private $controller;
@@ -159,14 +163,12 @@ final class RecordsAspect implements AspectInterface
                         break;
 
                     case Property::VARIANT_IMAGE:
-                        $images = $property->getImages()->getArray();
-                        if (!empty($images)) {
-                            $imageService = GeneralUtility::makeInstance(ImageService::class);
-                            $imagePath = $imageService->getImageUri(
-                                $images[0]->getOriginalResource(),
-                                true
+                        $image = $property->getImage();
+                        if (!empty($image)) {
+                            $typeModel->addProperty(
+                                $property->getName(),
+                                $this->cropImage($image->getOriginalResource())
                             );
-                            $typeModel->addProperty($property->getName(), $imagePath);
                         }
                         break;
 
@@ -240,5 +242,26 @@ final class RecordsAspect implements AspectInterface
     private function getServerRequest(): ServerRequestInterface
     {
         return $GLOBALS['TYPO3_REQUEST'];
+    }
+
+    private function cropImage(FileReference $originalImage): string
+    {
+        $cropString = $originalImage instanceof FileReference ? $originalImage->getProperty('crop') : '';
+        $cropVariantCollection = CropVariantCollection::create((string)$cropString);
+        $cropArea = $cropVariantCollection->getCropArea('default');
+        $processingInstructions = [
+            'width' => self::MAX_IMAGE_WIDTH,
+            'height' => self::MAX_IMAGE_HEIGHT,
+            'crop' => $cropArea->isEmpty() ? null : $cropArea->makeAbsoluteBasedOnFile($originalImage),
+        ];
+
+        /** @var ImageService $imageService */
+        $imageService = GeneralUtility::makeInstance(ImageService::class);
+        $processedImage = $imageService->applyProcessingInstructions(
+            $originalImage,
+            $processingInstructions
+        );
+
+        return $imageService->getImageUri($processedImage, true);
     }
 }

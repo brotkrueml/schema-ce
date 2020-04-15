@@ -171,10 +171,12 @@ final class RecordsAspect implements AspectInterface
                         break;
 
                     case Property::VARIANT_TYPE_REFERENCE:
-                        $typeModel->addProperty(
-                            $property->getName(),
-                            $this->buildType($property->getTypeReference(), false, $property->getReferenceOnly())
-                        );
+                        if ($property->getTypeReference() instanceof Type) {
+                            $typeModel->addProperty(
+                                $property->getName(),
+                                $this->buildType($property->getTypeReference(), false, $property->getReferenceOnly())
+                            );
+                        }
                         break;
 
                     case Property::VARIANT_DATETIME:

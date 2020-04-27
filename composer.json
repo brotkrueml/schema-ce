@@ -21,10 +21,10 @@
         "php": "^7.2",
         "ext-pdo": "*",
         "brotkrueml/schema": "^1.7",
-        "typo3/cms-backend": "^9.5.14",
-        "typo3/cms-core": "^9.5.14",
-        "typo3/cms-extbase": "^9.5.14",
-        "typo3/cms-frontend": "^9.5.14"
+        "typo3/cms-backend": "^9.5",
+        "typo3/cms-core": "^9.5",
+        "typo3/cms-extbase": "^9.5",
+        "typo3/cms-frontend": "^9.5"
     },
     "require-dev": {
         "dg/bypass-finals": "^1.1",

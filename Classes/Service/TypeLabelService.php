@@ -18,6 +18,7 @@ namespace Brotkrueml\SchemaRecords\Service;
  */
 
 use Brotkrueml\SchemaRecords\Domain\Model\Property;
+use Brotkrueml\SchemaRecords\Extension;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -59,7 +60,7 @@ final class TypeLabelService
         if ((bool)$parameters['row']['webpage_mainentity']) {
             $title .= ', '
                 . $this->getLanguageService()->sL(
-                    'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.webpage_mainentity.short'
+                    Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_type.webpage_mainentity.short'
                 );
         }
 

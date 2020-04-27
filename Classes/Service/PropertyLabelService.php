@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Brotkrueml\SchemaRecords\Service;
 
+use Brotkrueml\SchemaRecords\Extension;
 use TYPO3\CMS\Core\Localization\LanguageService;
 
 final class PropertyLabelService
@@ -20,7 +21,7 @@ final class PropertyLabelService
             '%s (%s)',
             $parameters['row']['name'][0],
             $this->getLanguageService()->sL(
-                'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . $parameters['row']['variant'][0]
+                Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.variant.' . $parameters['row']['variant'][0]
             )
         );
     }

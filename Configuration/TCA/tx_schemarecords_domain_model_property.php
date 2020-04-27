@@ -9,7 +9,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property',
+        'title' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property',
         'label' => 'name',
         'formattedLabel_userFunc' => \Brotkrueml\SchemaRecords\Service\PropertyLabelService::class . '->getLabel',
         'tstamp' => 'tstamp',
@@ -22,7 +22,7 @@ return [
         ],
         'type' => 'variant',
         'searchFields' => 'name,single_value,url',
-        'iconfile' => 'EXT:schema_records/Resources/Public/Icons/tx_schemarecords_domain_model_property.svg'
+        'iconfile' => 'EXT:' . \Brotkrueml\SchemaRecords\Extension::KEY . '/Resources/Public/Icons/tx_schemarecords_domain_model_property.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'hidden, variant, name, single_value, url, type_reference',
@@ -54,37 +54,37 @@ return [
 
         'variant' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.variant',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_SINGLE_VALUE,
+                        \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_SINGLE_VALUE,
                         \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_SINGLE_VALUE
                     ],
                     [
-                        'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_URL,
+                        \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_URL,
                         \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_URL
                     ],
                     [
-                        'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_IMAGE,
+                        \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_IMAGE,
                         \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_IMAGE
                     ],
                     [
-                        'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_BOOLEAN,
+                        \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_BOOLEAN,
                         \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_BOOLEAN
                     ],
                     [
-                        'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_TYPE_REFERENCE,
+                        \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_TYPE_REFERENCE,
                         \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_TYPE_REFERENCE
                     ],
                     [
-                        'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATETIME,
+                        \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATETIME,
                         \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATETIME
                     ],
                     [
-                        'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATE,
+                        \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.variant.' . \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATE,
                         \Brotkrueml\SchemaRecords\Domain\Model\Property::VARIANT_DATE
                     ],
                 ],
@@ -95,7 +95,7 @@ return [
         ],
         'name' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.name',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.name',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -110,7 +110,7 @@ return [
         ],
         'single_value' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.single_value',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.single_value',
             'config' => [
                 'type' => 'input',
                 'size' => 50,
@@ -119,23 +119,23 @@ return [
                 'valuePicker' => [
                     'items' => [
                         [
-                            'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.title',
+                            \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':value_picker.page.title',
                             '{page:title}'
                         ],
                         [
-                            'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.subtitle',
+                            \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':value_picker.page.subtitle',
                             '{page:subtitle}'
                         ],
                         [
-                            'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.abstract',
+                            \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':value_picker.page.abstract',
                             '{page:abstract}'
                         ],
                         [
-                            'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.description',
+                            \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':value_picker.page.description',
                             '{page:description}'
                         ],
                         [
-                            'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:value_picker.page.last_updated',
+                            \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':value_picker.page.last_updated',
                             '{page:lastUpdated(datetime)}'
                         ],
                     ],
@@ -144,7 +144,7 @@ return [
         ],
         'url' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.url',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.url',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputLink',
@@ -163,7 +163,7 @@ return [
         ],
         'image' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.image',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.image',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'image',
                 [
@@ -188,7 +188,7 @@ return [
                                 'config' => [
                                     'cropVariants' => [
                                         'default' => [
-                                            'title' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.image.crop_variant.title',
+                                            'title' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.image.crop_variant.title',
                                             'allowedAspectRatios' => [
                                                 '1:1' => [
                                                     'title' => '1:1',
@@ -224,7 +224,7 @@ return [
         ],
         'flag' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.flag',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.flag',
             'config' => [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
@@ -240,7 +240,7 @@ return [
         ],
         'type_reference' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.type_reference',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.type_reference',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -252,7 +252,7 @@ return [
         ],
         'reference_only' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.reference_only',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.reference_only',
             'config' => [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
@@ -268,7 +268,7 @@ return [
         ],
         'timestamp' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.datetime',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.datetime',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',

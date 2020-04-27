@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Brotkrueml\SchemaRecords\Tests\Unit\Service;
 
+use Brotkrueml\SchemaRecords\Extension;
 use Brotkrueml\SchemaRecords\Service\PropertyLabelService;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -39,7 +40,7 @@ class PropertyLabelServiceTest extends TestCase
         $languageServiceMock
             ->expects(self::once())
             ->method('sL')
-            ->with('LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.variant.3')
+            ->with(Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.variant.3')
             ->willReturn('localised value for variant');
 
         $originalLang = $GLOBALS['LANG'] = $languageServiceMock;

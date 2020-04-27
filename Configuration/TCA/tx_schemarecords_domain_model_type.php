@@ -9,7 +9,7 @@
 
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type',
+        'title' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_type',
         'label' => 'schema_type',
         'label_userFunc' => \Brotkrueml\SchemaRecords\Service\TypeLabelService::class . '->getLabel',
         'descriptionColumn' => 'description',
@@ -27,7 +27,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'schema_id,description',
-        'iconfile' => 'EXT:schema_records/Resources/Public/Icons/tx_schemarecords_domain_model_type.svg'
+        'iconfile' => 'EXT:' . \Brotkrueml\SchemaRecords\Extension::KEY . '/Resources/Public/Icons/tx_schemarecords_domain_model_type.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, schema_type, schema_id, webpage_mainentity, properties',
@@ -125,7 +125,7 @@ return [
 
         'schema_type' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.schema_type',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_type.schema_type',
             'onChange' => 'reload',
             'config' => [
                 'type' => 'select',
@@ -141,7 +141,7 @@ return [
         ],
         'links' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.links',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_type.links',
             'displayCond' => 'FIELD:schema_type:REQ:true',
             'config' => [
                 'type' => 'none',
@@ -150,7 +150,7 @@ return [
         ],
         'schema_id' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.schema_id',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_type.schema_id',
             'displayCond' => 'FIELD:schema_type:REQ:true',
             'config' => [
                 'type' => 'input',
@@ -160,7 +160,7 @@ return [
         ],
         'webpage_mainentity' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.webpage_mainentity',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_type.webpage_mainentity',
             'displayCond' => 'FIELD:schema_type:REQ:true',
             'config' => [
                 'type' => 'check',
@@ -177,7 +177,7 @@ return [
         ],
         'properties' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.properties',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_type.properties',
             'displayCond' => 'FIELD:schema_type:REQ:true',
             'config' => [
                 'type' => 'inline',
@@ -198,7 +198,7 @@ return [
         ],
         'description' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_type.description',
+            'label' => \Brotkrueml\SchemaRecords\Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_type.description',
             'config' => [
                 'type' => 'text',
                 'rows' => 5,

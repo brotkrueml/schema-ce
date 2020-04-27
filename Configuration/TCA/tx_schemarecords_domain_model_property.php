@@ -180,7 +180,7 @@ return [
                                 'config' => [
                                     'cropVariants' => [
                                         'default' => [
-                                            'title' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.name.crop_variant.title',
+                                            'title' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property.image.crop_variant.title',
                                             'allowedAspectRatios' => [
                                                 '1:1' => [
                                                     'title' => '1:1',

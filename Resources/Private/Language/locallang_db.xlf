@@ -66,11 +66,11 @@
 			<trans-unit id="tx_schemarecords_domain_model_property.image">
 				<source>Image</source>
 			</trans-unit>
-			<trans-unit id="tx_schemarecords_domain_model_property.image">
+			<trans-unit id="tx_schemarecords_domain_model_property.image.crop_variant.title">
 				<source>Image</source>
 			</trans-unit>
-			<trans-unit id="tx_schemarecords_domain_model_property.name.crop_variant.title">
-				<source>Image</source>
+			<trans-unit id="tx_schemarecords_domain_model_property.name">
+				<source>Name</source>
 			</trans-unit>
 			<trans-unit id="tx_schemarecords_domain_model_property.single_value">
 				<source>Text</source>

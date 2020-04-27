@@ -13,6 +13,7 @@ use Brotkrueml\SchemaRecords\Tests\Fixtures\Model\Type\Thing;
 use Brotkrueml\SchemaRecords\Tests\Helper\SchemaCacheTrait;
 use Brotkrueml\SchemaRecords\Tests\Unit\Helper\LogManagerMockTrait;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -21,9 +22,8 @@ use TYPO3\CMS\Extbase\Service\ImageService;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-class RecordsAspectTest extends UnitTestCase
+class RecordsAspectTest extends TestCase
 {
     use LogManagerMockTrait;
     use SchemaCacheTrait;

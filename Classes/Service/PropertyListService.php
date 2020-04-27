@@ -42,7 +42,7 @@ final class PropertyListService
         $typeRepository = $this->objectManager->get(TypeRepository::class);
 
         /** @var Type $typeModel */
-        $typeModel = $typeRepository->findByIdentifierIgnoringEnableFields($configuration['row']['parent']);
+        $typeModel = $typeRepository->findByIdentifierIgnoringEnableFields((int)$configuration['row']['parent']);
 
         if (empty($typeModel)) {
             return;

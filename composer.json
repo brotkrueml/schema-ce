@@ -21,17 +21,16 @@
         "php": "^7.2",
         "ext-pdo": "*",
         "brotkrueml/schema": "^1.7",
-        "typo3/cms-backend": "^9.5",
-        "typo3/cms-core": "^9.5",
-        "typo3/cms-extbase": "^9.5",
-        "typo3/cms-frontend": "^9.5"
+        "typo3/cms-backend": "^9.5 || ^10.4",
+        "typo3/cms-core": "^9.5 || ^10.4",
+        "typo3/cms-extbase": "^9.5 || ^10.4",
+        "typo3/cms-frontend": "^9.5 || ^10.4"
     },
     "require-dev": {
         "dg/bypass-finals": "^1.1",
         "friendsofphp/php-cs-fixer": "^2.16",
         "php-coveralls/php-coveralls": "^2.2",
-        "phpunit/phpunit": "^8.5",
-        "typo3/testing-framework": "^4.13"
+        "phpunit/phpunit": "^8.5 || ^9.1"
     },
     "autoload": {
         "psr-4": {

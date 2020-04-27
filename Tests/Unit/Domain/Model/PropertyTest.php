@@ -5,10 +5,10 @@ namespace Brotkrueml\SchemaRecords\Tests\Unit\Domain\Model;
 
 use Brotkrueml\SchemaRecords\Domain\Model\Property;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
+use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-class PropertyTest extends UnitTestCase
+class PropertyTest extends TestCase
 {
     /**
      * @var Property

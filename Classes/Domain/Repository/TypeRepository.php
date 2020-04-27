@@ -22,4 +22,14 @@ class TypeRepository extends Repository
 
         return $this->createQuery()->execute();
     }
+
+    public function findByIdentifierIgnoringEnableFields(int $uid)
+    {
+        $query = $this->createQuery();
+        $querySettings = $query->getQuerySettings();
+        $querySettings->setIgnoreEnableFields(true);
+        $this->setDefaultQuerySettings($querySettings);
+
+        return $this->findOneByUid($uid);
+    }
 }

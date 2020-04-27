@@ -38,15 +38,11 @@ final class PropertyListService
 
     public function getTcaList(array &$configuration): void
     {
+        /** @var TypeRepository $typeRepository */
         $typeRepository = $this->objectManager->get(TypeRepository::class);
 
-        $query = $typeRepository->createQuery();
-        $querySettings = $query->getQuerySettings();
-        $querySettings->setIgnoreEnableFields(true);
-        $typeRepository->setDefaultQuerySettings($querySettings);
-
         /** @var Type $typeModel */
-        $typeModel = $typeRepository->findByIdentifier($configuration['row']['parent']);
+        $typeModel = $typeRepository->findByIdentifierIgnoringEnableFields($configuration['row']['parent']);
 
         if (empty($typeModel)) {
             return;

@@ -54,32 +54,8 @@ class PropertyListServiceTest extends TestCase
 
         $this->typeRepositoryMock = $this->getMockBuilder(TypeRepository::class)
             ->setConstructorArgs([$this->objectManagerMock])
-            ->onlyMethods(['findByIdentifier', 'createQuery'])
+            ->onlyMethods(['findByIdentifierIgnoringEnableFields'])
             ->getMock();
-
-        $querySettingsMock = $this->getMockBuilder(Typo3QuerySettings::class)
-            ->onlyMethods(['setIgnoreEnableFields'])
-            ->getMock();
-
-        $querySettingsMock
-            ->expects(self::once())
-            ->method('setIgnoreEnableFields')
-            ->with(true);
-
-        $queryMock = $this->getMockBuilder(Query::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['getQuerySettings'])
-            ->getMock();
-
-        $queryMock
-            ->expects(self::once())
-            ->method('getQuerySettings')
-            ->willReturn($querySettingsMock);
-
-        $this->typeRepositoryMock
-            ->expects(self::once())
-            ->method('createQuery')
-            ->willReturn($queryMock);
 
         $this->objectManagerMock
             ->expects(self::once())
@@ -167,7 +143,7 @@ class PropertyListServiceTest extends TestCase
 
         $this->typeRepositoryMock
             ->expects(self::once())
-            ->method('findByIdentifier')
+            ->method('findByIdentifierIgnoringEnableFields')
             ->with(42)
             ->willReturn($this->typeMock);
 

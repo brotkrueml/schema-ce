@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Brotkrueml\SchemaRecords\Service;
-
 /*
  * This file is part of the "schema_records" extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
+
+namespace Brotkrueml\SchemaRecords\Service;
 
 use Brotkrueml\Schema\Core\Model\AbstractType;
 use Brotkrueml\Schema\Type\TypeRegistry;

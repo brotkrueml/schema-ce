@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * This file is part of the "schema_records" extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ */
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:schema_records/Resources/Private/Language/locallang_db.xlf:tx_schemarecords_domain_model_property',

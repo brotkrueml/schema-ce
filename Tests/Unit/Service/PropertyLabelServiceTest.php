@@ -54,7 +54,7 @@ class PropertyLabelServiceTest extends TestCase
         ];
 
         $expected = $actual;
-        $expected['title'] = 'Some name (localised value for variant)';
+        $expected['title'] = '<strong>Some name</strong> (localised value for variant)';
 
         $this->subject->getLabel($actual);
 

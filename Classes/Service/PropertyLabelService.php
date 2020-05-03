@@ -18,7 +18,7 @@ final class PropertyLabelService
     public function getLabel(&$parameters): void
     {
         $parameters['title'] = sprintf(
-            '%s (%s)',
+            '<strong>%s</strong> (%s)',
             $parameters['row']['name'][0],
             $this->getLanguageService()->sL(
                 Extension::LANGUAGE_PATH_DATABASE . ':tx_schemarecords_domain_model_property.variant.' . $parameters['row']['variant'][0]

@@ -52,7 +52,7 @@ final class TypeLinks extends AbstractNode
 
     private function buildLink(string $description, string $link): string
     {
-        if (!\filter_var($link, \FILTER_VALIDATE_URL) || \strpos($link, 'http') !== 0) {
+        if (!\filter_var($link, \FILTER_VALIDATE_URL) || !\str_starts_with($link, 'http')) {
             throw new \DomainException(
                 \sprintf(
                     'The given link "%s" for schema type "%s" is not a valid web URL',
@@ -73,7 +73,7 @@ final class TypeLinks extends AbstractNode
 
     private function localise(string $value): string
     {
-        if (!\strpos($value, 'LLL:') === 0) {
+        if (!\str_starts_with($value, 'LLL:')) {
             return $value;
         }
 

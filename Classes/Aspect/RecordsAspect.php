@@ -224,7 +224,7 @@ final class RecordsAspect implements AspectInterface
 
     private function emitPlaceholderSubstitutionSignal(string $value): ?string
     {
-        if (\strpos($value, '{') === 0) {
+        if (\str_starts_with($value, '{')) {
             $event = new SubstitutePlaceholderEvent($value, $this->controller->page);
 
             $this->signalSlotDispatcher->dispatch(

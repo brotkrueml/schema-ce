@@ -23,7 +23,7 @@ final class TypeListService
     {
         $types = (new PresetsProvider())->getTypes($config['row']['pid']);
 
-        \array_walk($types, function (&$type) {
+        \array_walk($types, static function (&$type) {
             $type = [$type, $type];
         });
 

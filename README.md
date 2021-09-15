@@ -6,7 +6,9 @@
 
 ## Requirements
 
-The extension works with TYPO3 9 LTS.
+The extension works with TYPO3 10 LTS and TYPO3 v11.
+
+**Important:** Currently, the extension is in development and considered experimental!
 
 
 ## Introduction

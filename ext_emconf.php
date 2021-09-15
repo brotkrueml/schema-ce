@@ -6,12 +6,12 @@ $EM_CONF[$_EXTKEY] = [
     'category' => 'fe',
     'author' => 'Chris Müller',
     'author_email' => 'typo3@krue.ml',
-    'state' => 'alpha',
+    'state' => 'experimental',
     'version' => '0.5.0-dev',
     'constraints' => [
         'depends' => [
-            'typo3' => '9.5.0-10.4.99',
-            'schema' => '1.7.0-1.99.99',
+            'typo3' => '10.4.11-11.5.99',
+            'schema' => '2.0.0-2.99.99',
         ],
     ],
     'autoload' => [

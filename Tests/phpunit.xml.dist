@@ -1,19 +1,21 @@
+<?xml version="1.0"?>
 <phpunit
-     convertErrorsToExceptions="true"
-     convertNoticesToExceptions="true"
-     convertWarningsToExceptions="true"
-     stopOnFailure="false"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../.Build/vendor/phpunit/phpunit/phpunit.xsd"
+    bootstrap="../.Build/vendor/autoload.php"
+    testdox="true"
+    executionOrder="random"
 >
+    <coverage>
+        <include>
+            <directory>../Classes/</directory>
+        </include>
+    </coverage>
     <testsuites>
         <testsuite name="Unit Tests">
             <directory>Unit/</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist>
-            <directory>../Classes/</directory>
-        </whitelist>
-    </filter>
     <extensions>
         <extension class="Brotkrueml\SchemaRecords\Tests\Hooks\BypassFinalHook"/>
     </extensions>

@@ -18,9 +18,8 @@ namespace Brotkrueml\SchemaRecords\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use Brotkrueml\Schema\Core\Model\AbstractType;
+use Brotkrueml\Schema\Core\Model\TypeInterface;
 use Brotkrueml\Schema\Type\TypeRegistry;
-use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -49,23 +48,27 @@ final class PropertyListService
         /** @var TypeRepository $typeRepository */
         $typeRepository = $this->objectManager->get(TypeRepository::class);
 
-        /** @var Type $typeModel */
-        $typeModel = $typeRepository->findByIdentifierIgnoringEnableFields((int)$configuration['row']['parent']);
+        $typeModel = $typeRepository->findByIdentifierIgnoringEnableFields(
+            (int)$configuration['row']['parent'],
+            (int)$configuration['row']['pid']
+        );
 
-        if (empty($typeModel)) {
+        if ($typeModel === null) {
             return;
         }
 
         $typeName = $typeModel->getSchemaType();
         $typeClass = $this->typeRegistry->resolveModelClassFromType($typeName);
 
-        if (!empty($typeClass)) {
-            /** @var AbstractType $type */
-            $type = new $typeClass();
+        if ($typeClass === null) {
+            return;
+        }
 
-            foreach ((new PresetsProvider())->getPropertiesForType((int)$configuration['row']['pid'], $type) as $propertyName) {
-                $configuration['items'][] = [$propertyName, $propertyName];
-            }
+        /** @var TypeInterface $type */
+        $type = new $typeClass();
+
+        foreach ((new PresetsProvider())->getPropertiesForType((int)$configuration['row']['pid'], $type) as $propertyName) {
+            $configuration['items'][] = [$propertyName, $propertyName];
         }
     }
 }

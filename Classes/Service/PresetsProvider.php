@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Brotkrueml\SchemaRecords\Service;
 
-use Brotkrueml\Schema\Core\Model\AbstractType;
+use Brotkrueml\Schema\Core\Model\TypeInterface;
 use Brotkrueml\Schema\Type\TypeRegistry;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -49,7 +49,7 @@ final class PresetsProvider
         return $types;
     }
 
-    public function getPropertiesForType(int $pageUid, AbstractType $typeObject): array
+    public function getPropertiesForType(int $pageUid, TypeInterface $typeObject): array
     {
         $presets = $this->getPresets($pageUid);
         $allProperties = \array_diff($typeObject->getPropertyNames(), $this->propertiesNotToBeShown);

@@ -18,7 +18,7 @@ offers an API and view helpers) and gives the possibility to add schema.org voca
 The records can be placed on every page and enriches the web page with
 the needed markup - dependent on the user rights also for editors.
 
-The extension has an alpha status, for now it is a **proof of concept**.
+The extension has an experimental status, for now it is a **proof of concept**.
 Code changes must not be backward compatible. However, the extension works
 and could be used at own risk!
 
@@ -43,7 +43,7 @@ at the configuration section below.
 
 The recommended way to install this extension is by using Composer. In your Composer based TYPO3 project root, just type
 
-    composer req brotkrueml/schema-reports
+    composer req brotkrueml/schema-records
 
 ### Installation As An Extension From The TYPO3 Extension Repository (TER)
 

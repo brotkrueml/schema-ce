@@ -27,7 +27,7 @@ trait SchemaCacheTrait
         $cacheManagerStub = $this->createStub(CacheManager::class);
         $cacheManagerStub
             ->method('getCache')
-            ->with('tx_schema')
+            ->with('tx_schema_core')
             ->willReturn($cacheFrontendStub);
 
         GeneralUtility::setSingletonInstance(CacheManager::class, $cacheManagerStub);

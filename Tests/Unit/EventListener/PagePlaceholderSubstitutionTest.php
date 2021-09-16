@@ -9,35 +9,31 @@ declare(strict_types=1);
  * LICENSE.txt file that was distributed with this source code.
  */
 
-namespace Brotkrueml\SchemaRecords\Tests\Unit\Slots;
+namespace Brotkrueml\SchemaRecords\Tests\Unit\EventListener;
 
 use Brotkrueml\Schema\Model\DataType\Boolean;
 use Brotkrueml\SchemaRecords\Event\SubstitutePlaceholderEvent;
-use Brotkrueml\SchemaRecords\Slots\PagePlaceholderSubstitutionSlot;
+use Brotkrueml\SchemaRecords\EventListener\PagePlaceholderSubstitution;
 use PHPUnit\Framework\TestCase;
 
-class PagePlaceholderSubstitutionSlotTest extends TestCase
+final class PagePlaceholderSubstitutionTest extends TestCase
 {
-    /** @var PagePlaceholderSubstitutionSlot */
+    /** @var PagePlaceholderSubstitution */
     private $subject;
 
     protected function setUp(): void
     {
-        $this->subject = new PagePlaceholderSubstitutionSlot();
+        $this->subject = new PagePlaceholderSubstitution();
     }
 
     /**
      * @test
      * @dataProvider dataProvider
-     *
-     * @param string $value
-     * @param array $pageProperties
-     * @param string|null $expected
      */
     public function valueIsCorrectFormatted(string $value, array $pageProperties, ?string $expected)
     {
         $event = new SubstitutePlaceholderEvent($value, $pageProperties);
-        $this->subject->substitute($event);
+        $this->subject->__invoke($event);
 
         self::assertSame($expected, $event->getValue());
     }

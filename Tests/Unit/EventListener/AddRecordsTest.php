@@ -9,180 +9,114 @@ declare(strict_types=1);
  * LICENSE.txt file that was distributed with this source code.
  */
 
-namespace Brotkrueml\SchemaRecords\Tests\Unit\Aspect;
+namespace Brotkrueml\SchemaRecords\Tests\Unit\EventListener;
 
+use Brotkrueml\Schema\Event\RenderAdditionalTypesEvent;
 use Brotkrueml\Schema\Manager\SchemaManager;
 use Brotkrueml\Schema\Type\TypeRegistry;
-use Brotkrueml\SchemaRecords\Aspect\RecordsAspect;
 use Brotkrueml\SchemaRecords\Domain\Model\Property;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
+use Brotkrueml\SchemaRecords\EventListener\AddRecords;
 use Brotkrueml\SchemaRecords\Tests\Fixtures\Model\Type\Thing;
 use Brotkrueml\SchemaRecords\Tests\Helper\SchemaCacheTrait;
 use Brotkrueml\SchemaRecords\Tests\Unit\Helper\LogManagerMockTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Service\ImageService;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-class RecordsAspectTest extends TestCase
+final class AddRecordsTest extends TestCase
 {
     use LogManagerMockTrait;
     use SchemaCacheTrait;
 
-    protected $resetSingletonInstances = true;
-
-    /**
-     * @var MockObject|ObjectManager
-     */
-    protected $objectManagerMock;
-
-    /**
-     * @var MockObject|TypeRepository
-     */
+    /** @var MockObject|TypeRepository */
     protected $typeRepositoryMock;
 
-    /**
-     * @var MockObject|TypoScriptFrontendController
-     */
-    protected $controllerMock;
+    /** @var MockObject|TypoScriptFrontendController */
+    protected $typoScriptFrontendControllerMock;
 
-    /**
-     * @var SchemaManager
-     */
+    /** @var SchemaManager */
     protected $schemaManager;
 
-    /**
-     * @var MockObject|ContentObjectRenderer
-     */
+    /** @var MockObject|ContentObjectRenderer */
     protected $contentObjectRendererMock;
 
-    /**
-     * @var MockObject|ImageService
-     */
+    /** @var MockObject|ImageService */
     protected $imageServiceMock;
 
-    /**
-     * @var MockObject|ServerRequest
-     */
-    protected $serverRequestMock;
+    /** @var MockObject|EventDispatcher */
+    protected $eventDispatcherMock;
 
-    /**
-     * @var MockObject|Dispatcher
-     */
-    protected $dispatcherMock;
-
-    /**
-     * @var RecordsAspect
-     */
+    /** @var AddRecords */
     protected $subject;
 
     protected function setUp(): void
     {
         $this->defineCacheStubsWhichReturnEmptyEntry();
 
-        $typeRegistryStub = $this->createStub(TypeRegistry::class);
-        $typeRegistryStub
-            ->method('resolveModelClassFromType')
-            ->with('Thing')
-            ->willReturn(Thing::class);
-
-        GeneralUtility::setSingletonInstance(TypeRegistry::class, $typeRegistryStub);
-    }
-
-    protected function tearDown(): void
-    {
-        GeneralUtility::purgeInstances();
-        unset($GLOBALS['TYPO3_REQUEST']);
-    }
-
-    protected function initialiseGeneralMocks(): void
-    {
         $this->initialiseLogManagerMock();
+
+        $this->contentObjectRendererMock = $this->createMock(ContentObjectRenderer::class);
+
+        $this->eventDispatcherMock = $this->getMockBuilder(EventDispatcher::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->imageServiceMock = $this->createMock(ImageService::class);
 
         $this->schemaManager = new SchemaManager();
 
-        $this->controllerMock = $this->createMock(TypoScriptFrontendController::class);
-
-        $this->objectManagerMock = $this->getMockBuilder(ObjectManager::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['get'])
-            ->getMock();
+        $this->typoScriptFrontendControllerMock = $this->createMock(TypoScriptFrontendController::class);
+        $this->typoScriptFrontendControllerMock->page = ['uid' => 42];
 
         $this->typeRepositoryMock = $this->getMockBuilder(TypeRepository::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['findAllFromPage'])
             ->getMock();
 
-        $this->objectManagerMock
-            ->expects(self::once())
-            ->method('get')
-            ->with(TypeRepository::class)
-            ->willReturn($this->typeRepositoryMock);
-
-        $this->dispatcherMock = $this->getMockBuilder(Dispatcher::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->subject = new RecordsAspect(
-            $this->controllerMock,
-            $this->objectManagerMock,
+        $this->subject = new AddRecords(
+            $this->contentObjectRendererMock,
+            $this->eventDispatcherMock,
+            $this->imageServiceMock,
             $this->schemaManager,
-            $this->dispatcherMock
+            $this->typeRepositoryMock,
+            $this->typoScriptFrontendControllerMock
         );
+
+//        $typeRegistryStub = $this->createStub(TypeRegistry::class);
+//        $typeRegistryStub
+//            ->method('resolveModelClassFromType')
+//            ->with('Thing')
+//            ->willReturn(Thing::class);
+//
+//        GeneralUtility::setSingletonInstance(TypeRegistry::class, $typeRegistryStub);
     }
 
-    protected function initialiseContentObjectRendererMock(): void
+    protected function tearDown(): void
     {
-        $this->contentObjectRendererMock = $this->createMock(ContentObjectRenderer::class);
-
-        GeneralUtility::addInstance(ContentObjectRenderer::class, $this->contentObjectRendererMock);
-    }
-
-    protected function initialiseImageServiceMock(): void
-    {
-        $this->imageServiceMock = $this->createMock(ImageService::class);
-
-        GeneralUtility::setSingletonInstance(ImageService::class, $this->imageServiceMock);
-    }
-
-    private function initialiseRequestMocks(): void
-    {
-        $this->serverRequestMock = $this->getMockBuilder(ServerRequest::class)
-            ->onlyMethods(['getAttribute'])
-            ->getMock();
-
-        $pageArguments = new PageArguments(42, '0', []);
-
-        $this->serverRequestMock
-            ->expects(self::once())
-            ->method('getAttribute')
-            ->with('routing')
-            ->willReturn($pageArguments);
-
-        $GLOBALS['TYPO3_REQUEST'] = $this->serverRequestMock;
+//        GeneralUtility::purgeInstances();
+//        unset($GLOBALS['TYPO3_REQUEST']);
     }
 
     /**
      * @test
+     * @covers \Brotkrueml\SchemaRecords\EventListener\AddRecords::__invoke
      */
     public function executeDoesNotEmbedSchemaWhenThereAreNoTypesDefined(): void
     {
-        $this->initialiseGeneralMocks();
-        $this->initialiseRequestMocks();
-
         $this->typeRepositoryMock
             ->expects(self::once())
             ->method('findAllFromPage')
             ->willReturn([]);
 
-        $this->subject->execute($this->schemaManager);
+        $this->subject->__invoke(new RenderAdditionalTypesEvent(false));
 
         $actual = $this->schemaManager->renderJsonLd();
 
@@ -191,13 +125,10 @@ class RecordsAspectTest extends TestCase
 
     /**
      * @test
-     * @covers \Brotkrueml\SchemaRecords\Aspect\RecordsAspect::execute
+     * @covers \Brotkrueml\SchemaRecords\EventListener\AddRecords::__invoke
      */
     public function executeEmbedsEmptyTypeCorrectly(): void
     {
-        $this->initialiseGeneralMocks();
-        $this->initialiseRequestMocks();
-
         $type = new Type();
         $type->_setProperty('uid', 21);
         $type->setSchemaType('Thing');
@@ -207,7 +138,7 @@ class RecordsAspectTest extends TestCase
             ->method('findAllFromPage')
             ->willReturn([$type]);
 
-        $this->subject->execute($this->schemaManager);
+        $this->subject->__invoke(new RenderAdditionalTypesEvent(false));
 
         $actual = $this->schemaManager->renderJsonLd();
 

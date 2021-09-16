@@ -9,85 +9,69 @@ declare(strict_types=1);
  * LICENSE.txt file that was distributed with this source code.
  */
 
-namespace Brotkrueml\SchemaRecords\Aspect;
+namespace Brotkrueml\SchemaRecords\EventListener;
 
-use Brotkrueml\Schema\Aspect\AspectInterface;
 use Brotkrueml\Schema\Core\Model\TypeInterface;
+use Brotkrueml\Schema\Event\RenderAdditionalTypesEvent;
 use Brotkrueml\Schema\Manager\SchemaManager;
 use Brotkrueml\Schema\Type\TypeFactory;
 use Brotkrueml\SchemaRecords\Domain\Model\Property;
 use Brotkrueml\SchemaRecords\Domain\Model\Type;
 use Brotkrueml\SchemaRecords\Domain\Repository\TypeRepository;
 use Brotkrueml\SchemaRecords\Event\SubstitutePlaceholderEvent;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Imaging\ImageManipulation\CropVariantCollection;
-use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Resource\FileReference;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Service\ImageService;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-final class RecordsAspect implements AspectInterface
+/**
+ * @internal
+ */
+final class AddRecords implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     private const MAX_NESTED_TYPES = 5;
     private const MAX_IMAGE_HEIGHT = '1200m';
     private const MAX_IMAGE_WIDTH = '1200m';
 
-    /** @var TypoScriptFrontendController */
-    private $controller;
+    private ContentObjectRenderer $contentObjectRenderer;
+    private EventDispatcher $eventDispatcher;
+    private ImageService $imageService;
+    private SchemaManager $schemaManager;
+    private TypeRepository $typeRepository;
+    private TypoScriptFrontendController $typoScriptFrontendController;
+    private array $referencedRecords;
+    private array $processedRecords;
+    // Counting the nested types, this can also be a hint of a type loop!
+    private int $nestedTypesCounter;
 
-    /** @var ObjectManagerInterface */
-    private $objectManager;
-
-    /** @var SchemaManager */
-    private $schemaManager;
-
-    /** @var Dispatcher */
-    private $signalSlotDispatcher;
-
-    private $referencedRecords = [];
-    private $processedRecords = [];
-
-    /**
-     * Counting the nested types, this can also be a hint of a type loop!
-     *
-     * @var int
-     */
-    private $nestedTypesCounter = 0;
-
-    /**
-     * The parameters are only used for easing the testing!
-     *
-     * @param TypoScriptFrontendController|null $controller
-     * @param ObjectManagerInterface|null $objectManager
-     * @param SchemaManager|null $schemaManager
-     * @param Dispatcher|null $signalSlotDispatcher
-     */
     public function __construct(
-        TypoScriptFrontendController $controller = null,
-        ObjectManagerInterface $objectManager = null,
-        SchemaManager $schemaManager = null,
-        Dispatcher $signalSlotDispatcher = null
+        ContentObjectRenderer $contentObjectRenderer,
+        EventDispatcher $eventDispatcher,
+        ImageService $imageService,
+        SchemaManager $schemaManager,
+        TypeRepository $typeRepository,
+        TypoScriptFrontendController $typoScriptFrontendController
     ) {
-        $this->controller = $controller ?? $GLOBALS['TSFE'];
-        $this->objectManager = $objectManager ?? GeneralUtility::makeInstance(ObjectManager::class);
-        $this->schemaManager = $schemaManager ?? GeneralUtility::makeInstance(SchemaManager::class);
-        $this->signalSlotDispatcher = $signalSlotDispatcher ?? GeneralUtility::makeInstance(Dispatcher::class);
+        $this->contentObjectRenderer = $contentObjectRenderer;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->imageService = $imageService;
+        $this->schemaManager = $schemaManager;
+        $this->typeRepository = $typeRepository;
+        $this->typoScriptFrontendController = $typoScriptFrontendController;
     }
 
-    public function execute(SchemaManager $schemaManager): void
+    public function __invoke(RenderAdditionalTypesEvent $event): void
     {
-        /** @var TypeRepository $typeRepository */
-        $typeRepository = $this->objectManager->get(TypeRepository::class);
-        $records = $typeRepository->findAllFromPage($this->getServerRequest()->getAttribute('routing')->getPageId());
-
         $this->referencedRecords = [];
         $this->processedRecords = [];
 
+        $records = $this->typeRepository->findAllFromPage($this->typoScriptFrontendController->page['uid']);
         foreach ($records as $record) {
             $this->nestedTypesCounter = 0;
 
@@ -117,15 +101,13 @@ final class RecordsAspect implements AspectInterface
 
         if ($this->nestedTypesCounter > static::MAX_NESTED_TYPES) {
             $message = sprintf(
-                'Too many nested schema types in page uid "%s", last type "%s" with uid "%s"',
-                $this->controller->page['uid'],
+                'Too many nested schema types in page uid "%d", last type "%s" with uid "%d"',
+                $this->typoScriptFrontendController->page['uid'],
                 $record->getSchemaType(),
                 $record->getUid()
             );
 
-            GeneralUtility::makeInstance(LogManager::class)
-                ->getLogger(static::class)
-                ->warning($message);
+            $this->logger->warning($message);
 
             $this->nestedTypesCounter--;
 
@@ -146,12 +128,12 @@ final class RecordsAspect implements AspectInterface
                     case Property::VARIANT_SINGLE_VALUE:
                         $typeModel->addProperty(
                             $property->getName(),
-                            $this->emitPlaceholderSubstitutionSignal($property->getSingleValue())
+                            $this->dispatchSubstitutePlaceholderEvent($property->getSingleValue())
                         );
                         break;
 
                     case Property::VARIANT_URL:
-                        $url = GeneralUtility::makeInstance(ContentObjectRenderer::class)->typoLink_URL([
+                        $url = $this->contentObjectRenderer->typoLink_URL([
                             'parameter' => $property->getUrl(),
                             'forceAbsoluteUrl' => 1
                         ]);
@@ -223,26 +205,15 @@ final class RecordsAspect implements AspectInterface
         return $typeModel;
     }
 
-    private function emitPlaceholderSubstitutionSignal(string $value): ?string
+    private function dispatchSubstitutePlaceholderEvent(string $value): ?string
     {
         if (\str_starts_with($value, '{')) {
-            $event = new SubstitutePlaceholderEvent($value, $this->controller->page);
-
-            $this->signalSlotDispatcher->dispatch(
-                static::class,
-                'placeholderSubstitution',
-                [$event]
-            );
-
+            $event = new SubstitutePlaceholderEvent($value, $this->typoScriptFrontendController->page);
+            $event = $this->eventDispatcher->dispatch($event);
             $value = $event->getValue();
         }
 
         return $value;
-    }
-
-    private function getServerRequest(): ServerRequestInterface
-    {
-        return $GLOBALS['TYPO3_REQUEST'];
     }
 
     private function cropImage(FileReference $originalImage): string
@@ -256,13 +227,11 @@ final class RecordsAspect implements AspectInterface
             'crop' => $cropArea->isEmpty() ? null : $cropArea->makeAbsoluteBasedOnFile($originalImage),
         ];
 
-        /** @var ImageService $imageService */
-        $imageService = GeneralUtility::makeInstance(ImageService::class);
-        $processedImage = $imageService->applyProcessingInstructions(
+        $processedImage = $this->imageService->applyProcessingInstructions(
             $originalImage,
             $processingInstructions
         );
 
-        return $imageService->getImageUri($processedImage, true);
+        return $this->imageService->getImageUri($processedImage, true);
     }
 }

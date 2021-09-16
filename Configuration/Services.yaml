@@ -1,0 +1,20 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Brotkrueml\SchemaRecords\:
+    resource: '../Classes/*'
+
+  Brotkrueml\SchemaRecords\EventListener\AddRecords:
+    tags:
+      - name: event.listener
+        identifier: 'ext-schema-records/addRecords'
+        event: Brotkrueml\Schema\Event\RenderAdditionalTypesEvent
+
+  Brotkrueml\SchemaRecords\EventListener\PagePlaceholderSubstitution:
+    tags:
+      - name: event.listener
+        identifier: 'ext-schema-records/pagePlaceholderSubstitution'
+        event: Brotkrueml\SchemaRecords\Event\SubstitutePlaceholderEvent

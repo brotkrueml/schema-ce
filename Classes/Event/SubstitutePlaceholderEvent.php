@@ -13,7 +13,7 @@ namespace Brotkrueml\SchemaRecords\Event;
 
 class SubstitutePlaceholderEvent
 {
-    /** @var string */
+    /** @var string|null */
     private $value;
 
     /** @var array */

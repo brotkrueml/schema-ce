@@ -17,8 +17,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['7.2', '7.3', '7.4']
-        typo3-versions: ['^9', '^10']
+        php-versions:
+          - '7.4'
+        typo3-versions:
+          - '^10'
+          - '^11'
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
@@ -31,9 +34,7 @@ jobs:
           extensions: mbstring
       - name: Install composer dependencies
         run: |
-          composer --version
           composer require typo3/cms-core=${{ matrix.typo3-versions }}
-          git checkout composer.json
       - name: Run PHP linter
         run: |
           find . -name \*.php  ! -path "./.Build/*" -exec php -l {} \;
@@ -51,12 +52,11 @@ jobs:
       - name: Setup PHP version
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.2
+          php-version: 7.4
           extensions: mbstring
       - name: Install composer dependencies
         run: |
-          composer --version
-          composer install
+          composer update
       - name: Run unit tests
         run: |
           .Build/bin/phpunit -c Tests/phpunit.xml.dist --log-junit .Build/logs/phpunit.xml --coverage-text --coverage-clover .Build/logs/clover.xml
